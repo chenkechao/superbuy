@@ -1,3 +1,5 @@
+ <%@ taglib prefix ="s" uri="/struts-tags"%>
+ <%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath() %>/resources/css/dashboard.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/style.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -57,22 +60,49 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#" onClick="">任务</a></li>
-            <li><a href="#">流程</a></li>
-            <li><a href="#">报表</a></li>
-            <li><a href="#">管理</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
+	        <li class="block">
+	          <input type="checkbox" name="item" id="item1" />
+	          <label for="item1"><i aria-hidden="true" class="icon-users"></i><s:text name="main.menu.tasks"/><span>124</span></label>
+	          <ul class="options">
+				<li><a href="#"><i aria-hidden="true" class="icon-search"></i><s:text name="task.menu.tasks"/></a></li>
+				<li><a href="#"><i aria-hidden="true" class="icon-point-right"></i><s:text name="task.menu.inbox"/></a></li>
+				<li><a href="#"><i aria-hidden="true" class="icon-fire"></i><s:text name="task.menu.queued"/></a></li>
+				<li><a href="#"><i aria-hidden="true" class="icon-fire"></i><s:text name="task.menu.involved"/></a></li>
+				<li><a href="#"><i aria-hidden="true" class="icon-fire"></i><s:text name="task.menu.archived"/></a></li>
+			  </ul>
+	        </li>
+	        <li class="block">
+	          <input type="checkbox" name="item" id="item2" />
+	          <label for="item2"><i aria-hidden="true" class="icon-film"></i><s:text name="main.menu.process"/><span>1,034</span></label>
+	          <ul class="options">
+				<li><a href="#"><i aria-hidden="true" class="icon-movie"></i><s:text name="process.menu.my.instances"/><span>7</span></a></li>
+				<li><a href="#"><i aria-hidden="true" class="icon-download"></i><s:text name="process.menu.deployed.definitions"/><span>3</span></a></li>
+				<li><a href="#"><i aria-hidden="true" class="icon-warning"></i><s:text name="process.menu.editor.definitions"/><span>1,024</span></a></li>
+			  </ul>
+	        </li>
+	        <li class="block">
+	          <input type="checkbox" name="item" id="item3" />
+	          <label for="item3"><i aria-hidden="true" class="icon-images"></i><s:text name="main.menu.reports"/><span>4</span></label>
+	          <ul class="options">
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-deviantart"></i><s:text name="reporting.menu.run.reports"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-dribbble"></i><s:text name="reporting.menu.saved.reports"/></a></li>
+			  </ul>
+	        </li>
+	        <li class="block">
+	          <input type="checkbox" name="item" id="item4" />
+	          <label for="item4"><i aria-hidden="true" class="icon-microphone"></i><s:text name="main.menu.management"/><span>1</span></label>
+	          <ul class="options">
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.database"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.deployments"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.deployments.upload"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.active.processdefinitions"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.suspended.processdefinitions"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.jobs"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.users"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.groups"/></a></li>
+				<li><a href="#" target="_blank"><i aria-hidden="true" class="icon-music"></i><s:text name="management.menu.admin"/></a></li>
+			  </ul>
+	        </li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

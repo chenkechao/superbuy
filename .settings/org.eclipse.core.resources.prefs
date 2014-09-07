@@ -1,6 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/messages_en_US.properties=UTF-8
+encoding//src/main/resources/messages_zh_CN.properties=UTF-8
+encoding//src/main/resources/struts.properties=UTF-8
+encoding//src/main/webapp/jsp/helloWorld.jsp=UTF-8
 encoding//src/main/webapp/jsp/index.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
