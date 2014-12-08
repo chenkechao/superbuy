@@ -4,7 +4,7 @@
     <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
 </head>
 <body>
-    <div th:fragment="footer">
+    <div>
         &copy; 2013 Footer
     </div>
 </body>
