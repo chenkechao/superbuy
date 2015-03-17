@@ -1,69 +1,136 @@
 package com.keke.shop.superbuy.config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.*;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.access.vote.AuthenticatedVoter;
+import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.authentication.event.LoggerListener;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import com.keke.shop.superbuy.account.UserService;
 
 @Configuration
-@ImportResource(value = "classpath:spring-security-context.xml")
-class SecurityConfig {
-	
-	@Bean
-	public UserService userService() {
-		return new UserService();
+@EnableWebMvcSecurity
+class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public UserService userService() {
+        return new UserService();
+    }
+
+    @Bean
+    public TokenBasedRememberMeServices rememberMeServices() {
+        return new TokenBasedRememberMeServices("remember-me-key", userService());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new StandardPasswordEncoder();
 	}
 
-	@Bean
-	public TokenBasedRememberMeServices rememberMeServices() {
-		return new TokenBasedRememberMeServices("remember-me-key", userService());
+    @Override
+	public void configure(WebSecurity web) throws Exception {
+		// 设置不拦截规则
+		web.ignoring().antMatchers("/static/**", "/**/*.jsp");
+
 	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new StandardPasswordEncoder();
-	}
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .eraseCredentials(true)
+            .userDetailsService(userService())
+            .passwordEncoder(passwordEncoder());
+    }
 
-  @Profile("test")
-  @Bean(name = "csrfMatcher")
-  public RequestMatcher testCsrfMatcher() {
-    return new RequestMatcher() {
-
-      @Override
-      public boolean matches(HttpServletRequest request) {
-        return false;
-      }
-    };
-  }
-
-  @Profile("!test")
-  @Bean(name = "csrfMatcher")
-  public RequestMatcher csrfMatcher() {
-    /**
-     * Copy of default request matcher from
-     * CsrfFilter$DefaultRequiresCsrfMatcher
-     */
-    return new RequestMatcher() {
-      private Pattern allowedMethods = Pattern
-        .compile("^(GET|HEAD|TRACE|OPTIONS)$");
-
-      /*
-       * (non-Javadoc)
-       *
-       * @see
-       * org.springframework.security.web.util.matcher.RequestMatcher#
-       * matches(javax.servlet.http.HttpServletRequest)
-       */
-      public boolean matches(HttpServletRequest request) {
-        return !allowedMethods.matcher(request.getMethod()).matches();
-      }
-    };
-  }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/", "/favicon.ico", "/resources/**", "/signup").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/signin")
+                .permitAll()
+                .failureUrl("/signin?error=1")
+                .loginProcessingUrl("/authenticate")
+                .and()
+            .logout()
+                .logoutUrl("/logout")
+                .permitAll()
+                .logoutSuccessUrl("/signin?logout")
+                .and()
+            .rememberMe()
+                .rememberMeServices(rememberMeServices())
+                .key("remember-me-key");
+    }
+    
+//    @Bean
+//	public LoggerListener loggerListener() {
+//		LoggerListener loggerListener = new LoggerListener();
+//
+//		return loggerListener;
+//	}
+//
+//	@Bean
+//	public org.springframework.security.access.event.LoggerListener eventLoggerListener() {
+//		org.springframework.security.access.event.LoggerListener eventLoggerListener = new org.springframework.security.access.event.LoggerListener();
+//
+//		return eventLoggerListener;
+//	}
+//
+//	/*
+//	 * 
+//	 * 这里可以增加自定义的投票器
+//	 */
+//	@SuppressWarnings("rawtypes")
+//	@Bean(name = "accessDecisionManager")
+//	public AccessDecisionManager accessDecisionManager() {
+//		List<AccessDecisionVoter> decisionVoters = new ArrayList<AccessDecisionVoter>();
+//		decisionVoters.add(new RoleVoter());
+//		decisionVoters.add(new AuthenticatedVoter());
+//		decisionVoters.add(webExpressionVoter());// 启用表达式投票器
+//
+//		AffirmativeBased accessDecisionManager = new AffirmativeBased(
+//				decisionVoters);
+//
+//		return accessDecisionManager;
+//	}
+//
+//	/*
+//	 * 表达式控制器
+//	 */
+//	@Bean(name = "expressionHandler")
+//	public DefaultWebSecurityExpressionHandler webSecurityExpressionHandler() {
+//		DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+//		return webSecurityExpressionHandler;
+//	}
+//
+//	/*
+//	 * 表达式投票器
+//	 */
+//	@Bean(name = "expressionVoter")
+//	public WebExpressionVoter webExpressionVoter() {
+//		WebExpressionVoter webExpressionVoter = new WebExpressionVoter();
+//		webExpressionVoter.setExpressionHandler(webSecurityExpressionHandler());
+//		return webExpressionVoter;
+//	}
 }

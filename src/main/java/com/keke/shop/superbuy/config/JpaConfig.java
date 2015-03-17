@@ -36,6 +36,21 @@ class JpaConfig implements TransactionManagementConfigurer {
     @Value("${hibernate.hbm2ddl.auto}")
     private String hbm2ddlAuto;
 
+//    @Bean
+//    public DataSource configureDataSource() {
+//        HikariConfig config = new HikariConfig();
+//        config.setDriverClassName(driver);
+//        config.setJdbcUrl(url);
+//        config.setUsername(username);
+//        config.setPassword(password);
+//        config.addDataSourceProperty("cachePrepStmts", "true");
+//        config.addDataSourceProperty("prepStmtCacheSize", "250");
+//        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+//        config.addDataSourceProperty("useServerPrepStmts", "true");
+//
+//        return new HikariDataSource(config);
+//    }
+    
     @Bean
     public DataSource configureDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
