@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/resources/css/bootstrap.min.css}"/>
+    <link href="../../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
 </head>
 <body>
     <div>

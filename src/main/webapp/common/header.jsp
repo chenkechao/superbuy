@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">

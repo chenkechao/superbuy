@@ -12,7 +12,7 @@
     <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="<%=request.getContextPath() %>/resources/css/dashboard.css" rel="stylesheet">
@@ -267,7 +267,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<%=request.getContextPath() %>/resources/js/jquery-1.11.1.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/docs.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="<%=request.getContextPath() %>/resources/js/ie10-viewport-bug-workaround.js"></script>
