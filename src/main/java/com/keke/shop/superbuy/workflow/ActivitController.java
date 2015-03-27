@@ -24,9 +24,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -79,8 +81,8 @@ public class ActivitController {
 	        }
 	}
 	
-	@RequestMapping(value="/process/convert-to-model/{processDefinitionId}")
-	public String convertToModel(String processDefinitionId) throws UnsupportedEncodingException, XMLStreamException {
+	@RequestMapping(value="/process/convertToModel/{processDefinitionId}")
+	public void convertToModel(@PathVariable String processDefinitionId) throws UnsupportedEncodingException, XMLStreamException {
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
 				.processDefinitionId(processDefinitionId).singleResult();
 		InputStream bpmnStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(),processDefinition.getResourceName());
@@ -105,6 +107,22 @@ public class ActivitController {
 		repositoryService.saveModel(modelData);
 		repositoryService.addModelEditorSource(modelData.getId(), modelNode.toString().getBytes("utf-8"));
 		
-		return "redirect:/workflow/model/list";
+		//return "redirect:/workflow/model/list";
+	}
+	
+	/*
+	 * 挂起，激活流程实例
+	 */
+	@RequestMapping(value="processdefinition/update/{state}/{processDefinitionId}")
+	public String updateState(@PathVariable("state") String state,
+			@PathVariable("processDefinitionId") String processDefinitionId,RedirectAttributes redirectAttributes) {
+		if(state.equals("active")) {
+			redirectAttributes.addFlashAttribute("message", "已激活ID为[" + processDefinitionId + "]的流程定义。");
+			repositoryService.activateProcessDefinitionById(processDefinitionId, true, null);
+		}else if(state.endsWith("suspend")) {
+			repositoryService.suspendProcessDefinitionById(processDefinitionId, true, null);
+			redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
+		}
+		return "redirect:/workflow/processList";
 	}
 }

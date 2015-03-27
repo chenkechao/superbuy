@@ -35,6 +35,38 @@
   <!-- Widgets stylesheet -->
   <link href="<%=request.getContextPath() %>/resources/style/widgets.css" rel="stylesheet">   
   
+  <!-- JS -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.js" ></script> <!-- jQuery -->
+<script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
+<script src="<%=request.getContextPath() %>/resources/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+
+<!-- jQuery Flot -->
+<script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.resize.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.pie.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.stack.js"></script>
+
+<!-- jQuery Notification - Noty -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
+<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+
+<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
+<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
+<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
+  
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -42,6 +74,29 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <script type="text/javascript">
+      $(document).ready(
+      	function(){
+            $("#convertButton").on("click",
+            	function(processDefinitionId){
+            		//alert(processDefinitionId);
+            	}
+            );      		
+      	}
+      );
+      
+      function convertToModel(processDefinitionId){
+      	 $.ajax({
+      		 url:"<%=request.getContextPath() %>/workflow/process/convertToModel/"+processDefinitionId,
+      		 success:function(){
+      			 alert("da");
+      		 },
+      		 error:function(){
+      		 	alert("error");
+      		 }
+      	 });
+      }
+  </script>
 </head>
 
 <body>
@@ -472,15 +527,15 @@
 									<td>${deployment.deploymentTime }</td>
 									<td>${process.suspended} |
 										<c:if test="${process.suspended }">
-											<a href="processdefinition/update/active/${process.id}">激活</a>
+											<a href="processdefinition/update/active/${process.id}">jihuo</a>
 										</c:if>
 										<c:if test="${!process.suspended }">
-											<a href="processdefinition/update/suspend/${process.id}">挂起</a>
+											<a href="processdefinition/update/suspend/${process.id}">guaqi</a>
 										</c:if>
 									</td>
 									<td>
 				                        <a href='/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a>
-				                        <a href='/workflow/process/convert-to-model/${process.id}'>转换为Model</a>
+				                        <a href='#' id="convertButton" onClick="convertToModel('${process.id}')">转换为Model</a>
 				                    </td>
                       		</tr>
                       	</c:forEach>                                                    
@@ -539,37 +594,6 @@
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
 
-<!-- JS -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.js"></script> <!-- jQuery -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="<%=request.getContextPath() %>/resources/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
-
-<!-- jQuery Flot -->
-<script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.resize.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.pie.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.stack.js"></script>
-
-<!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
-
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
 
 </body>
 </html>

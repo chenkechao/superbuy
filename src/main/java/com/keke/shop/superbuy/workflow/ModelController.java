@@ -21,9 +21,9 @@ public class ModelController {
 	 */
 	@RequestMapping(value="list")
 	public ModelAndView modelList(){
-		ModelAndView mav = new ModelAndView("workflow/model-list");
+		ModelAndView mav = new ModelAndView("workflow/modelList");
 		List<Model> list = repositoryService.createModelQuery().list();
-		mav.addObject("list", list);
+		mav.addObject("modelList", list);
 		return mav;
 	}
 }
