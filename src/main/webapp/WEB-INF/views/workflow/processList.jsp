@@ -92,9 +92,22 @@
       			 alert("da");
       		 },
       		 error:function(){
-      		 	alert("error");
+      		 	alert("error1f");
       		 }
       	 });
+      }
+      
+      function deleteProcessDefinition(processDefinitionId,deploymentId){
+      	$.ajax({
+      		url:"<%=request.getContextPath() %>/workflow/process/deleteProcessDefinition/"+deploymentId,
+      		cache : false,
+      		success:function(){
+      			alert("success");
+      		},
+      		error:function(){
+      			alert("fda");
+      		}
+      	});
       }
   </script>
 </head>
@@ -515,7 +528,7 @@
                       	<c:forEach items="${processList}" var="object">
                       		<c:set var="process" value="${object[0] }"/>
                       		<c:set var="deployment" value="${object[1]}"/>
-                      		<tr>
+                      		<tr id="tr_"+${process.id }>
                       		    <tr>
 									<td>${process.id }</td>
 									<td>${process.deploymentId }</td>
@@ -534,8 +547,8 @@
 										</c:if>
 									</td>
 									<td>
-				                        <a href='/workflow/process/delete?deploymentId=${process.deploymentId}'>删除</a>
-				                        <a href='#' id="convertButton" onClick="convertToModel('${process.id}')">转换为Model</a>
+				                        <a href='#' onclick="deleteProcessDefinition('${process.id}','${process.deploymentId }')">Delete</a><br/>
+				                        <a href='#' id="convertButton" onClick="convertToModel('${process.id}')">Convert to Model</a>
 				                    </td>
                       		</tr>
                       	</c:forEach>                                                    

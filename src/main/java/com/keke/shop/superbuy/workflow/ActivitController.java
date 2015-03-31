@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -82,6 +83,7 @@ public class ActivitController {
 	}
 	
 	@RequestMapping(value="/process/convertToModel/{processDefinitionId}")
+	@ResponseBody
 	public void convertToModel(@PathVariable String processDefinitionId) throws UnsupportedEncodingException, XMLStreamException {
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
 				.processDefinitionId(processDefinitionId).singleResult();
@@ -106,8 +108,15 @@ public class ActivitController {
 		
 		repositoryService.saveModel(modelData);
 		repositoryService.addModelEditorSource(modelData.getId(), modelNode.toString().getBytes("utf-8"));
-		
+		logger.debug("convertToModel success");
 		//return "redirect:/workflow/model/list";
+	}
+	
+	@RequestMapping(value="process/deleteProcessDefinition/{deploymentId}")
+	@ResponseBody
+	public void deleteProcessDefinition(@PathVariable("deploymentId") String deploymentId) {
+		repositoryService.deleteDeployment(deploymentId,true);
+		logger.debug("deleteProcessDefinition success");
 	}
 	
 	/*
