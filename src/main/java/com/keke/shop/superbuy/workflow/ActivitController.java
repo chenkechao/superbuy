@@ -63,6 +63,13 @@ public class ActivitController {
 	}
 
 	/*
+	 * 部署全部流程
+	 */
+//	@RequestMapping(value="redeploy/all")
+//	public String redeployAll() {
+//	}
+	
+	/*
 	 * 读取资源，通过部署ID
 	 */
 	@RequestMapping(value="/resource/read")

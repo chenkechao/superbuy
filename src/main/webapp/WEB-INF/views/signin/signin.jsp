@@ -36,7 +36,7 @@
             <div class="widget worange">
               <!-- Widget head -->
               <div class="widget-head">
-                <i class="icon-lock"></i> 登录 
+                <i class="icon-lock"></i> denglu 
               </div>
 
               <div class="widget-content">
@@ -62,14 +62,14 @@
 					<div class="col-lg-9 col-lg-offset-3">
                       <div class="checkbox">
                         <label>
-                          <input type="checkbox"> 记住密码
+                          <input type="checkbox"> jizhumima
                         </label>
 						</div>
 					</div>
 					</div>
                         <div class="col-lg-9 col-lg-offset-2">
-							<button type="submit" class="btn btn-danger">登录</button>
-							<button type="reset" class="btn btn-default">重置</button>
+							<button type="submit" class="btn btn-danger">denglu</button>
+							<button type="reset" class="btn btn-default">chongzhi</button>
 						</div>
                     <br />
                   </form>
@@ -78,7 +78,7 @@
                 </div>
               
                 <div class="widget-foot">
-                  还没注册? <a href="register.html">马上注册</a>
+                  haimeizhuce? <a href="register.html">mashangzhuce</a>
                 </div>
             </div>  
       </div>

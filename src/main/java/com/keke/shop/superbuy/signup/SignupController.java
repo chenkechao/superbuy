@@ -1,5 +1,6 @@
 package com.keke.shop.superbuy.signup;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class SignupController {
 		userService.signin(account);
         // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
         MessageHelper.addSuccessAttribute(ra, "signup.success");
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("user");
 		return "redirect:/";
 	}
 }
