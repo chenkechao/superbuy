@@ -127,34 +127,34 @@
                     <table class="table table-striped table-bordered table-hover">
                       <thead>
                       	<tr>
-							<th>ID</th>
-							<th>KEY</th>
-							<th>Name</th>
-							<th>Version</th>
-							<th>chuangjianshijian</th>
-							<th>zuihougengxinshijian</th>
-							<th>yuanshuju</th>
+							<th>zhixingIDssss</th>
+							<th>liuchengshiliID</th>
+							<th>liuchengdingyiID</th>
+							<th>dangqianjiedian</th>
+							<th>shifoguaqi</th>
 							<th>caozuo</th>
                       	</tr>
                       </thead>
                       <tbody>
-                          <c:forEach items="${modelList }" var="model">
-                              <tr>
-                                  <td>${model.id }</td>
-                                  <td>${model.key }</td>
-                                  <td>${model.name }</td>
-                                  <td>${model.version }</td>
-                                  <td>${model.createTime }</td>
-                                  <td>${model.lastUpdateTime }</td>
-                                  <td>${model.metaInfo }</td>
-                                  <td>
-                                      <a href="<%=request.getContextPath() %>/service/editor?id=${model.id}" target="_blank">bianji</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/deploy/${model.id}">bushu</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/export/${model.id}" target="_blank">daochu</a>
-			                          <a href="<%=request.getContextPath() %>/workflow/model/delete/${model.id}">shanchu</a>
-                                  </td>
-                              </tr>
-                          </c:forEach>
+                      	<c:forEach items="${result}" var="pi">
+                      		<c:set var="pdid" value="${p.processDefinitionId }"/>
+                      		<c:set var="activityId" value="${p.activityId }"/>
+                      		<tr id="tr_"+${pi.id }>
+									<td>${pi.id }</td>
+									<td>${pi.processInstanceId }</td>
+									<td>${pi.processDefinitionId }</td>
+									<td><a class="trace" href='#' pid="${pi.id }" pdid="${p.processDefinitionId}" title="点击查看流程图">liuchengtu</a></td>
+									<td>${pi.suspended }</td>
+									<td>
+										<c:if test="${p.suspended }">
+											<a href="update/active/${p.processInstanceId}">jihuo</a>
+										</c:if>
+										<c:if test="${!p.suspended }">
+											<a href="update/suspend/${p.processInstanceId}">guaqi</a>
+										</c:if>
+									</td>
+                      		</tr>
+                      	</c:forEach>                                                    
                       </tbody>
                     </table>
 

@@ -52,6 +52,40 @@
     		  }
     	  });
       }
+      
+      function runningList(){
+    	  $.ajax({
+    		  url:'<%=request.getContextPath() %>/workflow/processinstance/running',
+    		  cache:false,
+    		  dataType:"html",//
+    		  success:function(data){
+    			 $(".mainbar").html(data);
+    		  }
+    	  });
+      }
+      
+      function modelList(){
+    	  $.ajax({
+    		  url:'<%=request.getContextPath() %>/workflow/model/list',
+    		  cache:false,
+    		  dataType:"html",//
+    		  success:function(data){
+    			 $(".mainbar").html(data);
+    		  }
+    	  });
+      }
+      
+      function leaveApply() {
+    	  $.ajax({
+    		  url:'<%=request.getContextPath() %>/oa/leave/apply',
+    		  cache:false,
+    		  dataType:"html",
+    		  success:function(data){
+    			  $(".mainbar").html(data);
+    		  }
+    	  });
+    	  
+      }
   </script>
 </head>
 
@@ -370,9 +404,9 @@
               <li><a href="#">Submenu #3</a></li>
             </ul>-->
           </li>
-          <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> 请假（普通表单）  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> 请假  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
-              <li><a href="widgets1.html">请假申请(普通)</a></li>
+              <li><a href="#" onClick="leaveApply()">请假申请(普通)</a></li>
               <li><a href="widgets2.html">请假办理(普通)</a></li>
               <li><a href="widgets3.html">运行中流程(普通)</a></li>
               <li><a href="widgets3.html">已结束流程(普通)</a></li>
@@ -406,8 +440,8 @@
           <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
               <li><a href="#" onClick="processList()">流程定义及部署管理</a></li>
-              <li><a href="statement.html">运行中流程</a></li>
-              <li><a href="error.html">模型工作区</a></li>
+              <li><a href="#" onClick="runningList()">运行中流程</a></li>
+              <li><a href="#" onCLick="modelList()">模型工作区</a></li>
             </ul>
           </li>                                     
         </ul>

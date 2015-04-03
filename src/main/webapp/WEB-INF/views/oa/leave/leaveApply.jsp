@@ -84,109 +84,113 @@
 
 
       <!-- Page heading -->
-      <div class="page-head">
-        <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
+	    <div class="page-head">
+        <!-- Page heading -->
+	      <h2 class="pull-left">Forms 
+          <!-- page meta -->
+          <span class="page-meta">Something Goes Here</span>
+        </h2>
+
 
         <!-- Breadcrumb -->
         <div class="bread-crumb pull-right">
           <a href="index.html"><i class="icon-home"></i> Home</a> 
           <!-- Divider -->
           <span class="divider">/</span> 
-          <a href="#" class="bread-current">Dashboard</a>
+          <a href="#" class="bread-current">Forms</a>
         </div>
 
         <div class="clearfix"></div>
 
-      </div>
-      <!-- Page heading ends -->
+	    </div>
+	    <!-- Page heading ends -->
+
+
 
 	    <!-- Matter -->
 
 	    <div class="matter">
         <div class="container">
 
-          <!-- Table -->
+          <div class="row">
 
-            <div class="row">
+            <div class="col-md-12">
 
-              <div class="col-md-12">
 
-                <div class="widget">
-
+              <div class="widget wgreen">
+                
                 <div class="widget-head">
-                  <div class="pull-left">Tables</div>
+                  <div class="pull-left">Forms</div>
                   <div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
                     <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>  
+                  </div>
                   <div class="clearfix"></div>
                 </div>
 
-                  <div class="widget-content">
+                <div class="widget-content">
+                  <div class="padd">
 
-                    <table class="table table-striped table-bordered table-hover">
-                      <thead>
-                      	<tr>
-							<th>ID</th>
-							<th>KEY</th>
-							<th>Name</th>
-							<th>Version</th>
-							<th>chuangjianshijian</th>
-							<th>zuihougengxinshijian</th>
-							<th>yuanshuju</th>
-							<th>caozuo</th>
-                      	</tr>
-                      </thead>
-                      <tbody>
-                          <c:forEach items="${modelList }" var="model">
-                              <tr>
-                                  <td>${model.id }</td>
-                                  <td>${model.key }</td>
-                                  <td>${model.name }</td>
-                                  <td>${model.version }</td>
-                                  <td>${model.createTime }</td>
-                                  <td>${model.lastUpdateTime }</td>
-                                  <td>${model.metaInfo }</td>
-                                  <td>
-                                      <a href="<%=request.getContextPath() %>/service/editor?id=${model.id}" target="_blank">bianji</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/deploy/${model.id}">bushu</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/export/${model.id}" target="_blank">daochu</a>
-			                          <a href="<%=request.getContextPath() %>/workflow/model/delete/${model.id}">shanchu</a>
-                                  </td>
-                              </tr>
-                          </c:forEach>
-                      </tbody>
-                    </table>
+                    <h6>Input Boxs</h6>
+                    <hr />
+                    <!-- Form starts.  -->
+                     <form id="leave" class="form-horizontal" role="form" action="<%=request.getContextPath()%>/oa/leave/start" method="post">
+                              
+                                <div class="form-group">
+                                  <label class="col-lg-4 control-label">kaishishijian:</label>
+                                  <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="startTime" name="startTime"/>
+                                  </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label class="col-lg-4 control-label">jieshushijian:</label>
+                                  <div class="col-lg-8">
+                                    <input type="password" class="form-control" id="endTime" name="endTime">
+                                  </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                  <label class="col-lg-4 control-label">qingjiayuanyin:</label>
+                                  <div class="col-lg-8">
+                                    <textarea class="form-control" rows="5" id="reason" name="reason"></textarea>
+                                  </div>
+                                </div>    
+                                
+                                <div class="form-group">
+                                  <label class="col-lg-4 control-label">qingjialeixin</label>
+                                  <div class="col-lg-8">
+                                    <select class="form-control" id="leaveType" name="leaveType">
+                                      <option>gongxiu</option>
+                                      <option>binjia</option>
+                                      <option>tiaoxiu</option>
+                                      <option>shijia</option>
+                                      <option>hunjia</option>
+                                    </select>
+                                  </div>
+                                </div>     
 
-                    <div class="widget-foot">
+                                    <hr />
+                                <div class="form-group">
+                                  <div class="col-lg-offset-1 col-lg-9">
+                                    <input type="submit" name="shenqing" class="btn btn-primary">
+                                  </div>
+                                </div>
+                              </form>
+                  </div>
+                </div>
+                  <div class="widget-foot">
+                    <!-- Footer goes here -->
+                  </div>
+              </div>  
 
-                      
-                        <ul class="pagination pull-right">
-                          <li><a href="#">Prev</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">Next</a></li>
-                        </ul>
-                      
-                      <div class="clearfix"></div> 
+            </div>
 
-                    </div><!--widget-foot ends  -->
+          </div>
 
-                </div><!-- widget-content ends -->
+        </div>
+		  </div>
 
-              </div><!-- widget ends -->
-
-            </div><!-- con-md-12 ends -->
-
-            </div><!-- row ends -->
-
-        </div><!-- Container ends -->
-		  </div><!-- Matter ends -->
-
-
-   
 
 </body>
 </html>
