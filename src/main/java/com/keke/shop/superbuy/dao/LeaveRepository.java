@@ -4,8 +4,6 @@ package com.keke.shop.superbuy.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,4 +21,14 @@ public class LeaveRepository {
     	entityManager.persist(leave);
     	return leave;
     }
+	
+	public Leave findOneById(Long id) {
+		Leave leave = null;
+		try {
+			leave = entityManager.find(Leave.class,id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return leave;
+	}
 }

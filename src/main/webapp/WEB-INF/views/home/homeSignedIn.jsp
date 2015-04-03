@@ -86,6 +86,17 @@
     	  });
     	  
       }
+
+      function taskList() {
+    	  $.ajax({
+    		  url:'<%=request.getContextPath() %>/oa/leave/list/task',
+    		  cache:false,
+    		  dataType:"html",
+    		  success:function(data){
+    			  $(".mainbar").html(data);
+    		  }
+    	  });
+      }
   </script>
 </head>
 
@@ -407,7 +418,7 @@
           <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> 请假  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
               <li><a href="#" onClick="leaveApply()">请假申请(普通)</a></li>
-              <li><a href="widgets2.html">请假办理(普通)</a></li>
+              <li><a href="#" onClick="taskList()">请假办理(普通)</a></li>
               <li><a href="widgets3.html">运行中流程(普通)</a></li>
               <li><a href="widgets3.html">已结束流程(普通)</a></li>
             </ul>

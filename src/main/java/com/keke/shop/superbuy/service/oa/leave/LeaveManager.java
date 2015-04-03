@@ -21,4 +21,8 @@ public class LeaveManager {
 		}
 		leaveRepository.save(leave);
 	}
+	
+	public Leave getLeave(Long id) {
+		return leaveRepository.findOneById(id);
+	}
 }
