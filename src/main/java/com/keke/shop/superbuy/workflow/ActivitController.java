@@ -52,7 +52,7 @@ public class ActivitController {
 		
 		List<Object[]> objects = new ArrayList<Object[]>();
 		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
-		List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(0,10);
+		List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(0,100);
 		for(ProcessDefinition processDefinition:processDefinitionList) {
 			String deploymentId = processDefinition.getDeploymentId();
 			Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();

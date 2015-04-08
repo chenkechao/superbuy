@@ -108,8 +108,9 @@
       			alert("fda");
       		}
       	});
-      	
-      	function reDeployAll(){
+      }
+      
+      function reDeployAll(){
       		$.ajax({
       			url:"<%=request.getContextPath() %>/workflow/redeploy/all",
       			cache: false,
@@ -118,7 +119,6 @@
       			}
       		});
       	}
-      }
   </script>
 </head>
 

@@ -66,7 +66,7 @@
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
 <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
 <script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-  
+<script src="<%=request.getContextPath()%>/resources/js/module/oa/leave/leave-todo.js"></script>
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -75,7 +75,16 @@
   <!-- Favicon -->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
   <script type="text/javascript">
-      
+      function claim(taskId){
+      	$.ajax({
+      			url:"<%=request.getContextPath() %>/oa/leave/task/claim/"+taskId,
+      			cache: false,
+      			dataType:"html",
+      			success:function(data){
+      				$(".mainbar").html(data);
+      			}
+      		});
+      }
   </script>
 </head>
 
@@ -142,7 +151,7 @@
                       	<c:forEach items="${results}" var="leave">
                       		<c:set var="task" value="${leave.task }"/>
                       		<c:set var="pi" value="${leave.processInstance }"/>
-                      		<tr>
+                      		<tr id="${leave.id}" tid="${task.id}">
 									<td>${leave.leaveType }</td>
 									<td>${leave.userId }</td>
 									<td>${leave.applyTime }</td>
@@ -151,7 +160,14 @@
 									<td>dangqianjiedian</td>
 									<td>${task.createTime }</td>
 									<td>${pi.suspended }</td>
-									<td>caozuo</td>
+									<td>
+										<c:if test="${empty task.assignee}">
+										<a class="claim" href="#" onClick="claim('${task.id}')">qianshou</a>
+										</c:if>
+										<c:if test="${not empty task.assignee}">
+										 <a href="#myModal" class="btn btn-info" data-toggle="modal">banli</a>
+										</c:if>
+									</td>
                       		</tr>
                       	</c:forEach>                                                    
                       </tbody>
@@ -184,8 +200,22 @@
         </div><!-- Container ends -->
 		  </div><!-- Matter ends -->
 
-
-   
-
+	<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<p>One fine body…</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

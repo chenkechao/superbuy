@@ -190,29 +190,31 @@ public class DemoDataGenerator implements ModelDataJsonConstants {
     if (deploymentList == null || deploymentList.size() == 0) {
       repositoryService.createDeployment()
         .name(deploymentName)
-        .addClasspathResource("org/activiti/explorer/demo/process/createTimersProcess.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/VacationRequest.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/VacationRequest.png")
-        .addClasspathResource("org/activiti/explorer/demo/process/FixSystemFailureProcess.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/FixSystemFailureProcess.png")
-        .addClasspathResource("org/activiti/explorer/demo/process/simple-approval.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.png")
-        .addClasspathResource("org/activiti/explorer/demo/process/reviewSalesLead.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/createTimersProcess.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/VacationRequest.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/VacationRequest.png")
+//        .addClasspathResource("org/activiti/explorer/demo/process/FixSystemFailureProcess.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/FixSystemFailureProcess.png")
+//        .addClasspathResource("org/activiti/explorer/demo/process/simple-approval.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/Helpdesk.png")
+//        .addClasspathResource("org/activiti/explorer/demo/process/reviewSalesLead.bpmn20.xml")
+        .addClasspathResource("org/activiti/explorer/demo/process/leave.bpmn.xml")
+        .addClasspathResource("org/activiti/explorer/demo/process/leave.png")
         .deploy();
     }
     
-    String reportDeploymentName = "Demo reports";
-    deploymentList = repositoryService.createDeploymentQuery().deploymentName(reportDeploymentName).list();
-    if (deploymentList == null || deploymentList.size() == 0) {
-      repositoryService.createDeployment()
-        .name(reportDeploymentName)
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/taskDurationForProcessDefinition.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/processInstanceOverview.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/helpdeskFirstLineVsEscalated.bpmn20.xml")
-        .addClasspathResource("org/activiti/explorer/demo/process/reports/employeeProductivity.bpmn20.xml")
-        .deploy();
-    }
+//    String reportDeploymentName = "Demo reports";
+//    deploymentList = repositoryService.createDeploymentQuery().deploymentName(reportDeploymentName).list();
+//    if (deploymentList == null || deploymentList.size() == 0) {
+//      repositoryService.createDeployment()
+//        .name(reportDeploymentName)
+//        .addClasspathResource("org/activiti/explorer/demo/process/reports/taskDurationForProcessDefinition.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/reports/processInstanceOverview.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/reports/helpdeskFirstLineVsEscalated.bpmn20.xml")
+//        .addClasspathResource("org/activiti/explorer/demo/process/reports/employeeProductivity.bpmn20.xml")
+//        .deploy();
+//    }
     
   }
 

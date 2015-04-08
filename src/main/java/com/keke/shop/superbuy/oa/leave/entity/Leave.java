@@ -22,44 +22,67 @@ import java.util.Map;
 @Entity
 @Table(name = "OA_LEAVE")
 public class Leave implements Serializable {
+	@Id
+	@GeneratedValue
 	private Long id;
 	
+	@Column
     private String processInstanceId;
+	
+	@Column
     private String userId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "START_TIME")
     private Date startTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "END_TIME")
     private Date endTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "REALITY_START_TIME")
     private Date realityStartTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "REALITY_END_TIME")
     private Date realityEndTime;
+    
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     private Date applyTime;
+    
+    @Column
     private String leaveType;
+    
+    @Column
     private String reason;
 
     //-- 临时属性 --//
 
     // 流程任务
+    @Transient
     private Task task;
 
+    @Transient
     private Map<String, Object> variables;
 
     // 运行中的流程实例
+    @Transient
     private ProcessInstance processInstance;
 
     // 历史的流程实例
+    @Transient
     private HistoricProcessInstance historicProcessInstance;
 
     // 流程定义
+    @Transient
     private ProcessDefinition processDefinition;
 
-    @Id
-	@GeneratedValue
     public Long getId() {
 		return id;
 	}
@@ -68,7 +91,6 @@ public class Leave implements Serializable {
     	this.id = id;
     }
     
-    @Column
     public String getProcessInstanceId() {
         return processInstanceId;
     }
@@ -77,7 +99,6 @@ public class Leave implements Serializable {
         this.processInstanceId = processInstanceId;
     }
 
-    @Column
     public String getUserId() {
         return userId;
     }
@@ -86,8 +107,6 @@ public class Leave implements Serializable {
         this.userId = userId;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "START_TIME")
     public Date getStartTime() {
         return startTime;
     }
@@ -96,8 +115,6 @@ public class Leave implements Serializable {
         this.startTime = startTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "END_TIME")
     public Date getEndTime() {
         return endTime;
     }
@@ -106,8 +123,6 @@ public class Leave implements Serializable {
         this.endTime = endTime;
     }
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
     public Date getApplyTime() {
         return applyTime;
     }
@@ -116,7 +131,6 @@ public class Leave implements Serializable {
         this.applyTime = applyTime;
     }
 
-    @Column
     public String getLeaveType() {
         return leaveType;
     }
@@ -125,7 +139,6 @@ public class Leave implements Serializable {
         this.leaveType = leaveType;
     }
 
-    @Column
     public String getReason() {
         return reason;
     }
@@ -134,8 +147,6 @@ public class Leave implements Serializable {
         this.reason = reason;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "REALITY_START_TIME")
     public Date getRealityStartTime() {
         return realityStartTime;
     }
@@ -144,8 +155,6 @@ public class Leave implements Serializable {
         this.realityStartTime = realityStartTime;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "REALITY_END_TIME")
     public Date getRealityEndTime() {
         return realityEndTime;
     }
@@ -154,7 +163,6 @@ public class Leave implements Serializable {
         this.realityEndTime = realityEndTime;
     }
 
-    @Transient
     public Task getTask() {
         return task;
     }
@@ -163,7 +171,6 @@ public class Leave implements Serializable {
         this.task = task;
     }
 
-    @Transient
     public Map<String, Object> getVariables() {
         return variables;
     }
@@ -172,7 +179,6 @@ public class Leave implements Serializable {
         this.variables = variables;
     }
 
-    @Transient
     public ProcessInstance getProcessInstance() {
         return processInstance;
     }
@@ -181,7 +187,6 @@ public class Leave implements Serializable {
         this.processInstance = processInstance;
     }
 
-    @Transient
     public HistoricProcessInstance getHistoricProcessInstance() {
         return historicProcessInstance;
     }
@@ -190,7 +195,6 @@ public class Leave implements Serializable {
         this.historicProcessInstance = historicProcessInstance;
     }
 
-    @Transient
     public ProcessDefinition getProcessDefinition() {
         return processDefinition;
     }
