@@ -74,6 +74,11 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <style>
+  	body{
+  		padding-top: 0px;
+  	}
+  </style>
   <script type="text/javascript">
       function claim(taskId){
       	$.ajax({
@@ -91,7 +96,8 @@
 <body>
 
 
-
+	<!-- Main bar -->
+  	<div class="mainbar">
       <!-- Page heading -->
       <div class="page-head">
         <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
@@ -199,6 +205,7 @@
 
         </div><!-- Container ends -->
 		  </div><!-- Matter ends -->
+</div>
 
 	<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">

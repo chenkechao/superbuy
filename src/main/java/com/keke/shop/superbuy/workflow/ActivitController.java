@@ -35,7 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Controller
-@RequestMapping(value="workflow")
+@RequestMapping(value="/workflow")
 public class ActivitController {
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
@@ -46,7 +46,7 @@ public class ActivitController {
 	/*
 	 * 流程定义列表
 	 */
-	@RequestMapping(value="processList")
+	@RequestMapping(value="/processList")
 	public ModelAndView processList(){
 		ModelAndView mav = new ModelAndView("workflow/processList");
 		

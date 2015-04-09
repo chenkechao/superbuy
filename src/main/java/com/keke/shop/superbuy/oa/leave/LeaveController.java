@@ -74,7 +74,7 @@ public class LeaveController {
 		
 		try{
 			identityService.setAuthenticatedUserId(leave.getUserId());
-			processInstance = runtimeService.startProcessInstanceByKey("fixSystemFailure", businessKey, variables);
+			processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
 			String processInstanceId = processInstance.getId();
 			leave.setProcessInstanceId(processInstanceId);
 			logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
@@ -85,7 +85,7 @@ public class LeaveController {
 			identityService.setAuthenticatedUserId(null);
 		}
 		
-		return "redirect:/";
+		return "redirect:/oa/leave/list/task";
 	}
 	
 	@RequestMapping(value = "list/task")

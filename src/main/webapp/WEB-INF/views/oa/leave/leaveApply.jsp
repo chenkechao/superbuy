@@ -74,6 +74,12 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <style>
+  	body{
+  		padding-top: 0px;
+  	}
+  </style>
+  
   <script type="text/javascript">
       
   </script>
@@ -82,7 +88,8 @@
 <body>
 
 
-
+<!-- Main bar -->
+  	<div class="mainbar">
       <!-- Page heading -->
 	    <div class="page-head">
         <!-- Page heading -->
@@ -190,7 +197,7 @@
 
         </div>
 		  </div>
-
+</div>
 
 </body>
 </html>

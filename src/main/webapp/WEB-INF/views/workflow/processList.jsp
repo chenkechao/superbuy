@@ -74,6 +74,12 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <style>
+  	body{
+  		padding-top: 0px;
+  	}
+  </style>
+  
   <script type="text/javascript">
       $(document).ready(
       	function(){
@@ -125,7 +131,8 @@
 <body>
 
 
-
+	<!-- Main bar -->
+  	<div class="mainbar">
       <!-- Page heading -->
       <div class="page-head">
         <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
@@ -240,7 +247,7 @@
 
         </div><!-- Container ends -->
 		  </div><!-- Matter ends -->
-
+</div>
 
    
 

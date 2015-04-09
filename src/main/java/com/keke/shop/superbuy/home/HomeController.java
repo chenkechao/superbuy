@@ -25,4 +25,10 @@ public class HomeController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/main")
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView("home/main");
+		return mav;
+	}
 }
