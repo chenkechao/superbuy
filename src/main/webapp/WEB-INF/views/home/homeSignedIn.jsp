@@ -631,5 +631,47 @@ $("#mainIframe").load(function(){
 /* Curve chart ends */
 </script>
 
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-striped table-bordered table-hover">
+						<tr>
+							<td width="100">shengqingren:</td>
+							<td name="userId"></td>
+						</tr>
+						<tr>
+							<td>jiazhong:</td>
+							<td name="leaveType"></td>
+						</tr>
+						<tr>
+							<td>shengqingshijian:</td>
+							<td name="applyTime"></td>
+						</tr>
+						<tr>
+							<td>qingjia<font color="red">kaishi</font>shijian:</td>
+							<td name="startTime"></td>
+						</tr>
+						<tr>
+							<td>qingjia<font color="red">jieshu</font>shijian:</td>
+							<td name="endTime"></td>
+						</tr>
+						<tr>
+							<td>qingjiashiyou:</td>
+							<td name="reason"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

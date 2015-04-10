@@ -66,7 +66,7 @@
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
 <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
 <script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-<script src="<%=request.getContextPath()%>/resources/js/module/oa/leave/leave-todo.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/module/oa/leave/leave-todo.js"></script>
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -81,15 +81,9 @@
   </style>
   <script type="text/javascript">
       function claim(taskId){
-      	$.ajax({
-      			url:"<%=request.getContextPath() %>/oa/leave/task/claim/"+taskId,
-      			cache: false,
-      			dataType:"html",
-      			success:function(data){
-      				$(".mainbar").html(data);
-      			}
-      		});
+      	$('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId);
       }
+      
   </script>
 </head>
 
@@ -171,7 +165,7 @@
 										<a class="claim" href="#" onClick="claim('${task.id}')">qianshou</a>
 										</c:if>
 										<c:if test="${not empty task.assignee}">
-										 <a href="#myModal" class="btn btn-info" data-toggle="modal">banli</a>
+										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="handle" onClick="loadDetail('1')">banli</a>
 										</c:if>
 									</td>
                       		</tr>
@@ -207,22 +201,5 @@
 		  </div><!-- Matter ends -->
 </div>
 
-	<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-					<h4 class="modal-title">Modal title</h4>
-				</div>
-				<div class="modal-body">
-					<p>One fine body…</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
 </html>
