@@ -66,7 +66,6 @@
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
 <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
 <script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-<script src="<%=request.getContextPath() %>/resources/js/module/oa/leave/leave-todo.js"></script>
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -84,6 +83,16 @@
       	$('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId);
       }
       
+      function loadDetail(id) {
+		$.ajax({
+			  url:"<%=request.getContextPath() %>/oa/leave/detail/"+id,
+			  cache:false,
+			  dataType:"json",//
+			  success:function(data){
+				alert(data);
+			  }
+		  });
+  }
   </script>
 </head>
 
@@ -201,5 +210,6 @@
 		  </div><!-- Matter ends -->
 </div>
 
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/module/oa/leave/leave-todo.js"></script>
 </body>
 </html>

@@ -18,18 +18,7 @@ function handle(){
 	var taskId = $(this).parents("tr").attr("tid");
 	parent.window.$(parent.document).find("#myModal")
 	.on("show.bs.modal",function(){
-		loadDetail(rowId);
+		//loadDetail(rowId);
 	})
 	.modal();
 }
-
-function loadDetail(id) {
-	$.ajax({
-		  url:"<%=request.getContextPath() %>/oa/leave/detail"+id,
-		  cache:false,
-		  dataType:"json",//
-		  success:function(data){
-			alert(data);
-		  }
-	  });
-  }
