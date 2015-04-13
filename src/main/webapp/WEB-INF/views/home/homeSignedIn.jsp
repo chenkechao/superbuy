@@ -639,7 +639,7 @@ $("#mainIframe").load(function(){
 					<h4 class="modal-title">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<table class="table table-striped table-bordered table-hover">
+					<table id="view-info" class="table table-striped table-bordered table-hover">
 						<tr>
 							<td width="100">shengqingren:</td>
 							<td name="userId"></td>
@@ -668,7 +668,7 @@ $("#mainIframe").load(function(){
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button id="savebtn" type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div>
 		</div>

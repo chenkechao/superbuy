@@ -79,20 +79,115 @@
   	}
   </style>
   <script type="text/javascript">
+  	$(function() {
+	    // 办理
+	    $('.handle').click(handle);
+	});
+  	
       function claim(taskId){
       	$('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId);
       }
       
+      
+      var handleOpts = {
+      	  deptLeaderAudit:  {
+	        width: 300,
+		    height: 300,
+	    	open:function(id) {
+	    		loadDetail.call(this,id);
+	    	},
+	    	savebtn:[{
+	    		text:'tongyi',
+	    		click:function(taskId){
+	    			complete(taskId,[{
+	    				key:'deptLeaderPass',
+	    				value:true,
+	    				type:'B'
+	    			}]);
+	    		}
+	    	}]
+      	}
+      };
+      
+      function complete(taskId,variables) {
+      	  var keys="",values="",types="";
+      	  if(variables) {
+      	  	$.each(variables,function(){
+      	  		if(keys!="") {
+      	  			keys +=",";
+      	  			valeus +=",";
+      	  			types +=",";
+      	  		}
+      	  		keys += this.key;
+      	  		values += this.value;
+      	  		types +=this.type;
+      	  	});
+      	  }
+      	  
+		// 发送任务完成请求
+		alert(taskId);
+      }
+      
+      function handle(){
+      	var modal = parent.window.$(parent.document);
+		// 当前节点的英文名称
+		var tkey = $(this).attr("tkey");
+		// 当前节点的中文名称
+		var tname = $(this).attr("tname");
+		// 请假记录ID
+		var rowId = $(this).parents("tr").attr("id");
+		// 任务ID
+		var taskId = $(this).parents("tr").attr("tid");
+		modal.find("#myModal")
+		.on("show.bs.modal",function(){
+			$("#savebtn",modal).text(handleOpts[tkey].savebtn[0].text)
+			.on('click',handleOpts[tkey].savebtn[0].click);
+			handleOpts[tkey].open.call(this,rowId,taskId);
+		 })
+		 .modal();
+	}
+      
       function loadDetail(id) {
+      	var dialog = parent.window.$(parent.document);
 		$.ajax({
 			  url:"<%=request.getContextPath() %>/oa/leave/detail/"+id,
 			  cache:false,
 			  dataType:"json",//
 			  success:function(data){
-				alert(data);
+			  	$.each(data, function(k, v) {
+					// 格式化日期
+					if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
+						if(v != null){
+							$('#view-info td[name=' + k + ']', dialog).text(new Date(v).format('yyyy-MM-dd hh:mm'));
+						}
+					} else {
+			            $('#view-info td[name=' + k + ']', dialog).text(v);
+					}
+					
+		        });
 			  }
 		  });
-  }
+    }
+    
+    Date.prototype.format = function(format) {
+	    var o = {
+	        "M+": this.getMonth() + 1, //month 
+	        "d+": this.getDate(), //day 
+	        "h+": this.getHours(), //hour 
+	        "m+": this.getMinutes(), //minute 
+	        "s+": this.getSeconds(), //second 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //quarter 
+	        "S": this.getMilliseconds() //millisecond 
+	    }
+	    if (/(y+)/.test(format)) 
+	        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o) 
+	        if (new RegExp("(" + k + ")").test(format)) 
+	            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+	    return format;
+	}
+
+
   </script>
 </head>
 
@@ -174,7 +269,7 @@
 										<a class="claim" href="#" onClick="claim('${task.id}')">qianshou</a>
 										</c:if>
 										<c:if test="${not empty task.assignee}">
-										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="handle" onClick="loadDetail('1')">banli</a>
+										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="handle">banli</a>
 										</c:if>
 									</td>
                       		</tr>
@@ -210,6 +305,5 @@
 		  </div><!-- Matter ends -->
 </div>
 
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/module/oa/leave/leave-todo.js"></script>
 </body>
 </html>

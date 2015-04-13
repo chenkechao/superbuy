@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javassist.compiler.ast.Variable;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -136,5 +138,11 @@ public class LeaveController {
 	public Leave getLeave(@PathVariable("id") Long id){
 		Leave leave = leaveManager.getLeave(id);
 		return leave;
+	}
+	
+	@RequestMapping(value="complete/{id}", method={RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String complete(String taskId,Variable var) {
+		return "success";
 	}
 }
