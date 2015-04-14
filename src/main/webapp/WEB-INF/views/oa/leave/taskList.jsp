@@ -84,8 +84,26 @@
 	    $('.handle').click(handle);
 	});
   	
+  	$.fn.coffee = function(obj){
+	  for(var eName in obj)
+	    for(var selector in obj[eName])
+	      $(this).on(eName, selector, obj[eName][selector]);
+	}
+  	
       function claim(taskId){
-      	$('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId);
+      	 $.ajax({
+    		  url:'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId,
+    		  cache:false,
+    		  dataType:"text",
+    		  success:function(data){
+    			 if (resp == 'success') {
+		            alert('success');
+		            location.reload();
+		        } else {
+		            alert('error');
+		        }
+    		  }
+    	  });
       }
       
       
@@ -98,8 +116,8 @@
 	    	},
 	    	savebtn:[{
 	    		text:'tongyi',
-	    		click:function(taskId){
-	    			complete(taskId,[{
+	    		click:function(event){
+	    			complete(event.data.taskId,[{
 	    				key:'deptLeaderPass',
 	    				value:true,
 	    				type:'B'
@@ -125,7 +143,19 @@
       	  }
       	  
 		// 发送任务完成请求
-		alert(taskId);
+	    $.post('<%=request.getContextPath() %>/oa/leave/complete/' + taskId, {
+	        keys: keys,
+	        values: values,
+	        types: types
+	    }, function(resp) {
+	        if (resp == 'success') {
+	            alert('success');
+	            parent.window.$(parent.document).find("#myModal").modal("hide");
+	            location.reload();
+	        } else {
+	            alert('error');
+	        }
+	    });
       }
       
       function handle(){
@@ -139,9 +169,9 @@
 		// 任务ID
 		var taskId = $(this).parents("tr").attr("tid");
 		modal.find("#myModal")
-		.on("show.bs.modal",function(){
+		.on("shown.bs.modal",function(){
 			$("#savebtn",modal).text(handleOpts[tkey].savebtn[0].text)
-			.on('click',handleOpts[tkey].savebtn[0].click);
+			.on('click',{taskId:taskId},handleOpts[tkey].savebtn[0].click);
 			handleOpts[tkey].open.call(this,rowId,taskId);
 		 })
 		 .modal();

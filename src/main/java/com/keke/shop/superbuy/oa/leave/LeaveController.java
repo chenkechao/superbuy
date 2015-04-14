@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javassist.compiler.ast.Variable;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -35,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
 import com.keke.shop.superbuy.service.oa.leave.LeaveManager;
+import com.keke.shop.superbuy.util.Variable;
 
 @Controller
 @RequestMapping(value = "/oa/leave")
@@ -127,10 +126,16 @@ public class LeaveController {
 	}
 	
 	@RequestMapping(value="task/claim/{id}")
+	@ResponseBody
 	public String claim(@PathVariable("id") String taskId,HttpSession session,RedirectAttributes redirectAttributes) {
-		User user = (User) session.getAttribute("user");
-		taskService.claim(taskId, user.getId());
-		return "redirect:/oa/leave/list/task";
+		try {
+			User user = (User) session.getAttribute("user");
+			taskService.claim(taskId, user.getId());
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 	
 	@RequestMapping(value="detail/{id}",produces = "application/json")
@@ -142,7 +147,15 @@ public class LeaveController {
 	
 	@RequestMapping(value="complete/{id}", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public String complete(String taskId,Variable var) {
-		return "success";
+	public String complete(@PathVariable("id") String taskId,Variable var) {
+		try {
+			Map<String,Object> variables = var.getVariableMap();
+			logger.debug(variables.toString());
+			taskService.complete(taskId, variables);
+			return "success";
+		} catch (Exception e) {
+			logger.error("error on complete task {}, variables={}", new Object[]{taskId, var.getVariableMap(), e});
+			return "error";
+		}
 	}
 }
