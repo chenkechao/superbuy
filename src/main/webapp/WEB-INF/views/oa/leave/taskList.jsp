@@ -94,8 +94,7 @@
       	 $.ajax({
     		  url:'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId,
     		  cache:false,
-    		  dataType:"text",
-    		  success:function(data){
+    		  success:function(resp){
     			 if (resp == 'success') {
 		            alert('success');
 		            location.reload();
@@ -124,6 +123,23 @@
 	    			}]);
 	    		}
 	    	}]
+      	},
+      	hrAudit: {
+      		width : 300,
+      		height :300,
+      		open:function(id) {
+      			loadDetail.call(this,id);
+      		},
+      		savebtn:[{
+      			text:"tongyi",
+      			click:function(event){
+      				complete(event.data.taskId,[{
+      					key: 'hrPass',
+						value: true,
+						type: 'B'
+      				}]);
+      			}
+      		}]
       	}
       };
       
