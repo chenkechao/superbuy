@@ -666,9 +666,30 @@ $("#mainIframe").load(function(){
 						</tr>
 					</table>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button id="savebtn" type="button" class="btn btn-primary">Save changes</button>
+				<div class="modal-footer handle-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="height:80%;width:30%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal2" aria-hidden="true">x</button>
+					<h4 class="modal-title">Modal title2</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-lg-4 control-label">Textarea</label>
+							<div class="col-lg-8">
+								<textarea id="leaderBackReason" class="form-control" rows="10" placeholder="Textarea"></textarea>
+							</div>
+						</div>    
+					</form>
+				</div>
+				<div class="modal-footer reason-footer">
 				</div>
 			</div>
 		</div>

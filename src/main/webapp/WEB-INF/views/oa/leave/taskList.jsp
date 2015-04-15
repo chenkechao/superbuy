@@ -96,7 +96,6 @@
     		  cache:false,
     		  success:function(resp){
     			 if (resp == 'success') {
-		            alert('success');
 		            location.reload();
 		        } else {
 		            alert('error');
@@ -115,12 +114,64 @@
 	    	},
 	    	savebtn:[{
 	    		text:'tongyi',
-	    		click:function(event){
-	    			complete(event.data.taskId,[{
+	    		css:'btn btn-primary',
+	    		click:function(){
+	    			var taskId = $(this).data('taskId');
+	    			complete(taskId,[{
 	    				key:'deptLeaderPass',
 	    				value:true,
 	    				type:'B'
 	    			}]);
+	    		}
+	    	}
+	    	,{
+	    		text:'bohui',
+	    		css:'btn btn-danger',
+	    		click:function(){
+	    			var taskId = $(this).data('taskId');
+	    			$("#myModal2",parent.window.$(parent.document))
+	    			.on("show.bs.modal",function(){
+	    				if($(".reason-footer input",parent.window.$(parent.document)).length==0){
+	    					$("<input>", {
+							  type: "button",
+							  val: "bohui",
+							  class:"btn btn-danger",
+							  click: function(){
+							  	var leaderBackReason = $('#leaderBackReason',parent.window.$(parent.document)).val();
+								if (leaderBackReason == '') {
+									alert('请输入驳回理由！');
+									return;
+								}
+								
+								// 设置流程变量
+								complete(taskId, [{
+				    				key:'deptLeaderPass',
+				    				value:false,
+				    				type:'B'
+				    			},{
+				    				key:'leaderBackReason',
+				    				value:leaderBackReason,
+				    				type:'S'
+				    			}]);
+							  }
+							}).appendTo($(".reason-footer",parent.window.$(parent.document)));
+							$("<input>",{
+								type:"button",
+								val:"quxiao",
+								class:"btn btn-default",
+								click:function(){
+									$("#myModal2",parent.window.$(parent.document)).modal("hide");
+								}
+							}).appendTo($(".reason-footer",parent.window.$(parent.document)));
+	    				}
+	    			}).modal();
+	    		}
+	    	}
+	    	,{
+	    		text:'Close',
+	    		css:'btn btn-default',
+	    		click:function(){
+	    			alert('ddd');
 	    		}
 	    	}]
       	},
@@ -149,7 +200,7 @@
       	  	$.each(variables,function(){
       	  		if(keys!="") {
       	  			keys +=",";
-      	  			valeus +=",";
+      	  			values +=",";
       	  			types +=",";
       	  		}
       	  		keys += this.key;
@@ -157,7 +208,6 @@
       	  		types +=this.type;
       	  	});
       	  }
-      	  
 		// 发送任务完成请求
 	    $.post('<%=request.getContextPath() %>/oa/leave/complete/' + taskId, {
 	        keys: keys,
@@ -165,8 +215,8 @@
 	        types: types
 	    }, function(resp) {
 	        if (resp == 'success') {
-	            alert('success');
 	            parent.window.$(parent.document).find("#myModal").modal("hide");
+	            parent.window.$(parent.document).find("#myModal2").modal("hide");
 	            location.reload();
 	        } else {
 	            alert('error');
@@ -185,11 +235,19 @@
 		// 任务ID
 		var taskId = $(this).parents("tr").attr("tid");
 		modal.find("#myModal")
-		.on("shown.bs.modal",function(){
-			$("#savebtn",modal).text(handleOpts[tkey].savebtn[0].text)
-			.on('click',{taskId:taskId},handleOpts[tkey].savebtn[0].click);
-			handleOpts[tkey].open.call(this,rowId,taskId);
-		 })
+		.on("show.bs.modal",function(){
+			if($(".handle-footer input",modal).length==0){
+				$.each(handleOpts[tkey].savebtn,function(){
+					$("<input>", {
+					  type: "button",
+					  val: this.text,
+					  class:this.css,
+					  click: this.click,
+					}).data({taskId:taskId}).appendTo($(".handle-footer",modal));
+				});
+				handleOpts[tkey].open.call(this,rowId,taskId);
+			}
+		})
 		 .modal();
 	}
       
@@ -315,7 +373,7 @@
 										<a class="claim" href="#" onClick="claim('${task.id}')">qianshou</a>
 										</c:if>
 										<c:if test="${not empty task.assignee}">
-										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="handle">banli</a>
+										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="btn btn-info handle">banli</a>
 										</c:if>
 									</td>
                       		</tr>
