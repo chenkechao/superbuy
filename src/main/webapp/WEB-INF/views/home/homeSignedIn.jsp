@@ -631,7 +631,7 @@ $("#mainIframe").load(function(){
 /* Curve chart ends */
 </script>
 
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -684,7 +684,7 @@ $("#mainIframe").load(function(){
 						<div class="form-group">
 							<label class="col-lg-4 control-label">Textarea</label>
 							<div class="col-lg-8">
-								<textarea id="leaderBackReason" class="form-control" rows="10" placeholder="Textarea"></textarea>
+								<textarea id="backReason" class="form-control" rows="10" placeholder="Textarea"></textarea>
 							</div>
 						</div>    
 					</form>

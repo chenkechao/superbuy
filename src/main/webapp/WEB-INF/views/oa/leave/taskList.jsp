@@ -79,6 +79,7 @@
   	}
   </style>
   <script type="text/javascript">
+  	
   	$(function() {
 	    // 办理
 	    $('.handle').click(handle);
@@ -137,7 +138,7 @@
 							  val: "bohui",
 							  class:"btn btn-danger",
 							  click: function(){
-							  	var leaderBackReason = $('#leaderBackReason',parent.window.$(parent.document)).val();
+							  	var leaderBackReason = $('#backReason',parent.window.$(parent.document)).val();
 								if (leaderBackReason == '') {
 									alert('请输入驳回理由！');
 									return;
@@ -171,7 +172,7 @@
 	    		text:'Close',
 	    		css:'btn btn-default',
 	    		click:function(){
-	    			alert('ddd');
+	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
 	    		}
 	    	}]
       	},
@@ -183,13 +184,57 @@
       		},
       		savebtn:[{
       			text:"tongyi",
-      			click:function(event){
-      				complete(event.data.taskId,[{
+      			css:"btn btn-primary",
+      			click:function(taskId){
+      				var taskId = $(this).data('taskId');
+      				complete(taskId,[{
       					key: 'hrPass',
 						value: true,
 						type: 'B'
       				}]);
       			}
+      		},{
+      			text:'bohui',
+	    		css:'btn btn-danger',
+	    		click:function(){
+	    			var taskId = $(this).data('taskId');
+	    			$("#myModal2",parent.window.$(parent.document))
+	    			.on("show.bs.modal",function(){
+	    				if($(".reason-footer input",parent.window.$(parent.document)).length==0){
+	    					$("<input>", {
+							  type: "button",
+							  val: "bohui",
+							  class:"btn btn-danger",
+							  click: function(){
+							  	var hrBackReason = $('#backReason',parent.window.$(parent.document)).val();
+								if (hrBackReason == '') {
+									alert('请输入驳回理由！');
+									return;
+								}
+								
+								// 设置流程变量
+								complete(taskId, [{
+				    				key:'hrPass',
+				    				value:false,
+				    				type:'B'
+				    			},{
+				    				key:'hrBackReason',
+				    				value:hrBackReason,
+				    				type:'S'
+				    			}]);
+							  }
+							}).appendTo($(".reason-footer",parent.window.$(parent.document)));
+							$("<input>",{
+								type:"button",
+								val:"quxiao",
+								class:"btn btn-default",
+								click:function(){
+									$("#myModal2",parent.window.$(parent.document)).modal("hide");
+								}
+							}).appendTo($(".reason-footer",parent.window.$(parent.document)));
+	    				}
+	    			}).modal();
+	    		}
       		}]
       	}
       };
@@ -247,6 +292,9 @@
 				});
 				handleOpts[tkey].open.call(this,rowId,taskId);
 			}
+		}).on("hide.bs.modal",function(){
+			$(".handle-footer input",modal).remove();
+			modal.find("#myModal").off("show.bs.modal");
 		})
 		 .modal();
 	}
@@ -373,7 +421,7 @@
 										<a class="claim" href="#" onClick="claim('${task.id}')">qianshou</a>
 										</c:if>
 										<c:if test="${not empty task.assignee}">
-										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="btn btn-info handle">banli</a>
+										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="btn btn-info handle" data-toggle="modal">banli</a>
 										</c:if>
 									</td>
                       		</tr>
