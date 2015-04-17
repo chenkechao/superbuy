@@ -138,11 +138,23 @@ public class LeaveController {
 		}
 	}
 	
-	@RequestMapping(value="detail/{id}",produces = "application/json")
+	@RequestMapping(value="detail/{id}/{taskId}",produces = "application/json")
 	@ResponseBody
-	public Leave getLeave(@PathVariable("id") Long id){
+	public Leave getLeave(@PathVariable("id") Long id,@PathVariable("taskId") String taskId){
 		Leave leave = leaveManager.getLeave(id);
+		Map<String,Object> variables = taskService.getVariables(taskId);
+		leave.setVariables(variables);
 		return leave;
+	}
+	
+	@RequestMapping(value="detail/showDetailForm")
+	public String showDetailForm(ModelAndView mav) {
+		return "oa/leave/showDetailForm";
+	}
+	
+	@RequestMapping(value="detail/showModifyApply")
+	public String showModifyApply(ModelAndView mav) {
+		return "oa/leave/modifyApply";
 	}
 	
 	@RequestMapping(value="complete/{id}", method={RequestMethod.POST, RequestMethod.GET})

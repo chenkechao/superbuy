@@ -110,8 +110,9 @@
       	  deptLeaderAudit:  {
 	        width: 300,
 		    height: 300,
-	    	open:function(id) {
-	    		loadDetail.call(this,id);
+		    url:"<%=request.getContextPath()%>/oa/leave/detail/showDetailForm",
+	    	open:function(id,taskId) {
+	    		loadDetail.call(this,id,taskId);
 	    	},
 	    	savebtn:[{
 	    		text:'tongyi',
@@ -179,8 +180,9 @@
       	hrAudit: {
       		width : 300,
       		height :300,
-      		open:function(id) {
-      			loadDetail.call(this,id);
+      		url:"<%=request.getContextPath()%>/oa/leave/detail/showDetailForm",
+      		open:function(id,taskId) {
+      			loadDetail.call(this,id,taskId);
       		},
       		savebtn:[{
       			text:"tongyi",
@@ -235,6 +237,92 @@
 	    				}
 	    			}).modal();
 	    		}
+      		}
+      		,{
+	    		text:'Close',
+	    		css:'btn btn-default',
+	    		click:function(){
+	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
+	    		}
+	    	}]
+      	},
+      	modifyApply:{
+      		width:300,
+      		height:300,
+      		url:"<%=request.getContextPath()%>/oa/leave/detail/showModifyApply",
+      		open:function(id,taskId){
+      			loadDetail.call(this,id,taskId,function(data){
+      				var dialog = parent.window.$(parent.document);
+      				var backReason = "";
+      				$.each(data, function(k, v) {
+						// 格式化日期
+						if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
+							if(v != null){
+								$('#' + k, dialog).val(new Date(v).format('yyyy-MM-dd hh:mm'));
+							}
+						} else if(k == 'variables'){
+							$.each(v, function(k1, v1) {
+							    if(k1 =='leaderBackReason')	{
+							    	backReason += "<b>领导：</b>" + v1;
+							    }else if(k1 == 'hrBackReason') {
+							    	backReason += "<br/><b>HR:</b>" + v1;
+							    }
+							});
+							$("#backReason",dialog).html(backReason);
+						}else {
+				            $('#' + k, dialog).val(v);
+						}
+		       		});
+		       		
+		       		var reApply = true;
+		       		$("#myTab",dialog).data("activeTab",reApply);
+		       		
+		       		$("#myTab",dialog).on("shown.bs.tab",function(e){
+		       			reApply = $(e.target).attr("value");
+		       			$("#myTab",dialog).data("activeTab",reApply);
+		       		});
+      			});
+      		},
+      		savebtn:[{
+      			text:'tijiao',
+	    		css:'btn btn-primary',
+	    		click:function(){
+	    			var dialog = parent.window.$(parent.document);
+	    			var taskId = $(this).data('taskId');
+	    			var reApply = $("#myTab",dialog).data("activeTab");
+	    			complete(taskId,[{
+		       				key:'reApply',
+		       				value:reApply,
+		       				type:'B'
+		       			},
+		       			{
+		       				key:'leaveType',
+		       				value:$("#leaveType",dialog).val(),
+		       				type:'S'
+		       			},
+		       			{
+		       				key:'startTime',
+		       				value:$("#startTime",dialog).val(),
+		       				type:'D'	
+		       			},
+		       			{
+		       				key:'endTime',
+		       				value:$("#endTime",dialog).val(),
+		       				type:'D'
+		       			},
+		       			{
+		       				key:'reason',
+		       				value:$("#reason",dialog).val(),
+		       				type:'S'
+		       			}]);
+	    		}
+      		},
+      		{
+      			text:'quxiao',
+	    		css:'btn btn-default',
+	    		click:function(){
+	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
+	    		}
       		}]
       	}
       };
@@ -280,7 +368,8 @@
 		// 任务ID
 		var taskId = $(this).parents("tr").attr("tid");
 		modal.find("#myModal")
-		.on("show.bs.modal",function(){
+		.modal({remote:handleOpts[tkey].url})
+		.on("shown.bs.modal",function(){
 			if($(".handle-footer input",modal).length==0){
 				$.each(handleOpts[tkey].savebtn,function(){
 					$("<input>", {
@@ -294,15 +383,14 @@
 			}
 		}).on("hide.bs.modal",function(){
 			$(".handle-footer input",modal).remove();
-			modal.find("#myModal").off("show.bs.modal");
-		})
-		 .modal();
+			modal.find("#myModal").off("shown.bs.modal");
+		});
 	}
       
-      function loadDetail(id) {
+      function loadDetail(id,taskId,callback) {
       	var dialog = parent.window.$(parent.document);
 		$.ajax({
-			  url:"<%=request.getContextPath() %>/oa/leave/detail/"+id,
+			  url:"<%=request.getContextPath() %>/oa/leave/detail/"+id+"/"+taskId,
 			  cache:false,
 			  dataType:"json",//
 			  success:function(data){
@@ -317,6 +405,9 @@
 					}
 					
 		        });
+		        if ($.isFunction(callback)) {
+					callback(data);
+				}
 			  }
 		  });
     }
