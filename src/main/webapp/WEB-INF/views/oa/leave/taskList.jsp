@@ -281,6 +281,19 @@
 		       			reApply = $(e.target).attr("value");
 		       			$("#myTab",dialog).data("activeTab",reApply);
 		       		});
+		       		
+		       		$('.form_datetime',dialog).datetimepicker({
+		    	        //language:  'fr',
+		    	        weekStart: 1,
+		    	        todayBtn:  1,
+		    			autoclose: 1,
+		    			todayHighlight: 1,
+		    			startView: 2,
+		    			forceParse: 0,
+		    	        showMeridian: 1
+		    	    }).on("hide.bs.modal",function(e){
+		    	    	return false;
+		    	    });
       			});
       		},
       		savebtn:[{
