@@ -635,7 +635,7 @@
 
 <script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.js"></script> <!-- Date picker -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
 <script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->

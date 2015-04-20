@@ -37,6 +37,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.keke.shop.superbuy.Application;
+import com.keke.shop.superbuy.util.CP_PropertyEditorRegistrar;
 
 @Configuration
 @EnableWebMvc
@@ -241,9 +242,9 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 	@Override
 	protected ConfigurableWebBindingInitializer getConfigurableWebBindingInitializer() {
 		ConfigurableWebBindingInitializer initializer = super.getConfigurableWebBindingInitializer();
-//		CP_PropertyEditorRegistrar register = new CP_PropertyEditorRegistrar();
-//		register.setFormat("yyyy-MM-dd");
-//		initializer.setPropertyEditorRegistrar(register);
+		CP_PropertyEditorRegistrar register = new CP_PropertyEditorRegistrar();
+		register.setFormat("yyyy-MM-dd HH:mm");
+		initializer.setPropertyEditorRegistrar(register);
 		return initializer;
 	}
    	

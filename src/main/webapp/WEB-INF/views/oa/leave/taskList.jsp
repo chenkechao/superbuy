@@ -60,7 +60,7 @@
 
 <script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.js"></script> <!-- Date picker -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
 <script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
@@ -328,6 +328,7 @@
       };
       
       function complete(taskId,variables) {
+    	  alert(variables);
       	  var keys="",values="",types="";
       	  if(variables) {
       	  	$.each(variables,function(){
@@ -382,6 +383,7 @@
 				handleOpts[tkey].open.call(this,rowId,taskId);
 			}
 		}).on("hide.bs.modal",function(){
+			modal.find("#myModal").removeData("bs.modal");
 			$(".handle-footer input",modal).remove();
 			modal.find("#myModal").off("shown.bs.modal");
 		});
@@ -394,20 +396,23 @@
 			  cache:false,
 			  dataType:"json",//
 			  success:function(data){
-			  	$.each(data, function(k, v) {
-					// 格式化日期
-					if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
-						if(v != null){
-							$('#view-info td[name=' + k + ']', dialog).text(new Date(v).format('yyyy-MM-dd hh:mm'));
+				  if(callback != null){
+					  if ($.isFunction(callback)) {
+							callback(data);
 						}
-					} else {
-			            $('#view-info td[name=' + k + ']', dialog).text(v);
-					}
-					
-		        });
-		        if ($.isFunction(callback)) {
-					callback(data);
-				}
+				  }else{
+					  $.each(data, function(k, v) {
+							// 格式化日期
+							if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
+								if(v != null){
+									$('#view-info td[name=' + k + ']', dialog).text(new Date(v).format('yyyy-MM-dd hh:mm'));
+								}
+							} else {
+					            $('#view-info td[name=' + k + ']', dialog).text(v);
+							}
+							
+				        });
+				  }
 			  }
 		  });
     }

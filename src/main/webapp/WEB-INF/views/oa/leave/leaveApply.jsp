@@ -60,7 +60,8 @@
 
 <script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.js"></script> <!-- Date picker -->
+<script src="<%=request.getContextPath() %>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script> <!-- Date picker -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
 <script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
@@ -81,7 +82,18 @@
   </style>
   
   <script type="text/javascript">
-      
+      $(function(){
+    	  $('.form_datetime').datetimepicker({
+    	        //language:  'fr',
+    	        weekStart: 1,
+    	        todayBtn:  1,
+    			autoclose: 1,
+    			todayHighlight: 1,
+    			startView: 2,
+    			forceParse: 0,
+    	        showMeridian: 1
+    	    });
+      });
   </script>
 </head>
 
@@ -144,18 +156,28 @@
                      <form id="leave" class="form-horizontal" role="form" action="<%=request.getContextPath()%>/oa/leave/start" method="post">
                               
                                 <div class="form-group">
-                                  <label class="col-lg-4 control-label">kaishishijian:</label>
-                                  <div class="col-lg-8">
-                                    <input type="text" class="form-control" id="startTime" name="startTime"/>
-                                  </div>
-                                </div>
+					                <label for="startTime" class="col-lg-4 control-label">kaishishijian:</label>
+					                <div class="col-lg-4">
+						                <div class="input-group date form_datetime" data-date-format="yyyy-MM-dd HH:mm" data-link-field="startTime">
+						                    <input class="form-control" size="16" type="text" value="" id="startTime" name="startTime" readonly>
+						                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+						                </div>
+										<br/>
+									</div>
+					            </div>
                                 
                                 <div class="form-group">
-                                  <label class="col-lg-4 control-label">jieshushijian:</label>
-                                  <div class="col-lg-8">
-                                    <input type="password" class="form-control" id="endTime" name="endTime">
-                                  </div>
-                                </div>
+					                <label for="endTime" class="col-lg-4 control-label">jieshushijian:</label>
+					                <div class="col-lg-4">
+						                <div class="input-group date form_datetime" data-date-format="yyyy-MM-dd HH:mm" data-link-field="endTime">
+						                    <input class="form-control" size="16" type="text" value="" id="endTime" name="endTime" readonly>
+						                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+											<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+						                </div>
+										<br/>
+									</div>
+					            </div>
                                 
                                 <div class="form-group">
                                   <label class="col-lg-4 control-label">qingjiayuanyin:</label>
