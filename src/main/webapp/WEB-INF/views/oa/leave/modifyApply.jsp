@@ -15,9 +15,9 @@
 	<div class="modal-body">
 		<div class="alert alert-warning" id="backReason"></div>
 		<ul id="myTab" class="nav nav-tabs">
-			<li class="active"><a id="modify" href="#modify"
+			<li class="active"><a href="#modify"
 				data-toggle="tab" value="true">tiaozhengshenqing</a></li>
-			<li><a id="cancel" href="#cancel" data-toggle="tab"
+			<li><a href="#cancel" data-toggle="tab"
 				value="false">Profile</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content"

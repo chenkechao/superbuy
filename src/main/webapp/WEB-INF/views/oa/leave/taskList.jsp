@@ -337,6 +337,59 @@
 	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
 	    		}
       		}]
+      	},
+      	reportBack:{
+      		width:300,
+      		height:300,
+      		url:"<%=request.getContextPath()%>/oa/leave/detail/showReportBack",
+      		open:function(id,taskId){
+      			loadDetail.call(this, id, taskId);
+      			$('.form_datetime',parent.window.$(parent.document)).datetimepicker({
+	    	        //language:  'fr',
+	    	        weekStart: 1,
+	    	        todayBtn:  1,
+	    			autoclose: 1,
+	    			todayHighlight: 1,
+	    			startView: 2,
+	    			forceParse: 0,
+	    	        showMeridian: 1
+	    	    }).on("hide.bs.modal",function(e){
+	    	    	return false;
+	    	    });
+      		},
+      		savebtn:[{
+      			text:'tijiao',
+	    		css:'btn btn-primary',
+	    		click:function(){
+	    			var dialog = parent.window.$(parent.document);
+	    			var taskId = $(this).data('taskId');
+	    			var realityStartTime = $("#realityStartTime",dialog).val();
+	    			var realityEndTime = $("#realityEndTime",dialog).val();
+	    			if(realityStartTime == ''){
+	    				alert('请选择实际开始时间！');
+	    				return;
+	    			}
+	    			if(realityEndTime ==''){
+	    				alert('请选择实际结束时间!');
+	    				return;
+	    			}
+	    			complete(taskId,[{
+	    				key:'realityStartTime',
+	    				value:realityStartTime,
+	    				type:'D'
+	    			},{
+	    				key:'realityEndTime',
+	    				value:realityEndTime,
+	    				type:'D'
+	    			}]);
+	    		}
+      		},{
+      			text:'quxiao',
+      			css:'btn btn-default',
+	    		click:function(){
+	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
+	    		}
+      		}]
       	}
       };
       

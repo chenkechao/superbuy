@@ -157,6 +157,11 @@ public class LeaveController {
 		return "oa/leave/modifyApply";
 	}
 	
+	@RequestMapping(value="detail/showReportBack")
+	public String showReportBack(ModelAndView mav) {
+		return "oa/leave/showReportBack";
+	}
+	
 	@RequestMapping(value="complete/{id}", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public String complete(@PathVariable("id") String taskId,Variable var) {

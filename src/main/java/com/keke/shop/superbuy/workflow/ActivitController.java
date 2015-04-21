@@ -1,11 +1,14 @@
 package com.keke.shop.superbuy.workflow;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -20,6 +23,7 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +32,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -46,17 +53,21 @@ public class ActivitController {
 	/*
 	 * 流程定义列表
 	 */
-	@RequestMapping(value="/processList")
-	public ModelAndView processList(){
+	@RequestMapping(value="/processList/{processType}")
+	public ModelAndView processList(@PathVariable String processType){
 		ModelAndView mav = new ModelAndView("workflow/processList");
 		
 		List<Object[]> objects = new ArrayList<Object[]>();
-		ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
-		List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(0,100);
-		for(ProcessDefinition processDefinition:processDefinitionList) {
-			String deploymentId = processDefinition.getDeploymentId();
-			Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
-			objects.add(new Object[]{processDefinition,deployment});
+		if(!StringUtils.equals(processType, "all")) {
+			
+		}else{
+			ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
+			List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(0,100);
+			for(ProcessDefinition processDefinition:processDefinitionList) {
+				String deploymentId = processDefinition.getDeploymentId();
+				Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+				objects.add(new Object[]{processDefinition,deployment});
+			}
 		}
 		mav.addObject("processList",objects);
 		return mav;
@@ -68,6 +79,33 @@ public class ActivitController {
 //	@RequestMapping(value="redeploy/all")
 //	public String redeployAll() {
 //	}
+	
+	@RequestMapping(value="/deploy")
+	@ResponseBody
+	public String deploy(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request) {
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
+		List<MultipartFile> files = multipartRequest.getFiles("files");
+		Iterator<String> dd = multipartRequest.getFileNames();
+		boolean b = dd.hasNext();
+		String fileName = file.getOriginalFilename();
+		
+		InputStream fileInputStream = null;
+		Deployment deployment = null;
+		try {
+			fileInputStream = file.getInputStream();
+			
+			String extension = FilenameUtils.getExtension(fileName);
+			if(extension.equals("zip") || extension.equals("bar")) {
+				
+			}else{
+				deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "success";
+	}
 	
 	/*
 	 * 读取资源，通过部署ID
@@ -141,4 +179,9 @@ public class ActivitController {
 		}
 		return "redirect:/workflow/processList";
 	}
+	
+	 @RequestMapping(value="/showUploadModal")
+	 public String showUploadModal(ModelAndView mav) {
+		 return "workflow/uploadview";
+	 }
 }

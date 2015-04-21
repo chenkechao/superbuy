@@ -33,7 +33,7 @@
   <link href="<%=request.getContextPath() %>/resources/style/style.css" rel="stylesheet">
   <!-- Widgets stylesheet -->
   <link href="<%=request.getContextPath() %>/resources/style/widgets.css" rel="stylesheet">   
-  
+    <link href="<%=request.getContextPath() %>/resources/fileinput/css/fileinput.css" rel="stylesheet">
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -43,7 +43,7 @@
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
   <script type="text/javascript">
       function processList(){
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/processList');
+    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/processList/all');
       }
       
       function runningList(){
@@ -498,7 +498,7 @@
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
 <script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
 <script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-
+<script src="<%=request.getContextPath() %>/resources/fileinput/js/fileinput.js"></script>
 <!-- Script for this page -->
 <script type="text/javascript">
 $(function () {

@@ -8,7 +8,7 @@ public enum PropertyType {
 	L(Long.class),
 	F(Float.class),
 	N(Double.class),
-	D(Date.class),
+	D(java.util.Date.class),
 	SD(java.sql.Date.class),
 	B(Boolean.class);
 

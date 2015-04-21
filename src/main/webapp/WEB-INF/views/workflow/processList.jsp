@@ -83,13 +83,24 @@
   <script type="text/javascript">
       $(document).ready(
       	function(){
-            $("#convertButton").on("click",
-            	function(processDefinitionId){
-            		//alert(processDefinitionId);
-            	}
-            );      		
+      			
       	}
       );
+      
+      function processDefinitionList(processType){
+    	  $('#mainIframe',parent.document).attr("src",'<%=request.getContextPath() %>/workflow/processList/'+processType);
+      }
+      
+      function deployNew(){
+    	  var modal = parent.window.$(parent.document);
+    	 modal.find("#myModal")
+  		.modal({remote:'<%=request.getContextPath()%>/workflow/showUploadModal'})
+  		.on("shown.bs.modal",function(){
+  			
+  		}).on("hide.bs.modal",function(){
+  			alert('fda');
+  		});
+      }
       
       function convertToModel(processDefinitionId){
       	 $.ajax({
@@ -104,6 +115,7 @@
       }
       
       function deleteProcessDefinition(processDefinitionId,deploymentId){
+    	  alert($("#processType").data("dropdown"));  	
       	$.ajax({
       		url:"<%=request.getContextPath() %>/workflow/process/deleteProcessDefinition/"+deploymentId,
       		cache : false,
@@ -137,7 +149,22 @@
       <div class="page-head">
         <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
 
-		<button type="button" class="btn btn-primary " onclick="reDeployAll()">chognxinbushu</button>
+		<div class="btn-group" id="processType">
+			<button type="button" class="btn btn-default">All</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> 
+				<span class="caret"></span>
+				<span class="sr-only"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="#" onclick="processDefinitionList('all')">All</a></li>
+				<li><a href="#" onclick="processDefinitionList('dynamicForm')">DynamicForm</a></li>
+				<li><a href="#">Something else here</a></li>
+				<li class="divider"></li>
+				<li><a href="#">Separated link</a></li>
+			</ul>
+		</div>
+		
+		<button type="button" class="btn btn-default" onclick="deployNew()">deploy</button>
         <!-- Breadcrumb -->
         <div class="bread-crumb pull-right">
           <a href="index.html"><i class="icon-home"></i> Home</a> 
