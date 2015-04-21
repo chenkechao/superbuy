@@ -1,5 +1,6 @@
 package com.keke.shop.superbuy.workflow;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,12 +29,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
@@ -81,30 +84,50 @@ public class ActivitController {
 //	}
 	
 	@RequestMapping(value="/deploy")
-	@ResponseBody
-	public String deploy(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request) {
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
-		List<MultipartFile> files = multipartRequest.getFiles("files");
-		Iterator<String> dd = multipartRequest.getFileNames();
-		boolean b = dd.hasNext();
-		String fileName = file.getOriginalFilename();
-		
-		InputStream fileInputStream = null;
-		Deployment deployment = null;
-		try {
-			fileInputStream = file.getInputStream();
-			
-			String extension = FilenameUtils.getExtension(fileName);
-			if(extension.equals("zip") || extension.equals("bar")) {
-				
-			}else{
-				deployment = repositoryService.createDeployment().addInputStream(fileName, fileInputStream).deploy();
+	public String deploy(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
+		//创建一个通用的多部分解析器
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+		//判断request是否有文件上传，即多部分请求
+		if(multipartResolver.isMultipart(request)){
+			//转换成多部分request
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
+			//取的request中的所有文件名
+			Iterator<String> iter = multipartRequest.getFileNames();
+			while(iter.hasNext()) {
+				//取的上传文件
+				MultipartFile file = multipartRequest.getFile(iter.next());
+				if(file != null) {
+					//取的当前上传文件的文件名称
+					String myFileName = file.getOriginalFilename();
+					if(myFileName.trim() != "") {
+//						//重命名上传后的文件名
+//						String fileName = "demoUpload_" +  file.getOriginalFilename();
+//						//定义上传路径
+//						String path = "D:/" + fileName;
+//						File localFile = new File(path);
+//						file.transferTo(localFile);
+						
+						InputStream fileInputStream = null;
+						Deployment deployment = null;
+						try {
+							fileInputStream = file.getInputStream();
+							
+							String extension = FilenameUtils.getExtension(myFileName);
+							if(extension.equals("zip") || extension.equals("bar")) {
+								
+							}else{
+								deployment = repositoryService.createDeployment().addInputStream(myFileName, fileInputStream).deploy();
+							}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		return "success";
+		
+		return "redirect:/";
 	}
 	
 	/*

@@ -27,7 +27,6 @@
           return filename.replace('(', '_').replace(']', '_');
       }
 	}).on("fileloaded",function(event, file, previewId, index){
-		alert(file);
 	});
   </script>
 </head>
