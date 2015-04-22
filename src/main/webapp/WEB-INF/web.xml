@@ -27,7 +27,40 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
      -->
-	<!-- Map all errors to Spring MVC handler method. See CustomErrorController.generalError() -->
+	
+	<!-- Restlet adapter, used to expose modeler functionality through REST -->
+    <servlet>
+        <servlet-name>ExplorerRestletServlet</servlet-name>
+        <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
+        <init-param>
+            <!-- Application class name -->
+            <param-name>org.restlet.application</param-name>
+            <param-value>org.activiti.explorer.rest.ExplorerRestApplication</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>RestletServlet</servlet-name>
+        <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
+        <init-param>
+            <!-- Application class name -->
+            <param-name>org.restlet.application</param-name>
+            <param-value>org.activiti.rest.service.application.ActivitiRestServicesApplication</param-value>
+        </init-param>
+    </servlet>
+    
+	<!-- Catch all service requests -->
+	<servlet-mapping>
+		<servlet-name>ExplorerRestletServlet</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RestletServlet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+	
+    <!-- Map all errors to Spring MVC handler method. See CustomErrorController.generalError() -->
 	<error-page>
     	<location>/generalError</location>
 	</error-page>
