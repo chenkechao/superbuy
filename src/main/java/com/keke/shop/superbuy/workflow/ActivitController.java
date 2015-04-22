@@ -84,6 +84,7 @@ public class ActivitController {
 //	}
 	
 	@RequestMapping(value="/deploy")
+	@ResponseBody
 	public String deploy(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
 		//创建一个通用的多部分解析器
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
@@ -118,16 +119,18 @@ public class ActivitController {
 							}else{
 								deployment = repositoryService.createDeployment().addInputStream(myFileName, fileInputStream).deploy();
 							}
+							return "success";
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							return "error";
 						}
 					}
 				}
 			}
 		}
 		
-		return "redirect:/";
+		return "success";
 	}
 	
 	/*

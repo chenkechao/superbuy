@@ -81,11 +81,6 @@
   </style>
   
   <script type="text/javascript">
-      $(document).ready(
-      	function(){
-      			
-      	}
-      );
       
       function processDefinitionList(processType){
     	  $('#mainIframe',parent.document).attr("src",'<%=request.getContextPath() %>/workflow/processList/'+processType);
@@ -96,11 +91,51 @@
     	 modal.find("#myModal")
   		.modal({remote:'<%=request.getContextPath()%>/workflow/showUploadModal'})
   		.on("shown.bs.modal",function(){
-  			
+  			$("#file",modal).fileinput({
+  			  uploadUrl: '<%=request.getContextPath()%>/workflow/deploy',
+  		      allowedFileExtensions : ['xml'],
+  		      overwriteInitial: false,
+  		      maxFileSize: 1000,
+  		      maxFilesNum: 10,
+  		      //allowedFileTypes: ['image', 'video', 'flash'],
+  		      slugCallback: function(filename) {
+  		          return filename.replace('(', '_').replace(']', '_');
+  		      }
+  			}).on("fileloaded",function(event, file, previewId, index){
+  			});
+  		          
+  			 var options = {  
+ 			    	target:'#test',
+ 			    	url:'<%=request.getContextPath()%>/workflow/deploy',
+ 			    	type:'post',
+ 			        beforeSubmit:  showRequest,  //提交前处理 
+ 			        success:       showResponse,  //处理完成 
+ 			        dataType:'html',
+ 			        resetForm: true,  
+ 			    }; 
+  			 
+  			$('#uploadForm',modal).on("submit",function(){
+  				$('#uploadForm',modal).ajaxSubmit(options);  
+			        return false;
+  			});
   		}).on("hide.bs.modal",function(){
-  			alert('fda');
+  			modal.find("#myModal").removeData("bs.modal");
+			modal.find("#myModal").off("shown.bs.modal");
   		});
       }
+      
+      function showRequest(formData,jqForm,options){
+        }  
+      
+      function showResponse(responseText,statusText) {
+        	if(responseText == "success") {
+        		alert("success");
+        		$("#myModal",parent.window.$(parent.document)).modal("hide");
+        		location.reload();
+        	}else{
+        		alert("error");
+        	}
+        }
       
       function convertToModel(processDefinitionId){
       	 $.ajax({
@@ -115,15 +150,14 @@
       }
       
       function deleteProcessDefinition(processDefinitionId,deploymentId){
-    	  alert($("#processType").data("dropdown"));  	
       	$.ajax({
       		url:"<%=request.getContextPath() %>/workflow/process/deleteProcessDefinition/"+deploymentId,
       		cache : false,
       		success:function(){
-      			alert("success");
+      			location.reload();
       		},
       		error:function(){
-      			alert("fda");
+      			alert("error");
       		}
       	});
       }

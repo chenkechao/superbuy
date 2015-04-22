@@ -46,6 +46,21 @@
     	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/processList/all');
       }
       
+      function showResponse(responseText,statusText) {
+      	if(responseText == "success") {
+      		alert("success");
+      		location.reload();
+      	}else{
+      		//$('#mainIframe',parent.window.$(parent.document)).html(responseText);
+      		alert('fdd');
+      		$("#myModal",parent.window.$(parent.document)).modal('hide');
+      	}
+      }
+      
+      function showRequest(formData,jqForm,options){
+      	alert("showRequest");
+      }  
+      
       function runningList(){
     	  $.ajax({
     		  url:'<%=request.getContextPath() %>/workflow/processinstance/running',
