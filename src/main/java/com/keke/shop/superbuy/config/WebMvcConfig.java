@@ -122,6 +122,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(RESOURCES_LOCATION).addResourceLocations(RESOURCES_HANDLER);
+        registry.addResourceHandler("/diagram-viewer/**").addResourceLocations("/diagram-viewer/");
     }
 
     /**                                                          

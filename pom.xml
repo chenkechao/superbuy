@@ -256,6 +256,21 @@
   			<artifactId>activiti-json-converter</artifactId>
   			<version>5.16</version>
 		</dependency>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-modeler</artifactId>
+            <version>5.16</version>
+		</dependency>
+		 <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-rest</artifactId>
+            <version>5.16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-diagram-rest</artifactId>
+            <version>5.16</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
