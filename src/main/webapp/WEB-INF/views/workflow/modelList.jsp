@@ -74,15 +74,98 @@
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+   <style>
+  	body{
+  		padding-top: 0px;
+  	}
+  </style>
   <script type="text/javascript">
+      $(function(){
+    	  $(".handle").on("click",handle);
+      });
       
+      var handleOpts ={
+    		  createmodel:{
+    			  width:300,
+    			  height:300,
+    			  url:"<%=request.getContextPath()%>/workflow/model/showCreateModelModal",
+    			  open:function(){
+    				  var modal = parent.window.$(parent.document);
+    				  var options = {  
+    		 			    	url:'<%=request.getContextPath()%>/workflow/model/create',
+    		 			    	type:'post',
+    		 			        beforeSubmit:  showRequest,  //提交前处理 
+    		 			        success:       showResponse,  //处理完成 
+    		 			        dataType:'html',
+    		 			        resetForm: true,  
+    		 			    }; 
+    		  			 
+    		  			$('#createModelForm',modal).on("submit",function(){
+    		  				$('#createModelForm',modal).ajaxSubmit(options);  
+    					        return false;
+    		  			});
+    			  },
+    			  savebtn:[{
+    				  text:'chuangjian',
+    				  css:'btn btn-primary',
+    				  click:function(){
+    					  var modal = parent.window.$(parent.document);
+    					  $('#createModelForm',modal).submit();
+    				  }
+    			  },{
+    				  text:'quxiao',
+    				  css:'btn btn-default',
+    				  click:function(){
+    					  $("#myModal",parent.window.$(parent.document)).modal("hide");
+    				  }
+    			  }]
+    		  }
+      };
+      
+      function showRequest(formData,jqForm,options){
+      }  
+    
+    function showResponse(responseText,statusText) {
+      	if(responseText == "success") {
+      		alert("success");
+      		$("#myModal",parent.window.$(parent.document)).modal("hide");
+      		location.reload();
+      	}else{
+      		alert("error");
+      	}
+      }
+      
+      function handle(){
+    	  var tkey = $(this).attr("tkey");
+    	var modal = parent.window.$(parent.document);
+    	modal.find("#myModal")
+  		.modal({remote:handleOpts[tkey].url})
+  		.on("shown.bs.modal",function(){
+  			if($(".handle-footer input",modal).length==0){
+				$.each(handleOpts[tkey].savebtn,function(){
+					$("<input>", {
+					  type: "button",
+					  val: this.text,
+					  class:this.css,
+					  click: this.click,
+					}).appendTo($(".handle-footer",modal));
+				});
+				handleOpts[tkey].open.call(this);
+  			}
+  		}).on("hide.bs.modal",function(){
+  			modal.find("#myModal").removeData("bs.modal");
+  			$(".handle-footer input",modal).remove();
+  			modal.find("#myModal").off("shown.bs.modal");
+  		});
+      }
   </script>
 </head>
 
 <body>
 
 
-
+	<!-- Main bar -->
+  	<div class="mainbar">
       <!-- Page heading -->
       <div class="page-head">
         <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
@@ -105,6 +188,14 @@
 	    <div class="matter">
         <div class="container">
 
+		<div>
+				<button tkey="createmodel" type="button" class="btn btn-primary handle">chuangjian</button>
+				<button type="button" class="btn btn-default">Primary</button>
+				<button type="button" class="btn btn-success">Success</button>
+				<button type="button" class="btn btn-info">Info</button>
+				<button type="button" class="btn btn-warning">Warning</button>
+				<button type="button" class="btn btn-danger">Danger</button>
+			</div>
           <!-- Table -->
 
             <div class="row">
@@ -123,7 +214,6 @@
                 </div>
 
                   <div class="widget-content">
-
                     <table class="table table-striped table-bordered table-hover">
                       <thead>
                       	<tr>
@@ -184,7 +274,7 @@
 
         </div><!-- Container ends -->
 		  </div><!-- Matter ends -->
-
+</div>
 
    
 

@@ -46,6 +46,10 @@
     	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/processList/all');
       }
       
+      function modelList(){
+    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/model/list');
+      }
+      
       function showResponse(responseText,statusText) {
       	if(responseText == "success") {
       		alert("success");
@@ -64,17 +68,6 @@
       function runningList(){
     	  $.ajax({
     		  url:'<%=request.getContextPath() %>/workflow/processinstance/running',
-    		  cache:false,
-    		  dataType:"html",//
-    		  success:function(data){
-    			 $(".mainbar").html(data);
-    		  }
-    	  });
-      }
-      
-      function modelList(){
-    	  $.ajax({
-    		  url:'<%=request.getContextPath() %>/workflow/model/list',
     		  cache:false,
     		  dataType:"html",//
     		  success:function(data){
