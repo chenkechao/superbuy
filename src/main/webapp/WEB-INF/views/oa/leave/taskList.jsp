@@ -83,6 +83,7 @@
   	$(function() {
 	    // 办理
 	    $('.handle').click(handle);
+	    $('.trace').click(graphTrace);
 	});
   	
   	$.fn.coffee = function(obj){
@@ -454,6 +455,24 @@
 			modal.find("#myModal").off("shown.bs.modal");
 		});
 	}
+     
+      function graphTrace(){
+    	  var modal = parent.window.$(parent.document);
+  		var pid = $(this).attr("pid");
+  		var pdid = $(this).attr("pdid");
+  		var url = "<%=request.getContextPath() %>/workflow/showTraceModalView";
+  		modal.find("#myModal")
+		.modal({remote:url})
+		.on("shown.bs.modal",function(){
+			var traceframeurl = "<%=request.getContextPath()%>/diagram-viewer/index.html?processDefinitionId="+pdid+"&processInstanceId="+pid;
+			$(".modal-body",modal).children().attr("src",traceframeurl);
+			$(".modal-dialog",modal).css({"width":"60%"});
+			$(".modal-body",modal).css("height","500px");
+		}).on("hide.bs.modal",function(){
+			modal.find("#myModal").removeData("bs.modal");
+			modal.find("#myModal").off("shown.bs.modal");
+		});
+      }
       
       function loadDetail(id,taskId,callback) {
       	var dialog = parent.window.$(parent.document);
@@ -575,7 +594,7 @@
 									<td>${leave.applyTime }</td>
 									<td>${leave.startTime }</td>
 									<td>${leave.endTime }</td>
-									<td>dangqianjiedian</td>
+									<td><a class="trace" href='#' pid="${pi.id }" pdid="${pi.processDefinitionId}">fda</a></td>
 									<td>${task.createTime }</td>
 									<td>${pi.suspended }</td>
 									<td>

@@ -210,4 +210,9 @@ public class ActivitController {
 	 public String showUploadModal(ModelAndView mav) {
 		 return "workflow/uploadview";
 	 }
+	 
+	 @RequestMapping(value="/showTraceModalView")
+	 public String showTraceModalView(ModelAndView mav) {
+		 return "workflow/traceview";
+	 }
 }
