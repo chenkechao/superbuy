@@ -123,6 +123,12 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(RESOURCES_LOCATION).addResourceLocations(RESOURCES_HANDLER);
         registry.addResourceHandler("/diagram-viewer/**").addResourceLocations("/diagram-viewer/");
+        registry.addResourceHandler("/editor-app/**").addResourceLocations("/editor-app/");
+//        registry.addResourceHandler("/api/**").addResourceLocations("/api/");
+//        registry.addResourceHandler("/editor/**").addResourceLocations("/editor/");
+//        registry.addResourceHandler("/explorer/**").addResourceLocations("/explorer/");
+//        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+//        registry.addResourceHandler("/libs/**").addResourceLocations("/libs/");
     }
 
     /**                                                          
