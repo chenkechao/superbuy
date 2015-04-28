@@ -50,6 +50,10 @@
     	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/model/list');
       }
       
+      function formList(){
+    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/form/config/list');
+      }
+      
       function showResponse(responseText,statusText) {
       	if(responseText == "success") {
       		alert("success");
@@ -426,9 +430,9 @@
               <li><a href="error-log.html">已结束流程(外置)</a></li>
             </ul>
           </li>    
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>综合流程  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>form  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
-              <li><a href="media.html">流程列表</a></li>
+              <li><a  href="#" onClick="formList()">流程列表</a></li>
               <li><a href="statement.html">任务列表(综合)</a></li>
               <li><a href="error.html">运行中流程表(综合)</a></li>
               <li><a href="error-log.html">已结束流程(综合)</a></li>
