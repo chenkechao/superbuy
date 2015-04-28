@@ -236,8 +236,8 @@ function showResponse(responseText,statusText) {
                                   <td>${model.metaInfo }</td>
                                   <td>
                                       <a href="<%=request.getContextPath() %>/editor-app/modeler.html?id=${form.id}" target="_blank">bianji</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/deploy/${form.id}">bushu</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/export/${form.id}" target="_blank">daochu</a>
+									  <a href="<%=request.getContextPath() %>/form/config/designer/${form.id}" target="_blank">bianji</a>
+									  <a href="<%=request.getContextPath() %>/form/config/view/${form.id}">chakan</a>
 			                          <a href="<%=request.getContextPath() %>/workflow/model/delete/${form.id}">shanchu</a>
                                   </td>
                               </tr>

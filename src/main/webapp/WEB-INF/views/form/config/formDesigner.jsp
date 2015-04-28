@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +19,7 @@
 
 <div class="container" style="padding-top: 5px; padding-left: 5px">
     <form method="post" id="saveform" name="saveform" action="">
-        <input type="hidden" name="fields" id="fields">
+        <input type="hidden" name="fields" id="fields" value="${form.fieldNum }">
         <div class="row">
             <div class="span2">
                 <ul class="nav nav-list">
@@ -38,7 +39,7 @@
             </div>
 
             <div class="span10">
-                <script id="formEditor" type="text/plain" style="width:100%;"></script>
+                <script id="formEditor" type="text/plain" style="width:100%;">${form.originalHtml}</script>
             </div>
         </div><!--end row-->
     </form>

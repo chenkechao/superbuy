@@ -32,6 +32,14 @@ public class Form implements java.io.Serializable{
 	private Date createTime;
 	@Column
 	private String type;
+	@Column
+	private int fieldNum;
+	@Column
+	private String originalHtml;
+	@Column
+	private String parseHtml;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -68,5 +76,22 @@ public class Form implements java.io.Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	public int getFieldNum() {
+		return fieldNum;
+	}
+	public void setFieldNum(int fieldNum) {
+		this.fieldNum = fieldNum;
+	}
+	public String getOriginalHtml() {
+		return originalHtml;
+	}
+	public void setOriginalHtml(String originalHtml) {
+		this.originalHtml = originalHtml;
+	}
+	public String getParseHtml() {
+		return parseHtml;
+	}
+	public void setParseHtml(String parseHtml) {
+		this.parseHtml = parseHtml;
+	}
 }
