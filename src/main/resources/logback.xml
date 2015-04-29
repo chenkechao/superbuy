@@ -16,7 +16,7 @@
 	</root>
 
 	<logger name="com.keke.shop.superbuy" level="ALL" />
-	<!-- 
+	<!-- 	 -->
 	<logger name="org.activiti.engine.impl.persistence.entity" level="DEBUG"/>
-	 -->
+
 </configuration>

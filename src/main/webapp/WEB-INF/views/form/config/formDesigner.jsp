@@ -283,9 +283,9 @@ var formDesign = {
             //异步提交数据
             $.ajax({
                 type: 'POST',
-                url : '${ctx}/config/form/processor',
+                url : '<%=request.getContextPath()%>/form/config/processor',
                 //dataType : 'json',
-                data : {'type' : type_value,'formid':'${form.id}','parse_form':parse_form},
+                data : {'type' : type_value,'formId':'${form.id}','parse_form':parse_form},
                 success : function(data){
 					if(data == true) {
 						alert('表单保存成功');

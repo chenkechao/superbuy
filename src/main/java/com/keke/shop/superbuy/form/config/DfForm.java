@@ -13,11 +13,11 @@ import com.keke.shop.superbuy.account.Account;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name="form")
-@NamedQuery(name = Form.FIND_ALL, query = "select a from Form a")
-public class Form implements java.io.Serializable{
+@Table(name="df_form")
+@NamedQuery(name = DfForm.FIND_ALL, query = "select a from DfForm a")
+public class DfForm implements java.io.Serializable{
 	
-	public static final String FIND_ALL = "Form.findAll";
+	public static final String FIND_ALL = "DfForm.findAll";
 	
 	@Id
 	@GeneratedValue
