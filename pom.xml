@@ -15,11 +15,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
         <java-version>1.8</java-version>
-        <io.spring.platform-version>1.1.1.RELEASE</io.spring.platform-version>
+        <io.spring.platform-version>1.1.2.RELEASE</io.spring.platform-version>
         <!-- AssertJ is not a part of Spring IO platform, so the version must be provided explicitly -->
         <assertj-core-version>1.5.0</assertj-core-version>
     </properties>
     <repositories>
+   		<repository>
+	        <id>spring-snapshots</id>
+	        <name>Spring Snapshots</name>
+	        <url>http://repo.spring.io/snapshot</url>
+	        <snapshots>
+	            <enabled>true</enabled>
+	        </snapshots>
+	    </repository>
         <repository>
             <id>java.net2</id>
             <name>Repository hosting the jee6 artifacts</name>
@@ -42,17 +50,28 @@
         </repository>
     </repositories>
     <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.spring.platform</groupId>
-                <artifactId>platform-bom</artifactId>
-                <version>${io.spring.platform-version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	            <groupId>io.spring.platform</groupId>
+	            <artifactId>platform-bom</artifactId>
+	            <version>${io.spring.platform-version}</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
     <dependencies>
+    	<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.5</version>
+		</dependency>
+    	<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+    
         <dependency>  
 			<groupId>org.apache.struts</groupId>  
 			<artifactId>struts2-core</artifactId>  
@@ -138,6 +157,7 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
         </dependency>
+        
         <!-- javax.validation (JSR-303) -->
         <dependency>
             <groupId>org.hibernate</groupId>
