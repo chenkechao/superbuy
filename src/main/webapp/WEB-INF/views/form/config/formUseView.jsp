@@ -80,84 +80,7 @@
   	}
   </style>
   <script type="text/javascript">
-  $(function(){
-	  $(".handle").on("click",handle);
-  });
-  
-  var handleOpts ={
-		  creacreateform:{
-			  width:300,
-			  height:300,
-			  url:"<%=request.getContextPath()%>/form/config/showCreateFormModal",
-			  open:function(){
-				  var modal = parent.window.$(parent.document);
-				  var options = {  
-		 			    	url:'<%=request.getContextPath()%>/form/config/create',
-		 			    	type:'post',
-		 			        beforeSubmit:  showRequest,  //提交前处理 
-		 			        success:       showResponse,  //处理完成 
-		 			        dataType:'html',
-		 			        resetForm: true,  
-		 			    }; 
-		  			 
-		  			$('#modalform',modal).on("submit",function(){
-		  				$('#modalform',modal).ajaxSubmit(options);  
-					        return false;
-		  			});
-			  },
-			  savebtn:[{
-				  text:'chuangjian',
-				  css:'btn btn-primary',
-				  click:function(){
-					  var modal = parent.window.$(parent.document);
-					  $('#modalform',modal).submit();
-				  }
-			  },{
-				  text:'quxiao',
-				  css:'btn btn-default',
-				  click:function(){
-					  $("#myModal",parent.window.$(parent.document)).modal("hide");
-				  }
-			  }]
-		  }
-  };
-  
-  function showRequest(formData,jqForm,options){
-  }  
 
-function showResponse(responseText,statusText) {
-  	if(responseText == "success") {
-  		alert("success");
-  		$("#myModal",parent.window.$(parent.document)).modal("hide");
-  		location.reload();
-  	}else{
-  		alert("error");
-  	}
-  }
-  
-  function handle(){
-	  var tkey = $(this).attr("tkey");
-	var modal = parent.window.$(parent.document);
-	modal.find("#myModal")
-		.modal({remote:handleOpts[tkey].url})
-		.on("shown.bs.modal",function(){
-			if($(".handle-footer input",modal).length==0){
-			$.each(handleOpts[tkey].savebtn,function(){
-				$("<input>", {
-				  type: "button",
-				  val: this.text,
-				  class:this.css,
-				  click: this.click,
-				}).appendTo($(".handle-footer",modal));
-			});
-			handleOpts[tkey].open.call(this);
-			}
-		}).on("hide.bs.modal",function(){
-			modal.find("#myModal").removeData("bs.modal");
-			$(".handle-footer input",modal).remove();
-			modal.find("#myModal").off("shown.bs.modal");
-		});
-  }
   </script>
 </head>
 
@@ -187,85 +110,12 @@ function showResponse(responseText,statusText) {
 
 	    <div class="matter">
         <div class="container">
-
-		<div>
-				<button tkey="creacreateform" type="button" class="btn btn-primary handle">xinjian</button>
-				<button type="button" class="btn btn-default">Primary</button>
-				<button type="button" class="btn btn-success">Success</button>
-				<button type="button" class="btn btn-info">Info</button>
-				<button type="button" class="btn btn-warning">Warning</button>
-				<button type="button" class="btn btn-danger">Danger</button>
-			</div>
           <!-- Table -->
 
             <div class="row">
-
-              <div class="col-md-12">
-
-                <div class="widget">
-
-                <div class="widget-head">
-                  <div class="pull-left">Tables</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>  
-                  <div class="clearfix"></div>
-                </div>
-
-                  <div class="widget-content">
-                    <table class="table table-striped table-bordered table-hover">
-                      <thead>
-                      	<tr>
-							<th>表单名称</th>
-							<th>显示名称</th>
-							<th>创建人</th>
-							<th>创建时间</th>
-							<th>类别</th>
-							<th>操作</th>
-                      	</tr>
-                      </thead>
-                      <tbody>
-                          <c:forEach items="${formList }" var="form">
-                              <tr>
-                                  <td>${form.name }</td>
-                                  <td>${form.displayName }</td>
-                                  <td>${form.creator }</td>
-                                  <td>${form.createTime }</td>
-                                  <td>${form.type }</td>
-                                  <td>${model.metaInfo }</td>
-                                  <td>
-									  <a href="<%=request.getContextPath() %>/form/config/designer/${form.id}" target="_blank">sheji</a>
-									  <a href="<%=request.getContextPath() %>/form/config/view/${form.id}">chakan</a>
-			                          <a href="<%=request.getContextPath() %>/form/config/use/${form.id}">lurushuju</a>
-                                  </td>
-                              </tr>
-                          </c:forEach>
-                      </tbody>
-                    </table>
-
-                    <div class="widget-foot">
-
-                      
-                        <ul class="pagination pull-right">
-                          <li><a href="#">Prev</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">Next</a></li>
-                        </ul>
-                      
-                      <div class="clearfix"></div> 
-
-                    </div><!--widget-foot ends  -->
-
-                </div><!-- widget-content ends -->
-
-              </div><!-- widget ends -->
-
-            </div><!-- con-md-12 ends -->
-
+				<form id="inputForm" action="" method="post"  target="mainFrame">
+					${form.parseHtml }
+				</form>
             </div><!-- row ends -->
 
         </div><!-- Container ends -->

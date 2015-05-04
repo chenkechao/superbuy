@@ -100,4 +100,14 @@ public class FormConfigController {
 		}
 		return "success";
 	}
+	
+	@RequestMapping(value="/use/{formId}")
+	public ModelAndView use(@PathVariable String formId){
+		ModelAndView mav = new ModelAndView("form/config/formUseView");
+		DfForm dfForm = formManager.getDfForm(Long.parseLong(formId));
+		String orderId = null;
+		String taskId = null;
+		mav.addObject("form", dfForm);
+		return mav;
+	}
 }

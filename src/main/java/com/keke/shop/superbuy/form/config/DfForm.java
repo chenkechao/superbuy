@@ -34,9 +34,9 @@ public class DfForm implements java.io.Serializable{
 	private String type;
 	@Column
 	private int fieldNum;
-	@Column
+	@Column(columnDefinition="TEXT")
 	private String originalHtml;
-	@Column
+	@Column(columnDefinition="TEXT")
 	private String parseHtml;
 	
 	

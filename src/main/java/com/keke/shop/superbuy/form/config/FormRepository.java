@@ -28,7 +28,12 @@ public class FormRepository {
 	
 	@Transactional
 	public DfForm save(DfForm dfForm) {
-		entityManager.persist(dfForm);
+		if(dfForm.getId()==null){
+			entityManager.persist(dfForm);
+		}else{
+			dfForm = entityManager.merge(dfForm);
+			entityManager.flush();
+		}
 		return dfForm;
 	}
 	
