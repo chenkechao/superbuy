@@ -4,6 +4,9 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +22,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import com.keke.shop.superbuy.Application;
 
 @Configuration
-class MyBatisConfig implements TransactionManagementConfigurer {
+class MyBatisConfig{
 
     @Value("${dataSource.driverClassName}")
     private String driver;
@@ -60,11 +63,23 @@ class MyBatisConfig implements TransactionManagementConfigurer {
     }
 
     @Bean
-    public void configureEntityManagerFactory() {
+    public SqlSessionFactoryBean configureSqlSessionFactoryBean() {
+    	SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+    	bean.setDataSource(configureDataSource());
+    	//bean.setMapperLocations(mapperLocations);
+		return bean;
+    }
+    
+    @Bean
+    public SqlSessionTemplate configureSqlSessionTemplate(){
+    	SqlSessionTemplate sqlSessionTemplate = null;
+		try {
+			sqlSessionTemplate = new SqlSessionTemplate(configureSqlSessionFactoryBean().getObject());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return sqlSessionTemplate;
     }
 
-    @Bean
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new JpaTransactionManager();
-    }
 }

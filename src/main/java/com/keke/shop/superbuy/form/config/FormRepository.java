@@ -1,20 +1,30 @@
 package com.keke.shop.superbuy.form.config;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
 import javax.persistence.*;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public class FormRepository {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
 	
 	@Transactional
 	public DfForm save(DfForm dfForm) {
@@ -74,16 +84,14 @@ public class FormRepository {
 		}
 	}
 	
-	public void checkTableFormExist(String tableName){
+	public void checkTableFormExist(String tableName) throws Exception{
 		String checkSQL = "select count(*) from " + tableName + " where id = 1";
-		try {
 			Query query = entityManager.createNativeQuery(checkSQL);
 			if(query.getResultList().size() == 0) {
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		Connection connection = sqlSession.getConnection();
+//		Statement stat = connection.createStatement();
+//		stat.execute(checkSQL.toString());
 	}
 	
 	public boolean createTableForm(String tableName,List<DfField> fieldList){
@@ -100,8 +108,12 @@ public class FormRepository {
 		sql.append("TASKID VARCHAR(50),");
 		sql.append("PRIMARY KEY (ID)");
 		sql.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+		Connection connection = null;
 		try {
-			entityManager.createNativeQuery(sql.toString());
+			//entityManager.createNativeQuery(sql.toString());
+			connection = sqlSession.getConnection();
+			Statement stat = connection.createStatement();
+			stat.execute(sql.toString());
 			//entityManager.flush();
 			return true;
 		} catch (Exception e) {
