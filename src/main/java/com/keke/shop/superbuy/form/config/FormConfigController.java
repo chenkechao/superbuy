@@ -2,11 +2,14 @@ package com.keke.shop.superbuy.form.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -102,12 +106,31 @@ public class FormConfigController {
 	}
 	
 	@RequestMapping(value="/use/{formId}")
-	public ModelAndView use(@PathVariable String formId){
-		ModelAndView mav = new ModelAndView("form/config/formUseView");
+	public String use(@PathVariable String formId,Model model){
 		DfForm dfForm = formManager.getDfForm(Long.parseLong(formId));
+		String processId = null;
 		String orderId = null;
 		String taskId = null;
-		mav.addObject("form", dfForm);
-		return mav;
+		model.addAttribute("dfForm", dfForm);
+		model.addAttribute("processId", processId);
+		model.addAttribute("orderId", orderId);
+		model.addAttribute("taskId", taskId);
+		if(StringUtils.isEmpty(orderId)||StringUtils.isNotEmpty(taskId)) {
+			return "form/config/formUse";
+		}else{
+			return "form/config/formUseView";
+		}
+	}
+	
+	@RequestMapping(value="submit",method=RequestMethod.POST)
+	public String submit(long formId,HttpServletRequest request,String processId,String orderId,String taskId){
+		List<DfField> dfFields = formManager.getFields(formId);
+		DfForm dfForm = formManager.getDfForm(formId);
+		Map<String,Object> params = new HashMap<String,Object>();
+		for(DfField dfField:dfFields){
+			//if(Field.F)
+		}
+		formManager.submitTableForm(dfForm, request.getParameterMap());
+		return "form/config/list";
 	}
 }

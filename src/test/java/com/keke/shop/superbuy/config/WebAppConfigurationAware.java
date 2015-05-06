@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
         ApplicationConfig.class,
         EmbeddedDataSourceConfig.class,
         JpaConfig.class,
+        MyBatisConfig.class,
         NoCsrfSecurityConfig.class,
         WebMvcConfig.class
 })

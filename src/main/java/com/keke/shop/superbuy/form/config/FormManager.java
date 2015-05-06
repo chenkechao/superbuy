@@ -23,6 +23,9 @@ public class FormManager {
 	@Autowired
 	private FormRepository formRepository;
 	
+	@Autowired
+	private FieldRepository fieldRepository;
+	
 	public void saveDfForm(DfForm dfForm) {
 		if(dfForm.getId() == null) {
 			dfForm.setCreateTime(new Date());
@@ -76,9 +79,9 @@ public class FormManager {
 			
 			
 			for(DfField dfField:dfFieldList) {
-				boolean hasDfFieldName = formRepository.queryDfFieldNames(getTableName(dfForm)).contains(dfField.getFieldname());
+				boolean hasDfFieldName = fieldRepository.queryDfFieldNames(getTableName(dfForm)).contains(dfField.getFieldname());
 				if(!hasDfFieldName){
-					formRepository.saveDfField(dfField);
+					fieldRepository.saveDfField(dfField);
 				}
 			}
 		} catch (Exception e) {
@@ -86,5 +89,14 @@ public class FormManager {
 			e.printStackTrace();
 		}
 		return nameMap;
+	}
+	
+	public List<DfField> getFields(long formId){
+		return fieldRepository.findByFormId(formId);
+	}
+	
+	public boolean submitTableForm(DfForm dfForm,Map<String, String[]> map){
+		formRepository.insertTableForm(map,getTableName(dfForm));
+		return true;
 	}
 }

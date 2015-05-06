@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,6 +26,9 @@ public class FormRepository {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Autowired
+	private FieldRepository fieldRepository;
 	
 	@Transactional
 	public DfForm save(DfForm dfForm) {
@@ -53,42 +57,6 @@ public class FormRepository {
 		return form;
 	}
 	
-	@Transactional
-	public boolean saveDfField(DfField dfField){
-		entityManager.persist(dfField);
-		return true;
-	}
-	
-	public List<String> queryDfFieldNames(String tableName){
-		Query query = entityManager.createNamedQuery(DfField.FIND_NAMES)
-				.setParameter("tableName", tableName);
-		List<String> list = query.getResultList();
-		return list;
-	}
-
-	private String fieldSQL(DfField dfField){
-		String plugins = dfField.getPlugins();
-		if(plugins.equalsIgnoreCase("textarea")
-				||plugins.equalsIgnoreCase("listctrl")){
-			return " TEXT";
-		} else if(plugins.equalsIgnoreCase("text")){
-			String type = dfField.getOrgtype();
-			if("text".equals(type)) {
-				return " VARCHAR(255) NOT NULL DEFAULT ''";
-			}else if("int".equals(type)) {
-				return " INT NOT NULL DEFAULT 0";
-			}else if("float".equals(type)) {
-				return " FLOAT";
-			}else {
-				return " VARCHAR(255) NOT NULL DEFAULT ''";
-			}
-		}else if(plugins.equalsIgnoreCase("radios")) {
-			return " VARCHAR(255) NOT NULL DEFAULT ''";
-		}else {
-			return " VARCHAR(255) NOT NULL DEFAULT ''";
-		}
-	}
-	
 	public void checkTableFormExist(String tableName) throws Exception{
 		String checkSQL = "select count(*) from " + tableName + " where id = 1";
 			Query query = entityManager.createNativeQuery(checkSQL);
@@ -105,7 +73,7 @@ public class FormRepository {
 		sql.append("ID INT NOT NULL AUTO_INCREMENT,");
 		for(DfField dfField:fieldList) {
 			sql.append(dfField.getFieldname());
-			sql.append(" ").append(fieldSQL(dfField)).append(",");
+			sql.append(" ").append(FieldRepository.fieldSQL(dfField)).append(",");
 		}
 		sql.append("FORMID INT NOT NULL,");
 		sql.append("UPDATETIME VARCHAR(20),");
@@ -133,12 +101,61 @@ public class FormRepository {
 			if(fieldList.size()>0){
 				for(DfField dfField:fieldList){
 					if(StringUtils.isNotEmpty(dfField.getFieldname())&&
-							!queryDfFieldNames(tableName).contains(dfField.getFieldname())){
-						String updateSql = "ALTER TABLE " +tableName +" ADD COLUMN " + dfField.getFieldname() + fieldSQL(dfField);
+							!fieldRepository.queryDfFieldNames(tableName).contains(dfField.getFieldname())){
+						String updateSql = "ALTER TABLE " +tableName +" ADD COLUMN " + dfField.getFieldname() + FieldRepository.fieldSQL(dfField);
 						entityManager.createNativeQuery(updateSql);
 					}
 				}
 			}
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean insertTableForm(Map<String, String[]> map,String tableName){
+		StringBuilder beforeSql = new StringBuilder();
+		StringBuilder afterSql = new StringBuilder();
+		String subBefore = null;
+		String subAfter = null;
+		beforeSql.append("INSERT INTO ").append(tableName);
+		beforeSql.append(" (");
+		afterSql.append(") values (");
+		if(map != null){
+			for(Map.Entry<String, String[]> entry:map.entrySet()){
+				String[] data = entry.getValue();
+				if(data == null||"".equals(data)||data.length==0){
+					continue;
+				}
+				if("".equals(data[0])){
+					continue;
+				}
+				beforeSql.append(entry.getKey()).append(",");
+				if(data.length==1){
+					afterSql.append("'").append(data[0]).append("'").append(",");
+				}else{
+					String dataArr = ArrayUtils.toString(data);
+					if(dataArr.length() > 1){
+						afterSql.append("'").append(dataArr.substring(1, dataArr.length()-1)).append("'").append(",");
+					}
+				}
+			}
+			subBefore = beforeSql.substring(0, beforeSql.length()-1);
+			subAfter = afterSql.substring(0, afterSql.length()-1);
+		}
+		StringBuilder subBeforeBuilder = new StringBuilder(subBefore);
+		StringBuilder subAfterBuilder = new StringBuilder(subAfter);
+		subAfterBuilder.append(")");
+		subBeforeBuilder.append(subAfterBuilder.toString());
+		Connection connection = null;
+		try {
+			//entityManager.createNativeQuery(sql.toString());
+			connection = sqlSession.getConnection();
+			Statement stat = connection.createStatement();
+			stat.executeUpdate(subBeforeBuilder.toString());
+			//entityManager.flush();
 			return true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

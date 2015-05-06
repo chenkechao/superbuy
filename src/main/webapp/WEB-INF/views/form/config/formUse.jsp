@@ -80,7 +80,11 @@
   	}
   </style>
   <script type="text/javascript">
-	
+	$(function(){
+		$("#submit").click(function(){
+			$("#inputForm").submit();
+		});
+	});
   </script>
 </head>
 
@@ -113,11 +117,19 @@
           <!-- Table -->
 
             <div class="row">
-				<form id="inputForm" action="" method="post"  target="mainFrame">
-					${form.parseHtml }
+				<form id="inputForm" action="<%=request.getContextPath()%>/form/config/submit" method="post"  target="mainFrame">
+					<input type="hidden" id="formId" name="formId" value="${dfForm.id }"/>
+					<input type="hidden" id="processId" name="processId" value="${processId }"/>
+					<input type="hidden" id="orderId" name="orderId" value="${orderId }"/>
+					<input type="hidden" id="taskId" name="taskId" value="${taskId }"/>
+					${dfForm.parseHtml }
 				</form>
             </div><!-- row ends -->
-
+			<div class="row">
+				<p style="text-align: left;">
+					<button type="submit" id="submit" value="save" class="btn btn-success">quedingbaocun</button>
+				</p>
+			</div>
         </div><!-- Container ends -->
 		  </div><!-- Matter ends -->
 </div>

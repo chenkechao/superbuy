@@ -312,6 +312,10 @@
 			  <scope>system</scope>
 			  <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/commons-codec-1.9.jar</systemPath>
 		 </dependency>
+		 <dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-jpamodelgen</artifactId>
+		</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -334,6 +338,9 @@
                 <configuration>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
+                    <compilerArguments>
+			            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+			        </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>
