@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.keke.shop.superbuy.orm.Page;
 import com.keke.shop.superbuy.orm.PropertyFilter;
@@ -18,7 +20,7 @@ import com.keke.shop.superbuy.security.entity.Resource;
  * @author yuqs
  * @since 0.1
  */
-@Component
+@Service
 public class ResourceManager {
 	//注入资源持久化对象
 	@Autowired
@@ -85,6 +87,7 @@ public class ResourceManager {
 	 * 查询所有资源记录
 	 * @return
 	 */
+	@Transactional
 	public List<Resource> getAll() {
 		return resourceDao.getAll();
 	}

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -70,22 +71,20 @@ class HibernateConfig{
     	bean.setDataSource(configureDataSource());
     	bean.setPackagesToScan("com.keke.shop.superbuy");
     	bean.setMappingResources(null);
+    	Properties p = new Properties();
+    	p.put("hibernate.current_session_context_class", "thread");
+    	bean.setHibernateProperties(p);
     	//bean.setNamingStrategy(org.hibernate.cfg.ImprovedNamingStrategy.class);
     	bean.setHibernateProperties(null);
     	//bean.setMapperLocations(mapperLocations);
 		return bean;
     }
     
-//    @Bean
-//    public SqlSessionTemplate configureSqlSessionTemplate(){
-//    	SqlSessionTemplate sqlSessionTemplate = null;
-//		try {
-//			sqlSessionTemplate = new SqlSessionTemplate(configureSqlSessionFactoryBean().getObject());
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	return sqlSessionTemplate;
-//    }
+    
+    public HibernateTransactionManager configureHibernateTransactionManager(){
+    	HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+    	transactionManager.setSessionFactory(configureLocalSessionFactoryBean().getObject());
+    	return transactionManager;
+    }
 
 }

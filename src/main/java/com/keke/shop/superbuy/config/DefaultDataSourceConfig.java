@@ -9,7 +9,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("default")
 class DefaultDataSourceConfig implements DataSourceConfig {
 
     @Value("${dataSource.driverClassName}")
@@ -31,4 +30,5 @@ class DefaultDataSourceConfig implements DataSourceConfig {
         dataSource.setPassword(password);
         return dataSource;
     }
+    
 }

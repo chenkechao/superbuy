@@ -76,4 +76,5 @@
    		<property name="repositoryService" ref="repositoryService" />
    </bean>
    
+   <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

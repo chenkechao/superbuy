@@ -75,7 +75,7 @@ class JpaConfig implements TransactionManagementConfigurer {
 
         return entityManagerFactoryBean;
     }
-
+    
     @Bean
     public PlatformTransactionManager annotationDrivenTransactionManager() {
         return new JpaTransactionManager();
