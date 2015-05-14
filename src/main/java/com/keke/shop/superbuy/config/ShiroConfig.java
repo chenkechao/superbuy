@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.ShiroFilter;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,18 +53,23 @@ class ShiroConfig{
     	map.put("/styles/**", "anon");
     	map.put("/common/**", "anon");
     	map.put("/index", "authc");
+//    	String dd = "/login = anon" + "/n" +
+//				"/logout = logout" + "/n" +
+//				"/styles/** = anon" + "/n" +
+//				"/common/** = anon" +"/n" +
+//				"/index = authc";
     	dataSource.setFilterChainDefinitions(map.toString());
     	return dataSource;
     }
 
     @Bean
-    public ShiroFilterFactoryBean configureShiroFilterFactoryBean() throws Exception {
+    public ShiroFilter configureShiroFilterFactoryBean() throws Exception {
     	ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
     	shiroFilter.setSecurityManager(configureDefaultWebSecurityManager());
     	shiroFilter.setLoginUrl("/login");
     	shiroFilter.setSuccessUrl("index");
     	shiroFilter.setUnauthorizedUrl("/common/403.jsp");
     	shiroFilter.setFilterChainDefinitionMap(configureShiroDefinitionSectionMetaSource().getObject());
-    	return shiroFilter;
+    	return (ShiroFilter)shiroFilter.getObject();
     }
 }
