@@ -21,6 +21,7 @@ import com.keke.shop.superbuy.security.entity.Resource;
  * @since 0.1
  */
 @Service
+@Transactional
 public class ResourceManager {
 	//注入资源持久化对象
 	@Autowired
@@ -87,7 +88,6 @@ public class ResourceManager {
 	 * 查询所有资源记录
 	 * @return
 	 */
-	@Transactional
 	public List<Resource> getAll() {
 		return resourceDao.getAll();
 	}

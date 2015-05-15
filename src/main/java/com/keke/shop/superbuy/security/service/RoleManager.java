@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.keke.shop.superbuy.orm.Page;
 import com.keke.shop.superbuy.orm.PropertyFilter;
@@ -18,6 +19,7 @@ import com.keke.shop.superbuy.security.entity.User;
  * @since 0.1
  */
 @Component
+@Transactional
 public class RoleManager {
 	//注入角色持久化对象
 	@Autowired

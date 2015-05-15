@@ -19,9 +19,8 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import com.keke.shop.superbuy.Application;
 
 @Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = Application.class)
-class JpaConfig implements TransactionManagementConfigurer {
+class JpaConfig{
+//class JpaConfig implements TransactionManagementConfigurer {
 
     @Value("${dataSource.driverClassName}")
     private String driver;
@@ -76,8 +75,8 @@ class JpaConfig implements TransactionManagementConfigurer {
         return entityManagerFactoryBean;
     }
     
-    @Bean
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-        return new JpaTransactionManager();
-    }
+//    @Bean
+//    public PlatformTransactionManager annotationDrivenTransactionManager() {
+//        return new JpaTransactionManager();
+//    }
 }

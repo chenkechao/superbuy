@@ -5,6 +5,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSession;
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,15 +73,15 @@ class HibernateConfig{
     	bean.setPackagesToScan("com.keke.shop.superbuy");
     	bean.setMappingResources(null);
     	Properties p = new Properties();
-    	p.put("hibernate.current_session_context_class", "thread");
+    	p.put("hibernate.current_session_context_class", "org.springframework.orm.hibernate4.SpringSessionContext");
     	bean.setHibernateProperties(p);
-    	//bean.setNamingStrategy(org.hibernate.cfg.ImprovedNamingStrategy.class);
+    	bean.setNamingStrategy(new ImprovedNamingStrategy());
     	bean.setHibernateProperties(null);
     	//bean.setMapperLocations(mapperLocations);
 		return bean;
     }
     
-    
+    @Bean(name="transactionManager")
     public HibernateTransactionManager configureHibernateTransactionManager(){
     	HibernateTransactionManager transactionManager = new HibernateTransactionManager();
     	transactionManager.setSessionFactory(configureLocalSessionFactoryBean().getObject());

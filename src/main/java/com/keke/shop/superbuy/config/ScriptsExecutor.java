@@ -25,7 +25,7 @@ import java.sql.SQLException;
  * @author yuqs
  * @since 1.0
  */
-@Component
+@Component(value="executor")
 public class ScriptsExecutor {
     private static final Logger log = LoggerFactory.getLogger(ScriptsExecutor.class);
     //数据源

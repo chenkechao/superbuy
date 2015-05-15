@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.keke.shop.superbuy.orm.Page;
 import com.keke.shop.superbuy.orm.PropertyFilter;
@@ -22,6 +23,7 @@ import com.keke.shop.superbuy.util.EncodeUtils;
  * @since 0.1
  */
 @Component
+@Transactional
 public class UserManager {
 	public static final String HASH_ALGORITHM = "SHA-1";
 	public static final int HASH_INTERATIONS = 1024;
@@ -63,6 +65,7 @@ public class UserManager {
 	 * @param username
 	 * @return
 	 */
+	@Transactional
 	public User findUserByName(String username) {
 		return userDao.findUniqueBy("username", username);
 	}

@@ -21,7 +21,6 @@
     <property name="location" value="classpath:db.properties" />
     <property name="ignoreUnresolvablePlaceholders" value="true" />
   </bean> -->
-    
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
     <property name="driverClassName" value="${dataSource.driverClassName}" />
     <property name="url" value="${dataSource.url}" />
@@ -75,6 +74,5 @@
    		<property name="taskService" ref="taskService" />
    		<property name="repositoryService" ref="repositoryService" />
    </bean>
-   
    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>
