@@ -1,3 +1,14 @@
+drop table if exists sec_authority_resource;
+drop table if exists sec_role_authority;
+drop table if exists sec_role_user;
+drop table if exists sec_user_authority;
+drop table if exists sec_authority;
+drop table if exists sec_user;
+drop table if exists sec_role;
+drop table if exists sec_resource;
+drop table if exists sec_org;
+drop table if exists sec_menu;
+
 CREATE TABLE wf_process (
     id                VARCHAR(32) PRIMARY KEY NOT NULL comment '主键ID',
     name              VARCHAR(100) comment '流程名称',

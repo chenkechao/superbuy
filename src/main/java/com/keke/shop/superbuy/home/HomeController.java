@@ -4,20 +4,23 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpSession;
 
-import org.activiti.engine.identity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.keke.shop.superbuy.security.entity.User;
+import com.keke.shop.superbuy.security.shiro.ShiroPrincipal;
+import com.keke.shop.superbuy.security.shiro.ShiroUtils;
+
 @Controller
 public class HomeController {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView index(HttpSession session) {
-		User user = (User) session.getAttribute("user");
+	@RequestMapping(value = {"/" , "/index"}, method = RequestMethod.GET)
+	public ModelAndView index() {
 		ModelAndView mav = null;
-		if(user!=null){
+		User user = (User) ShiroUtils.getUser();
+		if(user != null){
 			mav = new ModelAndView("home/homeSignedIn");
 			mav.addObject("user", user);
 		}else{
