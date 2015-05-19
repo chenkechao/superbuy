@@ -81,47 +81,99 @@
   </style>
   
   <script type="text/javascript">
-      
+  	$(function() {
+	    // 办理
+	    $('.handle').click(handle);
+	});	    
+  
       function processDefinitionList(processType){
     	  $('#mainIframe',parent.document).attr("src",'<%=request.getContextPath() %>/workflow/processList/'+processType);
       }
       
-      function deployNew(){
+      var handleOpts = {
+    		  deploy:  {
+      	        width: 300,
+      		    height: 300,
+      		    url:"<%=request.getContextPath()%>/workflow/showUploadModal",
+      	    	open:function() {
+      	    		$("#file",parent.window.$(parent.document)).fileinput({
+      	  			  uploadUrl: '<%=request.getContextPath()%>/workflow/deploy',
+      	  		      allowedFileExtensions : ['xml','bar'],
+      	  		      overwriteInitial: false,
+      	  		      maxFileSize: 1000,
+      	  		      maxFilesNum: 10,
+      	  		      //allowedFileTypes: ['image', 'video', 'flash'],
+      	  		      slugCallback: function(filename) {
+      	  		          return filename.replace('(', '_').replace(']', '_');
+      	  		      }
+      	  			}).on("fileloaded",function(event, file, previewId, index){
+      	  			});
+      	  		          
+      	  			 var options = {  
+      	 			    	target:'#test',
+      	 			    	url:'<%=request.getContextPath()%>/workflow/deploy',
+      	 			    	type:'post',
+      	 			        beforeSubmit:  showRequest,  //提交前处理 
+      	 			        success:       showResponse,  //处理完成 
+      	 			        dataType:'html',
+      	 			        resetForm: true,  
+      	 			    }; 
+      	  			 
+      	  			$('#uploadForm',parent.window.$(parent.document)).on("submit",function(){
+      	  				$('#uploadForm',parent.window.$(parent.document)).ajaxSubmit(options);  
+      				        return false;
+      	  			});
+      	    	},
+      	    	savebtn:[]
+              },
+    		  startup:  {
+    	        width: 300,
+    		    height: 300,
+    		    url:"<%=request.getContextPath()%>/form/formkey/start/showStartForm",
+    	    	open:function() {
+    	    	},
+    	    	savebtn:[{
+    	    		text:'tongyi',
+    	    		css:'btn btn-primary',
+    	    		click:function(){
+    	    		}
+    	    	}
+    	    	,{
+    	    		text:'bohui',
+    	    		css:'btn btn-danger',
+    	    		click:function(){
+    	    		}
+    	    	}
+    	    	,{
+    	    		text:'Close',
+    	    		css:'btn btn-default',
+    	    		click:function(){
+    	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
+    	    		}
+    	    	}]
+          	}
+      }
+      
+      
+      function handle(){
     	  var modal = parent.window.$(parent.document);
+    	  var tkey = $(this).attr("tkey");
+		  var processDefinitionId = "";
+    	  if("startup"==tkey){
+    	      var processDefinitionId =  $(this).parents("tr").attr("id");
+    	  }
+    	  alert(processDefinitionId);
     	 modal.find("#myModal")
-  		.modal({remote:'<%=request.getContextPath()%>/workflow/showUploadModal'})
+  		.modal({remote:handleOpts[tkey].url+ "/" +processDefinitionId})
   		.on("shown.bs.modal",function(){
-  			$("#file",modal).fileinput({
-  			  uploadUrl: '<%=request.getContextPath()%>/workflow/deploy',
-  		      allowedFileExtensions : ['xml','bar'],
-  		      overwriteInitial: false,
-  		      maxFileSize: 1000,
-  		      maxFilesNum: 10,
-  		      //allowedFileTypes: ['image', 'video', 'flash'],
-  		      slugCallback: function(filename) {
-  		          return filename.replace('(', '_').replace(']', '_');
-  		      }
-  			}).on("fileloaded",function(event, file, previewId, index){
-  			});
-  		          
-  			 var options = {  
- 			    	target:'#test',
- 			    	url:'<%=request.getContextPath()%>/workflow/deploy',
- 			    	type:'post',
- 			        beforeSubmit:  showRequest,  //提交前处理 
- 			        success:       showResponse,  //处理完成 
- 			        dataType:'html',
- 			        resetForm: true,  
- 			    }; 
-  			 
-  			$('#uploadForm',modal).on("submit",function(){
-  				$('#uploadForm',modal).ajaxSubmit(options);  
-			        return false;
-  			});
+  			handleOpts[tkey].open.call(this);
   		}).on("hide.bs.modal",function(){
   			modal.find("#myModal").removeData("bs.modal");
 			modal.find("#myModal").off("shown.bs.modal");
   		});
+      }
+      
+      function readForm(processDefinitionId){
       }
       
       function showRequest(formData,jqForm,options){
@@ -198,7 +250,7 @@
 			</ul>
 		</div>
 		
-		<button type="button" class="btn btn-default" onclick="deployNew()">deploy</button>
+		<button type="button" class="btn btn-default handle" tkey="deploy">deploy</button>
         <!-- Breadcrumb -->
         <div class="bread-crumb pull-right">
           <a href="index.html"><i class="icon-home"></i> Home</a> 
@@ -255,8 +307,7 @@
                       	<c:forEach items="${processList}" var="object">
                       		<c:set var="process" value="${object[0] }"/>
                       		<c:set var="deployment" value="${object[1]}"/>
-                      		<tr id="tr_"+${process.id }>
-                      		    <tr>
+                      		<tr id="${process.id }">
 									<td>${process.id }</td>
 									<td>${process.deploymentId }</td>
 									<td>${process.name }</td>
@@ -276,6 +327,7 @@
 									<td>
 				                        <a href='#' onclick="deleteProcessDefinition('${process.id}','${process.deploymentId }')">Delete</a><br/>
 				                        <a href='#' id="convertButton" onClick="convertToModel('${process.id}')">Convert to Model</a>
+				                        <a href="#" id="startupProcess" tkey="startup" class="handle">qidong</a>
 				                    </td>
                       		</tr>
                       	</c:forEach>                                                    
