@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
+import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +30,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,12 +46,17 @@ import org.thymeleaf.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.keke.shop.superbuy.workflow.util.WorkflowUtils;
 
 @Controller
 @RequestMapping(value="/workflow")
 public class ActivitController {
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private Properties configurePropertiesFactoryBean;
+	
 	
 	@Autowired
 	private RepositoryService repositoryService;
@@ -115,14 +123,19 @@ public class ActivitController {
 							
 							String extension = FilenameUtils.getExtension(myFileName);
 							if(extension.equals("zip") || extension.equals("bar")) {
-								
+								ZipInputStream zip = new ZipInputStream(fileInputStream);
+								deployment = repositoryService.createDeployment().addZipInputStream(zip).deploy();
 							}else{
 								deployment = repositoryService.createDeployment().addInputStream(myFileName, fileInputStream).deploy();
 							}
+							
+							List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
+							for(ProcessDefinition processDefinition : list) {
+								WorkflowUtils.exportDiagramToFile(repositoryService, processDefinition,configurePropertiesFactoryBean.getProperty("export.diagram.path"));
+							}
 							return "success";
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							logger.error("error on deploy process, because of file input stream", e);
 							return "error";
 						}
 					}

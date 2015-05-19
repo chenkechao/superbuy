@@ -93,7 +93,7 @@
   		.on("shown.bs.modal",function(){
   			$("#file",modal).fileinput({
   			  uploadUrl: '<%=request.getContextPath()%>/workflow/deploy',
-  		      allowedFileExtensions : ['xml'],
+  		      allowedFileExtensions : ['xml','bar'],
   		      overwriteInitial: false,
   		      maxFileSize: 1000,
   		      maxFilesNum: 10,

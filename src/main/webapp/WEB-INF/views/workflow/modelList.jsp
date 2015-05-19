@@ -238,7 +238,7 @@
                                   <td>${model.lastUpdateTime }</td>
                                   <td>${model.metaInfo }</td>
                                   <td>
-                                      <a href="<%=request.getContextPath() %>/editor-app/modeler.html?id=${model.id}" target="_blank">bianji</a>
+                                      <a href="<%=request.getContextPath() %>/service/editor?id=${model.id}" target="_blank">bianji</a>
 									  <a href="<%=request.getContextPath() %>/workflow/model/deploy/${model.id}">bushu</a>
 									  <a href="<%=request.getContextPath() %>/workflow/model/export/${model.id}" target="_blank">daochu</a>
 			                          <a href="<%=request.getContextPath() %>/workflow/model/delete/${model.id}">shanchu</a>
