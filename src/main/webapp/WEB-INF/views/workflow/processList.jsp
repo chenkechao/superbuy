@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +17,6 @@
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fontawesome/css/font-awesome.css"> 
   <!-- jQuery UI -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/jquery-ui.css"> 
-  <!-- Calendar -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/fullcalendar.css">
   <!-- prettyPhoto -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/prettyPhoto.css">  
   <!-- Star rating -->
@@ -39,7 +38,6 @@
 <script src="<%=request.getContextPath() %>/resources/js/jquery.js" ></script> <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="<%=request.getContextPath() %>/resources/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
 
@@ -133,19 +131,14 @@
     	    	open:function() {
     	    	},
     	    	savebtn:[{
-    	    		text:'tongyi',
+    	    		text:'qidongliucheng',
     	    		css:'btn btn-primary',
     	    		click:function(){
+    	    			$(".form-horizontal",parent.window.$(parent.document)).submit();
     	    		}
     	    	}
     	    	,{
-    	    		text:'bohui',
-    	    		css:'btn btn-danger',
-    	    		click:function(){
-    	    		}
-    	    	}
-    	    	,{
-    	    		text:'Close',
+    	    		text:'quxiao',
     	    		css:'btn btn-default',
     	    		click:function(){
     	    			$("#myModal",parent.window.$(parent.document)).modal("hide");

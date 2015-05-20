@@ -1,13 +1,9 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
+<%@include file="/common/taglibs.jsp"%>
 	    
 <!-- Bootstrap core CSS -->
-<link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/resources/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
-<link href="<%=request.getContextPath()%>/resources/bootstrap-jquery-ui/css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fontawesome/css/font-awesome.css"> 
 <link href="<%=request.getContextPath()%>/resources/icheck/skins/square/square.css" rel="stylesheet">
 <!-- self css  -->
 
@@ -30,6 +26,9 @@
 <script src="<%=request.getContextPath()%>/resources/js/script.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/resources/js/menu-2.js" type="text/javascript"></script>
 <script>index();</script>
+<script type="text/javascript">
+	var ctx = '<%=request.getContextPath() %>';
+</script>
 
 <script src="<%=request.getContextPath()%>/resources/js/jquery-1.11.1.min.js"></script>
 <script src="<%=request.getContextPath()%>/resources/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>

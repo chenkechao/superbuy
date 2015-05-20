@@ -1,22 +1,16 @@
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <!-- Title and other stuffs -->
-  <title>Bootstrap响应式后台管理系统模版Mac - JS代码网</title> 
-  <meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文,后台管理系统模版,后台模版下载,后台管理系统,后台管理模版" />
-  <meta name="description" content="JS代码网提供Bootstrap模版,后台管理系统模版,后台管理界面,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
+  <title>superbuy</title> 
+  <meta name="keywords" content="superbuy" />
+  <meta name="description" content="superbuy" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="">
-  <!-- Stylesheets -->
-  <link href="<%=request.getContextPath() %>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <!-- Font awesome icon -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fontawesome/css/font-awesome.css"> 
-  <!-- jQuery UI -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/jquery-ui.css"> 
-  <!-- Calendar -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/fullcalendar.css">
   <!-- prettyPhoto -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/prettyPhoto.css">  
   <!-- Star rating -->
@@ -86,6 +80,10 @@
 
       function taskList() {
     	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/list/task');
+      }
+      
+      function schedule() {
+    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/schedule/showCalendar');
       }
   </script>
 </head>
@@ -422,9 +420,9 @@
               <li><a href="invoice.html">已结束流程(动态)</a></li>
             </ul>
           </li> 
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> 外置表单  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> 日程安排  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
-              <li><a href="media.html">流程列表(外置)</a></li>
+              <li><a href="#" onClick="schedule()">日程安排</a></li>
               <li><a href="statement.html">任务列表(外置)</a></li>
               <li><a href="error.html">运行中流程表(外置)</a></li>
               <li><a href="error-log.html">已结束流程(外置)</a></li>
@@ -482,7 +480,6 @@
 <script src="<%=request.getContextPath() %>/resources/js/jquery.js"></script> <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="<%=request.getContextPath() %>/resources/js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
 
