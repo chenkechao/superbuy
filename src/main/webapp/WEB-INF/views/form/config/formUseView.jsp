@@ -6,18 +6,11 @@
 <head>
   <title>formUseView</title> 
   <%@include file="/common/meta.jsp"%>
-  <!-- Main stylesheet -->
-  <link href="<%=request.getContextPath() %>/resources/style/style.css" rel="stylesheet">
   
 <script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
 
-<!-- jQuery Flot -->
 <script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.resize.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.pie.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.stack.js"></script>
 
 <!-- jQuery Notification - Noty -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->

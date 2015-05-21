@@ -115,50 +115,6 @@ $('.wclose').click(function(e){
 
     },600);
 
-/* Slider */
-
-    $(function() {
-        // Horizontal slider
-        $( "#master1, #master2" ).slider({
-            value: 60,
-            orientation: "horizontal",
-            range: "min",
-            animate: true
-        });
-
-        $( "#master4, #master3" ).slider({
-            value: 80,
-            orientation: "horizontal",
-            range: "min",
-            animate: true
-        });        
-
-        $("#master5, #master6").slider({
-            range: true,
-            min: 0,
-            max: 400,
-            values: [ 75, 200 ],
-            slide: function( event, ui ) {
-                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-        });
-
-
-        // Vertical slider 
-        $( "#eq > span" ).each(function() {
-            // read initial values from markup and remove that
-            var value = parseInt( $( this ).text(), 10 );
-            $( this ).empty().slider({
-                value: value,
-                range: "min",
-                animate: true,
-                orientation: "vertical"
-            });
-        });
-    });
-
-
-
 /* Support */
 
 $(document).ready(function(){

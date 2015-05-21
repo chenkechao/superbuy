@@ -1459,14 +1459,9 @@ header .header-data .hdata em{
 
 /* Chart */
 
-#bar-chart,#bar-chart-black,#curve-chart,#live-chart,#pie-chart,#pie-chart2,#pie-chart3{
+#barChart,#lineChart{
 	height: 250px;
 	max-width: 100%;
-}
-
-#pie-chart,#pie-chart2,#pie-chart3{
-	max-width: 300px;
-	margin: 10px auto;
 }
 
 /* Support page */

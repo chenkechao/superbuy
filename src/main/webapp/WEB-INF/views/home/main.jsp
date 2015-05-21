@@ -6,8 +6,6 @@
 <head>
   <title>main</title> 
   <%@include file="/common/meta.jsp"%>
-  <!-- Main stylesheet -->
-  <link href="<%=request.getContextPath() %>/resources/style/style.css" rel="stylesheet">
   <!-- Widgets stylesheet -->
   <link href="<%=request.getContextPath() %>/resources/style/widgets.css" rel="stylesheet">   
   
@@ -110,17 +108,8 @@
                 <div class="widget-content">
                   <div class="padd">
 
-                    <!-- Curve chart (Blue color). jQuery Flot plugin used. -->
-                    <div id="curve-chart"></div>
-
-                    <hr />
-                    <!-- Hover location -->
-                    <div id="hoverdata">Mouse hovers at
-                    (<span id="x">0</span>, <span id="y">0</span>). <span id="clickdata"></span></div>          
-
-                    <!-- Skil this line. <div class="uni"><input id="enableTooltip" type="checkbox">Enable tooltip</div> -->
-
-                  </div>
+                    <canvas id="lineChart"></canvas>
+				  </div>	                    
                 </div>
                 <!-- Widget ends -->
 
@@ -497,9 +486,7 @@
                 </div>
                 <div class="widget-content">
                   <div class="padd">
-                    
-                   <div id="bar-chart"></div>
-
+                    <canvas id="barChart"></canvas>
                   </div>
                   <div class="widget-foot">
                     <!-- Footer goes here -->
@@ -586,15 +573,9 @@
 		      
     </div>
 
-<script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
 
-<!-- jQuery Flot -->
 <script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.resize.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.pie.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery.flot.stack.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/Chart.js"></script>
 
 <!-- jQuery Notification - Noty -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
@@ -610,57 +591,53 @@
 <!-- Script for this page -->
 <script type="text/javascript">
 $(function () {
+	var lineChartData = {
+			labels : ["January","February","March","April","May","June","July"],
+			datasets : [
+				{
+					fillColor : "rgba(220,220,220,0.5)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					data : [65,59,90,81,56,55,40]
+				},
+				{
+					fillColor : "rgba(151,187,205,0.5)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					data : [28,48,40,19,96,27,100]
+				}
+			]
+		}
 
     /* Bar Chart starts */
+	var barChartData = {
+	labels : ["January","February","March","April","May","June","July"],
+	datasets : [
+			{
+				fillColor : "rgba(220,220,220,0.5)",
+				strokeColor : "rgba(220,220,220,1)",
+				data : [65,59,90,81,56,55,40]
+			},
+			{
+				fillColor : "rgba(151,187,205,0.5)",
+				strokeColor : "rgba(151,187,205,1)",
+				data : [28,48,40,19,96,27,100]
+			}
+		]
+	}
 
-    var d1 = [];
-    for (var i = 0; i <= 20; i += 1)
-        d1.push([i, parseInt(Math.random() * 30)]);
 
-    var d2 = [];
-    for (var i = 0; i <= 20; i += 1)
-        d2.push([i, parseInt(Math.random() * 30)]);
-
-
-    var stack = 0, bars = true, lines = false, steps = false;
-    
-    function plotWithOptions() {
-        $.plot($("#bar-chart"), [ d1, d2 ], {
-            series: {
-                stack: stack,
-                lines: { show: lines, fill: true, steps: steps },
-                bars: { show: bars, barWidth: 0.8 }
-            },
-            grid: {
-                borderWidth: 0, hoverable: true, color: "#777"
-            },
-            colors: ["#ff6c24", "#ff2424"],
-            bars: {
-                  show: true,
-                  lineWidth: 0,
-                  fill: true,
-                  fillColor: { colors: [ { opacity: 0.9 }, { opacity: 0.8 } ] }
-            }
-        });
-    }
-
-    plotWithOptions();
-    
-    $(".stackControls input").click(function (e) {
-        e.preventDefault();
-        stack = $(this).val() == "With stacking" ? true : null;
-        plotWithOptions();
-    });
-    $(".graphControls input").click(function (e) {
-        e.preventDefault();
-        bars = $(this).val().indexOf("Bars") != -1;
-        lines = $(this).val().indexOf("Lines") != -1;
-        steps = $(this).val().indexOf("steps") != -1;
-        plotWithOptions();
-    });
-
-    /* Bar chart ends */
-
+	var lineCharContext = $("#lineChart").get(0).getContext("2d");
+	new Chart(lineCharContext).Line(lineChartData,{
+		responsive: true
+	});
+	
+	var barCharContext = $("#barChart").get(0).getContext("2d");
+	new Chart(barCharContext).Line(barChartData,{
+		responsive: true
+	});
 });
 
 
@@ -672,17 +649,6 @@ $(function () {
         sin.push([i, Math.sin(i)]);
         cos.push([i, Math.cos(i)]);
     }
-
-    var plot = $.plot($("#curve-chart"),
-           [ { data: sin, label: "sin(x)"}, { data: cos, label: "cos(x)" } ], {
-               series: {
-                   lines: { show: true, fill: true},
-                   points: { show: true }
-               },
-               grid: { hoverable: true, clickable: true, borderWidth:0 },
-               yaxis: { min: -1.2, max: 1.2 },
-               colors: ["#1eafed", "#1eafed"]
-             });
 
     function showTooltip(x, y, contents) {
         $('<div id="tooltip">' + contents + '</div>').css( {
@@ -697,39 +663,6 @@ $(function () {
             opacity: 0.9
         }).appendTo("body").fadeIn(200);
     }
-
-    var previousPoint = null;
-    $("#curve-chart").bind("plothover", function (event, pos, item) {
-        $("#x").text(pos.x.toFixed(2));
-        $("#y").text(pos.y.toFixed(2));
-
-        if ($("#enableTooltip:checked").length > 0) {
-            if (item) {
-                if (previousPoint != item.dataIndex) {
-                    previousPoint = item.dataIndex;
-                    
-                    $("#tooltip").remove();
-                    var x = item.datapoint[0].toFixed(2),
-                        y = item.datapoint[1].toFixed(2);
-                    
-                    showTooltip(item.pageX, item.pageY, 
-                                item.series.label + " of " + x + " = " + y);
-                }
-            }
-            else {
-                $("#tooltip").remove();
-                previousPoint = null;            
-            }
-        }
-    }); 
-
-    $("#curve-chart").bind("plotclick", function (event, pos, item) {
-        if (item) {
-            $("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
-            plot.highlight(item.series, item.datapoint);
-        }
-    });
-
 });
 
 /* Curve chart ends */
