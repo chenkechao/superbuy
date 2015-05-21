@@ -1,13 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
+<%@include file="/common/include.jsp"%>
+<%@include file="/common/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<title>formDesigner</title>
+    <%@include file="/common/meta.jsp"%>
     <!--[if lte IE 6]>
     <link rel="stylesheet" type="text/css" href="${ctx }/styles/bootstrap/2.2.2/css/bootstrap-ie6.css">
     <![endif]-->
@@ -44,7 +43,6 @@
         </div><!--end row-->
     </form>
 </div><!--end container-->
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
 
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/ueditor/ueditor.all.js"> </script>

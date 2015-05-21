@@ -1,33 +1,13 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
 <%@include file="/common/include.jsp"%>
+<%@include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <!-- Title and other stuffs -->
   <title>superbuy</title> 
-  <meta name="keywords" content="superbuy" />
-  <meta name="description" content="superbuy" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="">
-  <!-- prettyPhoto -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/prettyPhoto.css">  
-  <!-- Star rating -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/rateit.css">
-  <!-- Date picker -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/bootstrap-datetimepicker.min.css">
-  <!-- CLEditor -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/jquery.cleditor.css"> 
-  <!-- Uniform -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/uniform.default.css"> 
-  <!-- Bootstrap toggle -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/bootstrap-switch.css">
+  <%@include file="/common/meta.jsp"%>
   <!-- Main stylesheet -->
   <link href="<%=request.getContextPath() %>/resources/style/style.css" rel="stylesheet">
-  <!-- Widgets stylesheet -->
-  <link href="<%=request.getContextPath() %>/resources/style/widgets.css" rel="stylesheet">   
-    <link href="<%=request.getContextPath() %>/resources/fileinput/css/fileinput.css" rel="stylesheet">
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
@@ -476,12 +456,8 @@
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
 
-<!-- JS -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.js"></script> <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
 
 <!-- jQuery Flot -->
 <script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
@@ -499,15 +475,8 @@
 <!-- jQuery Notification ends -->
 
 <script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.js"></script> <!-- Date picker -->
-<script src="<%=request.getContextPath() %>/resources/js/locales/bootstrap-datetimepicker.fr.js"></script> <!-- Date picker -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
 <script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-<script src="<%=request.getContextPath() %>/resources/fileinput/js/fileinput.js"></script>
 <!-- Script for this page -->
 <script type="text/javascript">
 $(function () {

@@ -1,33 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
+<%@include file="/common/include.jsp"%>
+<%@include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <!-- Title and other stuffs -->
-  <title>Bootstrap响应式后台管理系统模版Mac - JS代码网</title> 
-  <meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文,后台管理系统模版,后台模版下载,后台管理系统,后台管理模版" />
-  <meta name="description" content="JS代码网提供Bootstrap模版,后台管理系统模版,后台管理界面,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="">
-  <!-- Stylesheets -->
-  <link href="<%=request.getContextPath() %>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <!-- Font awesome icon -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fontawesome/css/font-awesome.css"> 
-  <!-- jQuery UI -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/jquery-ui.css"> 
-  <!-- prettyPhoto -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/prettyPhoto.css">  
-  <!-- Star rating -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/rateit.css">
-  <!-- Date picker -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/bootstrap-datetimepicker.min.css">
-  <!-- CLEditor -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/jquery.cleditor.css"> 
-  <!-- Uniform -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/uniform.default.css"> 
-  <!-- Bootstrap toggle -->
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/style/bootstrap-switch.css">
+  <title>main</title> 
+  <%@include file="/common/meta.jsp"%>
   <!-- Main stylesheet -->
   <link href="<%=request.getContextPath() %>/resources/style/style.css" rel="stylesheet">
   <!-- Widgets stylesheet -->
@@ -608,12 +586,8 @@
 		      
     </div>
 
-<!-- JS -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.js"></script> <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
 <script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
 
 <!-- jQuery Flot -->
 <script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
@@ -631,12 +605,7 @@
 <!-- jQuery Notification ends -->
 
 <script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-datetimepicker.js"></script> <!-- Date picker -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
 <script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
 <!-- Script for this page -->
 <script type="text/javascript">
