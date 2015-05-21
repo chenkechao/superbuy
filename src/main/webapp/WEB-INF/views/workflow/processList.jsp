@@ -8,26 +8,11 @@
   <title>processList</title> 
   <%@include file="/common/meta.jsp"%>
   
-<!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
-
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-  
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
   <![endif]-->
 
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
   <style>
   	body{
   		padding-top: 0px;
@@ -115,9 +100,20 @@
     	 modal.find("#myModal")
   		.modal({remote:handleOpts[tkey].url+ "/" +processDefinitionId})
   		.on("shown.bs.modal",function(){
-  			handleOpts[tkey].open.call(this);
+  			if($(".handle-footer input",modal).length==0){
+  				$.each(handleOpts[tkey].savebtn,function(){
+					$("<input>", {
+					  type: "button",
+					  val: this.text,
+					  class:this.css,
+					  click: this.click,
+					}).appendTo($(".handle-footer",modal));
+				});
+  			    handleOpts[tkey].open.call(this);
+  			}
   		}).on("hide.bs.modal",function(){
   			modal.find("#myModal").removeData("bs.modal");
+  			$(".handle-footer input",modal).remove();
 			modal.find("#myModal").off("shown.bs.modal");
   		});
       }
