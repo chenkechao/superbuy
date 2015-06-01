@@ -38,11 +38,6 @@ public class ModelController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/showCreateModelModal")
-	 public String showCreateModelModal(ModelAndView mav) {
-		 return "workflow/createmodelview";
-	 }
-	
 	@RequestMapping(value="create",method=RequestMethod.POST)
 	@ResponseBody
 	public String create(@RequestParam("name") String name,

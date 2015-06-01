@@ -1,36 +1,11 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>leaveApply</title> 
   <%@include file="/common/meta.jsp"%>
-  
-<script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-
-
-<!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
-
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-  
-  <!-- HTML5 Support for IE -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
   <style>
   	body{
   		padding-top: 0px;
@@ -109,7 +84,7 @@
                     <h6>Input Boxs</h6>
                     <hr />
                     <!-- Form starts.  -->
-                     <form id="leave" class="form-horizontal" role="form" action="<%=request.getContextPath()%>/oa/leave/start" method="post">
+                     <form id="leave" class="form-horizontal" role="form" action="${ctx }/oa/leave/start" method="post">
                               
                                 <div class="form-group">
 					                <label for="startTime" class="col-lg-4 control-label">kaishishijian:</label>

@@ -13,32 +13,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.shop.superbuy.dao.LeaveRepository;
+import com.keke.shop.superbuy.form.config.entity.DfField;
+import com.keke.shop.superbuy.form.config.entity.DfForm;
+import com.keke.shop.superbuy.form.config.service.DfFieldManager;
+import com.keke.shop.superbuy.form.config.service.DfFormManager;
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
 
 @Component
+@Transactional
 public class FormManager {
 
 	private static final String TABLE_PREFIX ="TBL_";
 	
 	@Autowired
-	private FormRepository formRepository;
+	private DfFormManager dfFormManager;
 	
 	@Autowired
-	private FieldRepository fieldRepository;
+	private DfFieldManager dfFieldManager;
 	
 	public void saveDfForm(DfForm dfForm) {
 		if(dfForm.getId() == null) {
 			dfForm.setCreateTime(new Date());
 		}
-		formRepository.save(dfForm);
-	}
-	
-	public List<DfForm> listDfForm(){
-		return formRepository.listDfForm();
-	}
-	
-	public DfForm getDfForm(Long id) {
-		return formRepository.findOneDfFormById(id);
+		dfFormManager.save(dfForm);
 	}
 	
 	private String getTableName(DfForm dfForm) {
@@ -63,7 +60,7 @@ public class FormManager {
 		boolean isExists = true;
 		
 		try {
-			formRepository.checkTableFormExist(getTableName(dfForm));
+			dfFormManager.checkTableFormExist(getTableName(dfForm));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -72,16 +69,16 @@ public class FormManager {
 		
 		try {
 			if(!isExists){
-				formRepository.createTableForm(getTableName(dfForm), dfFieldList);
+				dfFormManager.createTableForm(getTableName(dfForm), dfFieldList);
 			}else{
-				formRepository.updateTableForm(getTableName(dfForm), dfFieldList);
+				dfFormManager.updateTableForm(getTableName(dfForm), dfFieldList);
 			}
 			
 			
 			for(DfField dfField:dfFieldList) {
-				boolean hasDfFieldName = fieldRepository.queryDfFieldNames(getTableName(dfForm)).contains(dfField.getFieldname());
+				boolean hasDfFieldName = dfFieldManager.queryDfFieldNames(getTableName(dfForm)).contains(dfField.getFieldname());
 				if(!hasDfFieldName){
-					fieldRepository.saveDfField(dfField);
+					dfFieldManager.save(dfField);
 				}
 			}
 		} catch (Exception e) {
@@ -92,11 +89,11 @@ public class FormManager {
 	}
 	
 	public List<DfField> getFields(long formId){
-		return fieldRepository.findByFormId(formId);
+		return dfFieldManager.findByFormId(formId);
 	}
 	
 	public boolean submitTableForm(DfForm dfForm,Map<String, String[]> map){
-		formRepository.insertTableForm(map,getTableName(dfForm));
+		dfFormManager.insertTableForm(map,getTableName(dfForm));
 		return true;
 	}
 }

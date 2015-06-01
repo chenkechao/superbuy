@@ -5,7 +5,7 @@
     <%@include file="/common/include.jsp"%>
 </head>
 <body>
-	<form class="form-narrow form-horizontal" method="post" action="<%=request.getContextPath() %>/signup">
+	<form class="form-narrow form-horizontal" method="post" action="${ctx }/signup">
 		<fieldset>
 			<legend>Please Sign Up</legend>
 			<div class="form-group">

@@ -1,4 +1,5 @@
-package com.keke.shop.superbuy.form.config;
+package com.keke.shop.superbuy.form.config.entity;
+
 
 import java.util.Date;
 
@@ -14,29 +15,25 @@ import com.keke.shop.superbuy.account.Account;
 @SuppressWarnings("serial")
 @Entity
 @Table(name="df_form")
-@NamedQuery(name = DfForm.FIND_ALL, query = "select a from DfForm a")
 public class DfForm implements java.io.Serializable{
-	
-	public static final String FIND_ALL = "DfForm.findAll";
-	
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Column
 	private String name;
-	@Column
+	@Column(name="display_name")
 	private String displayName;
 	@Column
 	private String creator;
-	@Column
+	@Column(name="create_time")
 	private Date createTime;
 	@Column
 	private String type;
-	@Column
+	@Column(name="field_num")
 	private int fieldNum;
-	@Column(columnDefinition="TEXT")
+	@Column(columnDefinition="TEXT",name="original_html")
 	private String originalHtml;
-	@Column(columnDefinition="TEXT")
+	@Column(columnDefinition="TEXT",name="parse_html")
 	private String parseHtml;
 	
 	

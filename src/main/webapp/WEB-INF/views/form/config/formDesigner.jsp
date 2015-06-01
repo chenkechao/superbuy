@@ -1,6 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -44,10 +44,10 @@
     </form>
 </div><!--end container-->
 
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/ueditor/ueditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=request.getContextPath()%>/resources/ueditor/formdesign/formdesign.v4.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/resources/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/resources/ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/resources/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/resources/ueditor/formdesign/formdesign.v4.js"></script>
 <!-- script start-->
 <script type="text/javascript">
 var formEditor = UE.getEditor('formEditor',{
@@ -64,7 +64,7 @@ var formEditor = UE.getEditor('formEditor',{
     elementPathEnabled:false,
     //默认的编辑区域高度
     initialFrameHeight:300
-    ,iframeCssUrl:"<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.css" //引入自身 css使编辑器兼容你网站css
+    ,iframeCssUrl:"${ctx }/resources/bootstrap/css/bootstrap.css" //引入自身 css使编辑器兼容你网站css
     //更多其他参数，请参考ueditor.config.js中的配置项
 });
 
@@ -281,7 +281,7 @@ var formDesign = {
             //异步提交数据
             $.ajax({
                 type: 'POST',
-                url : '<%=request.getContextPath()%>/form/config/processor',
+                url : '${ctx }/form/config/processor',
                 //dataType : 'json',
                 data : {'type' : type_value,'formId':'${form.id}','parse_form':parse_form},
                 success : function(data){

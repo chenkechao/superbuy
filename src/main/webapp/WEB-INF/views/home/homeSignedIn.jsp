@@ -1,49 +1,30 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>superbuy</title> 
   <%@include file="/common/meta.jsp"%>
-  <!-- HTML5 Support for IE -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <link rel="shortcut icon" href="${ctx }/resources/img/favicon/favicon.png">
   <script type="text/javascript">
       function processList(){
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/processList/all');
+    	  $('#mainIframe').attr("src",'${ctx }/workflow/processList/all');
       }
       
       function modelList(){
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/workflow/model/list');
+    	  $('#mainIframe').attr("src",'${ctx }/workflow/model/list');
       }
       
       function formList(){
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/form/config/list');
+    	  $('#mainIframe').attr("src",'${ctx }/form/config/formList');
       }
-      
-      function showResponse(responseText,statusText) {
-      	if(responseText == "success") {
-      		alert("success");
-      		location.reload();
-      	}else{
-      		//$('#mainIframe',parent.window.$(parent.document)).html(responseText);
-      		alert('fdd');
-      		$("#myModal",parent.window.$(parent.document)).modal('hide');
-      	}
-      }
-      
-      function showRequest(formData,jqForm,options){
-      	alert("showRequest");
-      }  
       
       function runningList(){
     	  $.ajax({
-    		  url:'<%=request.getContextPath() %>/workflow/processinstance/running',
+    		  url:'${ctx }/workflow/processinstance/running',
     		  cache:false,
     		  dataType:"html",//
     		  success:function(data){
@@ -53,15 +34,15 @@
       }
       
       function leaveApply() {
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/apply');
+    	  $('#mainIframe').attr("src",'${ctx }/oa/leave/apply');
       }
 
       function taskList() {
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/leave/list/task');
+    	  $('#mainIframe').attr("src",'${ctx }/oa/leave/list/task');
       }
       
       function schedule() {
-    	  $('#mainIframe').attr("src",'<%=request.getContextPath() %>/oa/schedule/showCalendar');
+    	  $('#mainIframe').attr("src",'${ctx }/oa/schedule/showCalendar');
       }
   </script>
 </head>
@@ -164,7 +145,7 @@
             <!-- Dropdown menu -->
             <ul class="dropdown-menu">
               <li><a href="#"><i class="icon-user"></i> ziliao</a></li>
-              <li><a href="<%=request.getContextPath() %>/logout"><i class="icon-off"></i> logout</a></li>
+              <li><a href="${ctx }/logout"><i class="icon-off"></i> logout</a></li>
               <li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
             </ul>
           </li>
@@ -406,12 +387,9 @@
               <li><a href="error-log.html">已结束流程(外置)</a></li>
             </ul>
           </li>    
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>form  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>表单管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
-              <li><a  href="#" onClick="formList()">流程列表</a></li>
-              <li><a href="statement.html">任务列表(综合)</a></li>
-              <li><a href="error.html">运行中流程表(综合)</a></li>
-              <li><a href="error-log.html">已结束流程(综合)</a></li>
+              <li><a  href="#" onClick="formList()">表单列表</a></li>
             </ul>
           </li>
           <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
@@ -429,7 +407,7 @@
 
 
 
-<iframe id="mainIframe" name="mainIframe" src="<%=request.getContextPath()%>/main" scrolling="no" frameborder="0" style="width:100%;height:100%;"></iframe>
+<iframe id="mainIframe" name="mainIframe" src="${ctx }/main" scrolling="no" frameborder="0" style="width:100%;height:100%;"></iframe>
 
    <!-- Mainbar ends -->
    <div class="clearfix"></div>
@@ -454,22 +432,6 @@
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
 
-<script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-
-<script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
-
-<!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
-
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
 <!-- Script for this page -->
 <script type="text/javascript">
 
@@ -503,7 +465,14 @@ $("#mainIframe").load(function(){
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">x</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer handle-footer"></div>
 			</div>
 		</div>
 	</div>

@@ -10,7 +10,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Spring MVC Application</name>
     <properties>
-        <struts2.version>2.3.16.3</struts2.version>
+        <struts2.version>2.3.24</struts2.version>
     
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
@@ -18,7 +18,6 @@
         <io.spring.platform-version>1.1.1.RELEASE</io.spring.platform-version>
         <!-- AssertJ is not a part of Spring IO platform, so the version must be provided explicitly -->
         <assertj-core-version>1.5.0</assertj-core-version>
-        <hibernate.version>4.3.8.Final</hibernate.version>
         <shiro.version>1.2.1</shiro.version>
     </properties>
     <repositories>
@@ -78,6 +77,12 @@
 			<groupId>org.apache.struts</groupId>  
 			<artifactId>struts2-core</artifactId>  
 			<version>${struts2.version}</version>  
+			<exclusions>
+                <exclusion>
+                	<groupId>javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
 
 		<dependency>
@@ -358,10 +363,12 @@
 			  <scope>system</scope>
 			  <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/commons-codec-1.9.jar</systemPath>
 		 </dependency>
+		 <!-- 
 		 <dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-jpamodelgen</artifactId>
 		</dependency>
+		 -->
     </dependencies>
     <build>
         <plugins>
@@ -384,9 +391,11 @@
                 <configuration>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
+                    <!-- 
                     <compilerArguments>
 			            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
 			        </compilerArguments>
+			         -->
                 </configuration>
             </plugin>
             <plugin>

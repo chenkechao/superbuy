@@ -1,5 +1,9 @@
 package com.keke.shop.superbuy.workflow;
 
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.FormService;
@@ -22,15 +26,22 @@ public class FormController {
 	private FormService formService;
 	
 	@RequestMapping(value="/formkey/start/showStartForm/{processDefinitionId}")
-	public ModelAndView showStartForm(@PathVariable("processDefinitionId")String processDefinitionId,HttpServletRequest request){
+	@ResponseBody
+	public String showStartForm(@PathVariable("processDefinitionId")String processDefinitionId,HttpServletRequest request){
 		Object startForm = formService.getRenderedStartForm(processDefinitionId);
 		
 		String contextPath = request.getContextPath();
 		StringBuilder sb = new StringBuilder();
 		sb.append("<form class='form-horizontal' method='post' action='"+contextPath+"/form/formkey/startProcess/"+processDefinitionId+"'>");
 		sb.append(startForm).append("</form>");
-		ModelAndView mav = new ModelAndView("workflow/modalview");
-		mav.addObject("innerHtml", sb.toString());
-		return mav;
+		return sb.toString();
+	}
+	
+	@RequestMapping(value="/formkey/startProcess/{processDefinitionId}")
+	public String startProcess(@PathVariable("processDefinitionId")String processDefinitionId,HttpServletRequest request){
+		
+		Map<String,String[]> parameterMap = request.getParameterMap();
+		Set<Entry<String,String[]>> entrySet = parameterMap.entrySet();
+		return null;
 	}
 }

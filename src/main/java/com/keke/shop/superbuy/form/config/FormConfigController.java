@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.keke.shop.superbuy.oa.leave.entity.Leave;
+import com.keke.shop.superbuy.form.config.entity.DfField;
+import com.keke.shop.superbuy.form.config.entity.DfForm;
+import com.keke.shop.superbuy.form.config.service.DfFormManager;
 
 @Controller
 @RequestMapping(value="/form/config")
@@ -31,18 +33,20 @@ public class FormConfigController {
 	@Autowired
 	private FormManager formManager;
 	
-	@RequestMapping(value="/list")
-	public ModelAndView formList(){
-		ModelAndView mav = new ModelAndView("form/config/listForm");
+	@Autowired
+	private DfFormManager dfFormManager;
+	
+	@RequestMapping(value="/formList")
+	public ModelAndView list(){
+		ModelAndView mav = new ModelAndView("form/config/formList");
 		List<DfForm> dfFormList = new ArrayList<DfForm>();
-		dfFormList = formManager.listDfForm();
+		dfFormList = dfFormManager.getAll();
 		mav.addObject("formList", dfFormList);
 		return mav;
 	}
 
-	@RequestMapping(value="/showCreateFormModal")
-	public String showCreateFormModal(Model model){
-		model.addAttribute("leave", new Leave());
+	@RequestMapping(value="/showCreateForm")
+	public String showCreateFormModal(){
 		return "form/config/createformview";
 	}
 	
@@ -62,7 +66,7 @@ public class FormConfigController {
 	@RequestMapping(value="view/{id}")
 	public ModelAndView view(@PathVariable Long id){
 		ModelAndView mav = new ModelAndView("form/config/formView");
-		DfForm dfForm = formManager.getDfForm(id);
+		DfForm dfForm = dfFormManager.get(id);
 		mav.addObject("form", dfForm);
 		return mav;
 	}
@@ -70,7 +74,7 @@ public class FormConfigController {
 	@RequestMapping(value="designer/{id}")
 	public ModelAndView designer(@PathVariable Long id){
 		ModelAndView mav = new ModelAndView("form/config/formDesigner");
-		DfForm dfForm = formManager.getDfForm(id);
+		DfForm dfForm = dfFormManager.get(id);
 		mav.addObject("form", dfForm);
 		return mav;
 	}
@@ -82,7 +86,7 @@ public class FormConfigController {
 			Map<String,Object> map = mapper.readValue(parse_form, Map.class);
 			Map<String,Object> datas = (Map<String, Object>) map.get("add_fields");
 			
-			DfForm dfForm = formManager.getDfForm(Long.parseLong(formId));
+			DfForm dfForm = dfFormManager.get(Long.parseLong(formId));
 			Map<String,String> nameMap = formManager.process(dfForm, datas);
 			
 			String template = (String) map.get("template");
@@ -106,8 +110,8 @@ public class FormConfigController {
 	}
 	
 	@RequestMapping(value="/use/{formId}")
-	public String use(@PathVariable String formId,Model model){
-		DfForm dfForm = formManager.getDfForm(Long.parseLong(formId));
+	public String use(@PathVariable long formId,Model model){
+		DfForm dfForm = dfFormManager.get(formId);
 		String processId = null;
 		String orderId = null;
 		String taskId = null;
@@ -125,12 +129,18 @@ public class FormConfigController {
 	@RequestMapping(value="submit",method=RequestMethod.POST)
 	public String submit(long formId,HttpServletRequest request,String processId,String orderId,String taskId){
 		List<DfField> dfFields = formManager.getFields(formId);
-		DfForm dfForm = formManager.getDfForm(formId);
+		DfForm dfForm = dfFormManager.get(formId);
 		Map<String,Object> params = new HashMap<String,Object>();
 		for(DfField dfField:dfFields){
 			//if(Field.F)
 		}
 		formManager.submitTableForm(dfForm, request.getParameterMap());
 		return "form/config/list";
+	}
+	
+	@RequestMapping(value="delete/{id}")
+	public String delete(@PathVariable("id") Long id){
+		dfFormManager.delete(id);
+		return "redirect:/form/config/formList";
 	}
 }

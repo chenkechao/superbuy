@@ -206,3 +206,46 @@ $(document).ready(function() {
 /* Modal fix */
 
 $('.modal').appendTo($('body'));
+
+$(function() {
+    // 办理
+    $('.handle').click(handle);
+});	
+
+function handle(){
+	  var modal = parent.window.$(parent.document);
+	  var tkey = $(this).attr("tkey");
+	  var tid = $(this).attr("tid");
+	 modal.find("#myModal")
+	.modal()
+	.on("shown.bs.modal",function(){
+		if($(".handle-footer input",modal).length==0){
+			$.each(handleOpts[tkey].savebtn,function(){
+				$("<input>", {
+				  type: "button",
+				  val: this.text,
+				  class:this.css,
+				  click: this.click,
+				}).appendTo($(".handle-footer",modal));
+			});
+		    handleOpts[tkey].open.call(modal,handleOpts[tkey].url,tid);
+		}
+	}).on("hide.bs.modal",function(){
+		modal.find("#myModal").removeData("bs.modal");
+		$(".handle-footer input",modal).remove();
+		modal.find("#myModal").off("shown.bs.modal");
+	});
+}
+
+function showRequest(formData,jqForm,options){
+}  
+
+function showResponse(responseText,statusText) {
+	if(responseText == "success") {
+		alert("success");
+	  	$("#myModal",parent.window.$(parent.document)).modal("hide");
+	  		location.reload();
+	  	}else{
+	  		alert("error");
+	  	}
+}

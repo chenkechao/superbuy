@@ -1,18 +1,12 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>processList</title> 
   <%@include file="/common/meta.jsp"%>
-  
-  <!-- HTML5 Support for IE -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
-
   <style>
   	body{
   		padding-top: 0px;
@@ -20,23 +14,18 @@
   </style>
   
   <script type="text/javascript">
-  	$(function() {
-	    // 办理
-	    $('.handle').click(handle);
-	});	    
-  
       function processDefinitionList(processType){
-    	  $('#mainIframe',parent.document).attr("src",'<%=request.getContextPath() %>/workflow/processList/'+processType);
+    	  $('#mainIframe',parent.document).attr("src",'${ctx }/workflow/processList/'+processType);
       }
       
       var handleOpts = {
     		  deploy:  {
       	        width: 300,
       		    height: 300,
-      		    url:"<%=request.getContextPath()%>/workflow/showUploadModal",
+      		    url:"${ctx }/workflow/showUploadModal",
       	    	open:function() {
       	    		$("#file",parent.window.$(parent.document)).fileinput({
-      	  			  uploadUrl: '<%=request.getContextPath()%>/workflow/deploy',
+      	  			  uploadUrl: '${ctx }/workflow/deploy',
       	  		      allowedFileExtensions : ['xml','bar'],
       	  		      overwriteInitial: false,
       	  		      maxFileSize: 1000,
@@ -50,7 +39,7 @@
       	  		          
       	  			 var options = {  
       	 			    	target:'#test',
-      	 			    	url:'<%=request.getContextPath()%>/workflow/deploy',
+      	 			    	url:'${ctx }/workflow/deploy',
       	 			    	type:'post',
       	 			        beforeSubmit:  showRequest,  //提交前处理 
       	 			        success:       showResponse,  //处理完成 
@@ -68,75 +57,33 @@
     		  startup:  {
     	        width: 300,
     		    height: 300,
-    		    url:"<%=request.getContextPath()%>/form/formkey/start/showStartForm",
-    	    	open:function() {
+    		    url:"${ctx }/form/formkey/start/showStartForm/",
+    	    	open:function(url,processDefinitionId) {
+    	    		$(".modal-body",parent.window.$(parent.document)).load(url+processDefinitionId);
     	    	},
     	    	savebtn:[{
     	    		text:'qidongliucheng',
     	    		css:'btn btn-primary',
     	    		click:function(){
-    	    			$(".form-horizontal",parent.window.$(parent.document)).submit();
+    	    			//$(".form-horizontal",parent.window.$(parent.document)).submit();
     	    		}
     	    	}
     	    	,{
     	    		text:'quxiao',
     	    		css:'btn btn-default',
     	    		click:function(){
-    	    			$("#myModal",parent.window.$(parent.document)).modal("hide");
+    	    			$("#myModal",modal).modal("hide");
     	    		}
     	    	}]
           	}
       }
       
-      
-      function handle(){
-    	  var modal = parent.window.$(parent.document);
-    	  var tkey = $(this).attr("tkey");
-		  var processDefinitionId = "";
-    	  if("startup"==tkey){
-    	      var processDefinitionId =  $(this).parents("tr").attr("id");
-    	  }
-    	  alert(processDefinitionId);
-    	 modal.find("#myModal")
-  		.modal({remote:handleOpts[tkey].url+ "/" +processDefinitionId})
-  		.on("shown.bs.modal",function(){
-  			if($(".handle-footer input",modal).length==0){
-  				$.each(handleOpts[tkey].savebtn,function(){
-					$("<input>", {
-					  type: "button",
-					  val: this.text,
-					  class:this.css,
-					  click: this.click,
-					}).appendTo($(".handle-footer",modal));
-				});
-  			    handleOpts[tkey].open.call(this);
-  			}
-  		}).on("hide.bs.modal",function(){
-  			modal.find("#myModal").removeData("bs.modal");
-  			$(".handle-footer input",modal).remove();
-			modal.find("#myModal").off("shown.bs.modal");
-  		});
-      }
-      
       function readForm(processDefinitionId){
       }
       
-      function showRequest(formData,jqForm,options){
-        }  
-      
-      function showResponse(responseText,statusText) {
-        	if(responseText == "success") {
-        		alert("success");
-        		$("#myModal",parent.window.$(parent.document)).modal("hide");
-        		location.reload();
-        	}else{
-        		alert("error");
-        	}
-        }
-      
       function convertToModel(processDefinitionId){
       	 $.ajax({
-      		 url:"<%=request.getContextPath() %>/workflow/process/convertToModel/"+processDefinitionId,
+      		 url:"${ctx }/workflow/process/convertToModel/"+processDefinitionId,
       		 success:function(){
       			 alert("da");
       		 },
@@ -148,7 +95,7 @@
       
       function deleteProcessDefinition(processDefinitionId,deploymentId){
       	$.ajax({
-      		url:"<%=request.getContextPath() %>/workflow/process/deleteProcessDefinition/"+deploymentId,
+      		url:"${ctx }/workflow/process/deleteProcessDefinition/"+deploymentId,
       		cache : false,
       		success:function(){
       			location.reload();
@@ -161,7 +108,7 @@
       
       function reDeployAll(){
       		$.ajax({
-      			url:"<%=request.getContextPath() %>/workflow/redeploy/all",
+      			url:"${ctx }/workflow/redeploy/all",
       			cache: false,
       			success:function(){
       				alert("redeploy success");
@@ -258,8 +205,8 @@
 									<td>${process.name }</td>
 									<td>${process.key }</td>
 									<td>${process.version }</td>
-									<td><a target="_blank" href='<%=request.getContextPath()%>/workflow/resource/read?processDefinitionId=${process.id}&resourceType=xml'>xml</a></td>
-									<td><a target="_blank" href='<%=request.getContextPath()%>/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>image</a></td>
+									<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=xml'>xml</a></td>
+									<td><a target="_blank" href='${ctx }/workflow/resource/read?processDefinitionId=${process.id}&resourceType=image'>image</a></td>
 									<td>${deployment.deploymentTime }</td>
 									<td>${process.suspended} |
 										<c:if test="${process.suspended }">
@@ -272,7 +219,7 @@
 									<td>
 				                        <a href='#' onclick="deleteProcessDefinition('${process.id}','${process.deploymentId }')">Delete</a><br/>
 				                        <a href='#' id="convertButton" onClick="convertToModel('${process.id}')">Convert to Model</a>
-				                        <a href="#" id="startupProcess" tkey="startup" class="handle">qidong</a>
+				                        <a href="#" id="startupProcess" tkey="startup" tid="${process.id }" class="handle">qidong</a>
 				                    </td>
                       		</tr>
                       	</c:forEach>                                                    

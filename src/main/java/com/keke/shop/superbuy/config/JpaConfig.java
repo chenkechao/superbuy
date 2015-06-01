@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import com.keke.shop.superbuy.Application;
 
 @Configuration
-class JpaConfig{
-//class JpaConfig implements TransactionManagementConfigurer {
+//class JpaConfig{
+class JpaConfig {
 
     @Value("${dataSource.driverClassName}")
     private String driver;

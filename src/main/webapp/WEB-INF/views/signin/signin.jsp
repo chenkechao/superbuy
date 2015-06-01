@@ -10,10 +10,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="">
   <!-- Stylesheets -->
-  <link href="<%=request.getContextPath() %>/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/fontawesome/css/font-awesome.css">
-  <link href="<%=request.getContextPath() %>/resources/style/style.css" rel="stylesheet">
-  <link href="<%=request.getContextPath() %>/resources/style/bootstrap-responsive.css" rel="stylesheet">
+  <link href="${ctx }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link rel="stylesheet" href="${ctx }/resources/fontawesome/css/font-awesome.css">
+  <link href="${ctx }/resources/style/style.css" rel="stylesheet">
+  <link href="${ctx }/resources/style/bootstrap-responsive.css" rel="stylesheet">
   
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
@@ -21,7 +21,7 @@
   <![endif]-->
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <link rel="shortcut icon" href="${ctx }/resources/img/favicon/favicon.png">
 </head>
 
 <body>
@@ -42,7 +42,7 @@
               <div class="widget-content">
                 <div class="padd">
                   <!-- Login form -->
-                  <form class="form-horizontal" action="<%=request.getContextPath() %>/signin" method="post">
+                  <form class="form-horizontal" action="${ctx }/signin" method="post">
                     <!-- Email -->
                     <div class="form-group">
                       <label class="control-label col-lg-3" for="inputEmail">userName</label>
@@ -89,7 +89,7 @@
 		
 
 <!-- JS -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/bootstrap.js"></script>
+<script src="${ctx }/resources/js/jquery.js"></script>
+<script src="${ctx }/resources/js/bootstrap.js"></script>
 </body>
 </html>

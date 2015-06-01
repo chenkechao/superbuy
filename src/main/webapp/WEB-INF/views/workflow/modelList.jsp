@@ -1,35 +1,11 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>modelList</title> 
   <%@include file="/common/meta.jsp"%>
-  
-<script src="<%=request.getContextPath() %>/resources/bootstrap/js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-
-<!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
-
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-  
-  <!-- HTML5 Support for IE -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
    <style>
   	body{
   		padding-top: 0px;
@@ -44,11 +20,11 @@
     		  createmodel:{
     			  width:300,
     			  height:300,
-    			  url:"<%=request.getContextPath()%>/workflow/model/showCreateModelModal",
+    			  url:"${ctx }/workflow/model/showCreateModelForm",
     			  open:function(){
     				  var modal = parent.window.$(parent.document);
     				  var options = {  
-    		 			    	url:'<%=request.getContextPath()%>/workflow/model/create',
+    		 			    	url:'${ctx }/workflow/model/create',
     		 			    	type:'post',
     		 			        beforeSubmit:  showRequest,  //提交前处理 
     		 			        success:       showResponse,  //处理完成 
@@ -77,19 +53,6 @@
     			  }]
     		  }
       };
-      
-      function showRequest(formData,jqForm,options){
-      }  
-    
-    function showResponse(responseText,statusText) {
-      	if(responseText == "success") {
-      		alert("success");
-      		$("#myModal",parent.window.$(parent.document)).modal("hide");
-      		location.reload();
-      	}else{
-      		alert("error");
-      	}
-      }
       
       function handle(){
     	  var tkey = $(this).attr("tkey");
@@ -175,12 +138,12 @@
                       	<tr>
 							<th>ID</th>
 							<th>KEY</th>
-							<th>Name</th>
-							<th>Version</th>
-							<th>chuangjianshijian</th>
-							<th>zuihougengxinshijian</th>
-							<th>yuanshuju</th>
-							<th>caozuo</th>
+							<th>名称</th>
+							<th>版本</th>
+							<th>创建时间</th>
+							<th>最后更新时间</th>
+							<th>元数据</th>
+							<th>操作</th>
                       	</tr>
                       </thead>
                       <tbody>
@@ -194,10 +157,10 @@
                                   <td>${model.lastUpdateTime }</td>
                                   <td>${model.metaInfo }</td>
                                   <td>
-                                      <a href="<%=request.getContextPath() %>/service/editor?id=${model.id}" target="_blank">bianji</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/deploy/${model.id}">bushu</a>
-									  <a href="<%=request.getContextPath() %>/workflow/model/export/${model.id}" target="_blank">daochu</a>
-			                          <a href="<%=request.getContextPath() %>/workflow/model/delete/${model.id}">shanchu</a>
+                                      <a href="${ctx }/service/editor?id=${model.id}" target="_blank">编辑</a>
+									  <a href="${ctx }/workflow/model/deploy/${model.id}">部署</a>
+									  <a href="${ctx }/workflow/model/export/${model.id}" target="_blank">导出</a>
+			                          <a href="${ctx }/workflow/model/delete/${model.id}">删除</a>
                                   </td>
                               </tr>
                           </c:forEach>

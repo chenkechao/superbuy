@@ -1,118 +1,57 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>listForm</title> 
   <%@include file="/common/meta.jsp"%>
-  
-<script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
-
-<!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
-
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script> <!-- Custom codes -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
-  
-  <!-- HTML5 Support for IE -->
-  <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
    <style>
   	body{
   		padding-top: 0px;
   	}
   </style>
   <script type="text/javascript">
-  $(function(){
-	  $(".handle").on("click",handle);
-  });
-  
   var handleOpts ={
-		  creacreateform:{
+		  createDfForm:{
 			  width:300,
 			  height:300,
-			  url:"<%=request.getContextPath()%>/form/config/showCreateFormModal",
-			  open:function(){
-				  var modal = parent.window.$(parent.document);
-				  var options = {  
-		 			    	url:'<%=request.getContextPath()%>/form/config/create',
-		 			    	type:'post',
-		 			        beforeSubmit:  showRequest,  //æäº¤åå¤ç 
-		 			        success:       showResponse,  //å¤çå®æ 
-		 			        dataType:'html',
-		 			        resetForm: true,  
-		 			    }; 
-		  			 
-		  			$('#modalform',modal).on("submit",function(){
-		  				$('#modalform',modal).ajaxSubmit(options);  
-					        return false;
-		  			});
+			  url:"${ctx }/form/config/showCreateForm",
+			  open:function(url){
+				  $(".modal-body",parent.window.$(parent.document)).load(url);
 			  },
 			  savebtn:[{
 				  text:'chuangjian',
 				  css:'btn btn-primary',
 				  click:function(){
 					  var modal = parent.window.$(parent.document);
+					  var options = {  
+			 			    	url:'${ctx }/form/config/create',
+			 			    	type:'post',
+			 			        beforeSubmit:  showRequest,  //æäº¤åå¤ç 
+			 			        success:       showResponse,  //å¤çå®æ 
+			 			        dataType:'html',
+			 			        resetForm: true,  
+			 		  }; 
+					  
+					  $('#modalform',modal).on("submit",function(){
+						  	$('#modalform',modal).ajaxSubmit(options);  
+						    return false;
+						});
 					  $('#modalform',modal).submit();
 				  }
 			  },{
 				  text:'quxiao',
 				  css:'btn btn-default',
 				  click:function(){
-					  $("#myModal",parent.window.$(parent.document)).modal("hide");
+					  var modal = parent.window.$(parent.document);
+					  modal.find("#myModal").modal("hide");
+					 // $("#myModal",parent.window.$(parent.document)).modal("hide");
 				  }
 			  }]
 		  }
   };
   
-  function showRequest(formData,jqForm,options){
-  }  
-
-function showResponse(responseText,statusText) {
-  	if(responseText == "success") {
-  		alert("success");
-  		$("#myModal",parent.window.$(parent.document)).modal("hide");
-  		location.reload();
-  	}else{
-  		alert("error");
-  	}
-  }
-  
-  function handle(){
-	  var tkey = $(this).attr("tkey");
-	var modal = parent.window.$(parent.document);
-	modal.find("#myModal")
-		.modal({remote:handleOpts[tkey].url})
-		.on("shown.bs.modal",function(){
-			if($(".handle-footer input",modal).length==0){
-			$.each(handleOpts[tkey].savebtn,function(){
-				$("<input>", {
-				  type: "button",
-				  val: this.text,
-				  class:this.css,
-				  click: this.click,
-				}).appendTo($(".handle-footer",modal));
-			});
-			handleOpts[tkey].open.call(this);
-			}
-		}).on("hide.bs.modal",function(){
-			modal.find("#myModal").removeData("bs.modal");
-			$(".handle-footer input",modal).remove();
-			modal.find("#myModal").off("shown.bs.modal");
-		});
-  }
   </script>
 </head>
 
@@ -144,7 +83,7 @@ function showResponse(responseText,statusText) {
         <div class="container">
 
 		<div>
-				<button tkey="creacreateform" type="button" class="btn btn-primary handle">xinjian</button>
+				<button tkey="createDfForm" type="button" class="btn btn-primary handle">新建</button>
 				<button type="button" class="btn btn-default">Primary</button>
 				<button type="button" class="btn btn-success">Success</button>
 				<button type="button" class="btn btn-info">Info</button>
@@ -172,12 +111,12 @@ function showResponse(responseText,statusText) {
                     <table class="table table-striped table-bordered table-hover">
                       <thead>
                       	<tr>
-							<th>è¡¨ååç§°</th>
-							<th>æ¾ç¤ºåç§°</th>
-							<th>åå»ºäºº</th>
-							<th>åå»ºæ¶é´</th>
-							<th>ç±»å«</th>
-							<th>æä½</th>
+							<th>表单名称</th>
+							<th>显示名称</th>
+							<th>创建人</th>
+							<th>创建时间</th>
+							<th>类别</th>
+							<th>操作</th>
                       	</tr>
                       </thead>
                       <tbody>
@@ -188,11 +127,12 @@ function showResponse(responseText,statusText) {
                                   <td>${form.creator }</td>
                                   <td>${form.createTime }</td>
                                   <td>${form.type }</td>
-                                  <td>${model.metaInfo }</td>
                                   <td>
-									  <a href="<%=request.getContextPath() %>/form/config/designer/${form.id}" target="_blank">sheji</a>
-									  <a href="<%=request.getContextPath() %>/form/config/view/${form.id}">chakan</a>
-			                          <a href="<%=request.getContextPath() %>/form/config/use/${form.id}">lurushuju</a>
+                                  	  <a href="${ctx }/form/config/delete/${form.id}">删除</a>
+                                  	  <a>编辑</a>
+									  <a href="${ctx }/form/config/designer/${form.id}" target="_blank">设计</a>
+									  <a href="${ctx }/form/config/view/${form.id}">查看</a>
+			                          <a href="${ctx }/form/config/use/${form.id}">录入数据</a>
                                   </td>
                               </tr>
                           </c:forEach>

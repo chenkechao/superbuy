@@ -1,13 +1,13 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
-<%@include file="/common/include.jsp"%>
 <%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>main</title> 
   <%@include file="/common/meta.jsp"%>
   <!-- Widgets stylesheet -->
-  <link href="<%=request.getContextPath() %>/resources/style/widgets.css" rel="stylesheet">   
+  <link href="${ctx }/resources/style/widgets.css" rel="stylesheet">   
   
   <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
@@ -15,7 +15,7 @@
   <![endif]-->
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/img/favicon/favicon.png">
+  <link rel="shortcut icon" href="${ctx }/resources/img/favicon/favicon.png">
   <style>
   	body{
   		padding-top: 0px;
@@ -192,7 +192,7 @@
                       <li class="by-me">
                         <!-- Use the class "pull-left" in avatar -->
                         <div class="avatar pull-left">
-                          <img src="<%=request.getContextPath() %>/resources/img/user.jpg" alt=""/>
+                          <img src="${ctx }/resources/img/user.jpg" alt=""/>
                         </div>
 
                         <div class="chat-content">
@@ -207,7 +207,7 @@
                       <li class="by-other">
                         <!-- Use the class "pull-right" in avatar -->
                         <div class="avatar pull-right">
-                          <img src="<%=request.getContextPath() %>/resources/img/user.jpg" alt=""/>
+                          <img src="${ctx }/resources/img/user.jpg" alt=""/>
                         </div>
 
                         <div class="chat-content">
@@ -220,7 +220,7 @@
 
                       <li class="by-me">
                         <div class="avatar pull-left">
-                          <img src="<%=request.getContextPath() %>/resources/img/user.jpg" alt=""/>
+                          <img src="${ctx }/resources/img/user.jpg" alt=""/>
                         </div>
 
                         <div class="chat-content">
@@ -233,7 +233,7 @@
                       <li class="by-other">
                         <!-- Use the class "pull-right" in avatar -->
                         <div class="avatar pull-right">
-                          <img src="<%=request.getContextPath() %>/resources/img/user.jpg" alt=""/>
+                          <img src="${ctx }/resources/img/user.jpg" alt=""/>
                         </div>
 
                         <div class="chat-content">
@@ -331,27 +331,27 @@
                       <th>Visits</th>
                     </tr>
                     <tr>
-                      <td><img src="<%=request.getContextPath() %>/resources/img/icons/chrome.png" alt="" />
+                      <td><img src="${ctx }/resources/img/icons/chrome.png" alt="" />
                       <td>Google Chrome</td>
                       <td>3,005</td>
                     </tr> 
                     <tr>
-                      <td><img src="<%=request.getContextPath() %>/resources/img/icons/firefox.png" alt="" />
+                      <td><img src="${ctx }/resources/img/icons/firefox.png" alt="" />
                       <td>Mozilla Firefox</td>
                       <td>2,505</td>
                     </tr> 
                     <tr>
-                      <td><img src="<%=request.getContextPath() %>/resources/img/icons/ie.png" alt="" />
+                      <td><img src="${ctx }/resources/img/icons/ie.png" alt="" />
                       <td>Internet Explorer</td>
                       <td>1,405</td>
                     </tr> 
                     <tr>
-                      <td><img src="<%=request.getContextPath() %>/resources/img/icons/opera.png" alt="" />
+                      <td><img src="${ctx }/resources/img/icons/opera.png" alt="" />
                       <td>Opera</td>
                       <td>4,005</td>
                     </tr> 
                     <tr>
-                      <td><img src="<%=request.getContextPath() %>/resources/img/icons/safari.png" alt="" />
+                      <td><img src="${ctx }/resources/img/icons/safari.png" alt="" />
                       <td>Safari</td>
                       <td>505</td>
                     </tr>                                                                    
@@ -574,20 +574,20 @@
     </div>
 
 
-<script src="<%=request.getContextPath() %>/resources/js/excanvas.min.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/Chart.js"></script>
+<script src="${ctx }/resources/js/excanvas.min.js"></script>
+<script src="${ctx }/resources/js/Chart.js"></script>
 
 <!-- jQuery Notification - Noty -->
-<script src="<%=request.getContextPath() %>/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="<%=request.getContextPath() %>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
+<script src="${ctx }/resources/js/jquery.noty.js"></script> <!-- jQuery Notify -->
+<script src="${ctx }/resources/js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="${ctx }/resources/js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="${ctx }/resources/js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="${ctx }>/resources/js/layouts/top.js"></script> <!-- jQuery Notify -->
 <!-- jQuery Notification ends -->
 
-<script src="<%=request.getContextPath() %>/resources/js/sparklines.js"></script> <!-- Sparklines -->
-<script src="<%=request.getContextPath() %>/resources/js/filter.js"></script> <!-- Filter for support page -->
-<script src="<%=request.getContextPath() %>/resources/js/charts.js"></script> <!-- Charts & Graphs -->
+<script src="${ctx }/resources/js/sparklines.js"></script> <!-- Sparklines -->
+<script src="${ctx }/resources/js/filter.js"></script> <!-- Filter for support page -->
+<script src="${ctx }/resources/js/charts.js"></script> <!-- Charts & Graphs -->
 <!-- Script for this page -->
 <script type="text/javascript">
 $(function () {

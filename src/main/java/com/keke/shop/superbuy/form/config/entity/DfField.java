@@ -1,4 +1,5 @@
-package com.keke.shop.superbuy.form.config;
+package com.keke.shop.superbuy.form.config.entity;
+
 
 import java.util.Date;
 

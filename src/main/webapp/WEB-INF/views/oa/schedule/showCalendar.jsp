@@ -1,4 +1,6 @@
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
 <%@include file="/common/include.jsp"%>
+<%@include file="/common/taglibs.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +11,9 @@
 	<meta name="author" content="Serhioromano">
 	<meta charset="UTF-8">
 
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/calendar/components/bootstrap3/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/calendar/components/bootstrap3/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/calendar/css/calendar.css">
+	<link rel="stylesheet" href="${ctx }/resources/calendar/components/bootstrap3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${ctx }/resources/calendar/components/bootstrap3/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="${ctx }/resources/calendar/css/calendar.css">
 
 	<style type="text/css">
 		.btn-twitter {
@@ -122,32 +124,32 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/components/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/components/underscore/underscore-min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/components/bootstrap3/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/components/jstimezonedetect/jstz.min.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/bg-BG.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/nl-NL.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/fr-FR.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/de-DE.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/el-GR.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/it-IT.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/hu-HU.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/pl-PL.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/pt-BR.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/ro-RO.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/es-CO.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/es-MX.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/es-ES.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/ru-RU.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/sk-SR.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/sv-SE.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/zh-TW.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/cs-CZ.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/ko-KR.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/language/id-ID.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/calendar.js"></script>
-	<script type="text/javascript" src="<%=request.getContextPath() %>/resources/calendar/js/app.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/components/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/components/underscore/underscore-min.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/components/bootstrap3/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/components/jstimezonedetect/jstz.min.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/bg-BG.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/nl-NL.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/fr-FR.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/de-DE.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/el-GR.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/it-IT.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/hu-HU.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/pl-PL.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/pt-BR.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/ro-RO.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/es-CO.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/es-MX.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/es-ES.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/ru-RU.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/sk-SR.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/sv-SE.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/zh-TW.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/cs-CZ.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/ko-KR.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/language/id-ID.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/calendar.js"></script>
+	<script type="text/javascript" src="${ctx }/resources/calendar/js/app.js"></script>
 
 	<script type="text/javascript">
 		var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
