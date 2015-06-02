@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.shop.superbuy.form.config.entity.DfField;
 import com.keke.shop.superbuy.form.config.entity.DfForm;
 import com.keke.shop.superbuy.form.config.service.DfFormManager;
+import com.keke.shop.superbuy.oa.leave.entity.Leave;
 
 @Controller
 @RequestMapping(value="/form/config")
@@ -63,12 +64,11 @@ public class FormConfigController {
 		}
 	}
 	
-	@RequestMapping(value="view/{id}")
-	public ModelAndView view(@PathVariable Long id){
-		ModelAndView mav = new ModelAndView("form/config/formView");
+	@RequestMapping(value="detail/{id}",produces = "application/json")
+	@ResponseBody
+	public DfForm detail(@PathVariable("id") Long id){
 		DfForm dfForm = dfFormManager.get(id);
-		mav.addObject("form", dfForm);
-		return mav;
+		return dfForm;
 	}
 	
 	@RequestMapping(value="designer/{id}")

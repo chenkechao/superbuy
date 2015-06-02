@@ -49,6 +49,46 @@
 					 // $("#myModal",parent.window.$(parent.document)).modal("hide");
 				  }
 			  }]
+		  },
+		  showDfForm:{
+			  width:300,
+			  height:300,
+			  url:"${ctx }/form/config/showCreateForm",
+			  open:function(url,id){
+				  $(".modal-body",parent.window.$(parent.document)).load(url);
+				  var detailurl = '${ctx }/form/config/detail/'+id;
+				  alert(detailurl);
+				  loadDetail.call(this,detailurl);
+			  },
+			  savebtn:[{
+				  text:'chuangjian',
+				  css:'btn btn-primary',
+				  click:function(){
+					  var modal = parent.window.$(parent.document);
+					  var options = {  
+			 			    	url:'${ctx }/form/config/create',
+			 			    	type:'post',
+			 			        beforeSubmit:  showRequest,  //æäº¤åå¤ç 
+			 			        success:       showResponse,  //å¤çå®æ 
+			 			        dataType:'html',
+			 			        resetForm: true,  
+			 		  }; 
+					  
+					  $('#modalform',modal).on("submit",function(){
+						  	$('#modalform',modal).ajaxSubmit(options);  
+						    return false;
+						});
+					  $('#modalform',modal).submit();
+				  }
+			  },{
+				  text:'quxiao',
+				  css:'btn btn-default',
+				  click:function(){
+					  var modal = parent.window.$(parent.document);
+					  modal.find("#myModal").modal("hide");
+					 // $("#myModal",parent.window.$(parent.document)).modal("hide");
+				  }
+			  }]
 		  }
   };
   
@@ -131,7 +171,7 @@
                                   	  <a href="${ctx }/form/config/delete/${form.id}">删除</a>
                                   	  <a>编辑</a>
 									  <a href="${ctx }/form/config/designer/${form.id}" target="_blank">设计</a>
-									  <a href="${ctx }/form/config/view/${form.id}">查看</a>
+									  <a href="#" tkey="showDfForm" tid="${form.id}" class="btn btn-info handle">查看</a>
 			                          <a href="${ctx }/form/config/use/${form.id}">录入数据</a>
                                   </td>
                               </tr>
