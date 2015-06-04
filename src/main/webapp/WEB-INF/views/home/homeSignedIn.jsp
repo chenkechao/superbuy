@@ -44,6 +44,10 @@
       function schedule() {
     	  $('#mainIframe').attr("src",'${ctx }/oa/schedule/showCalendar');
       }
+      
+      function dictionaryList(){
+    	  $('#mainIframe').attr("src",'${ctx }/config/dictionary');
+      }
   </script>
 </head>
 
@@ -390,6 +394,7 @@
           <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>表单管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
             <ul>
               <li><a  href="#" onClick="formList()">表单列表</a></li>
+              <li><a  href="#" onClick="dictionaryList()">数据字典</a></li>
             </ul>
           </li>
           <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>

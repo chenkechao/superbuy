@@ -256,10 +256,15 @@ function loadDetail(url,callback) {
 		  url:url,
 		  cache:false,
 		  dataType:"json",//
-		  error:function(){
-			alert('error');  
+		  error:function(data){
+			alert('error');
+			$.each(data, function(k, v) {
+				alert(k+','+v);
+				
+			});
 		  },
 		  success:function(data){
+			  alert('success');
 			  alert(data);
 			  if(callback != null){
 				  if ($.isFunction(callback)) {

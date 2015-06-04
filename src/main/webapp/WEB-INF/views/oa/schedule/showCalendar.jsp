@@ -27,18 +27,6 @@
 </head>
 <body>
 <div class="container">
-	<div class="jumbotron">
-		<h1>Bootstrap Calendar Demo</h1>
-
-		<p>Bootstrap based full view calendar. Template based.</p>
-
-		<a class="btn btn-default btn-primary" href="https://github.com/Serhioromano/bootstrap-calendar">Fork on GitHub</a>
-		<a class="btn btn-default" href="index.html">Use bootstrap 2</a>
-		<a href="https://twitter.com/serhioromano" class="btn btn-default btn-twitter" data-show-count="false" data-size="large">Follow @serhioromano</a>
-		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-		</script>
-	</div>
-
 	<div class="page-header">
 
 		<div class="pull-right form-inline">
@@ -60,16 +48,21 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-12">
 			<div id="calendar"></div>
 		</div>
+	</div>
+
+	<br>
+	<div class="row">
 		<div class="col-md-3">
-			<div class="row">
 				<select id="first_day" class="form-control">
 					<option value="" selected="selected">First day of week language-dependant</option>
 					<option value="2">First day of week is Sunday</option>
 					<option value="1">First day of week is Monday</option>
 				</select>
+		</div>
+		<div class="col-md-9">
 				<select id="language" class="form-control">
 					<option value="">Select Language (default: en-US)</option>
 					<option value="bg-BG">Bulgarian</option>
@@ -92,37 +85,10 @@
 					<option value="ko-KR">Korean</option>
 					<option value="zh-TW">繁體中文</option>
 				</select>
-				<label class="checkbox">
-					<input type="checkbox" value="#events-modal" id="events-in-modal"> Open events in modal window
-				</label>
-			</div>
-
-			<h4>Events</h4>
-			<small>This list is populated with events dynamically</small>
-			<ul id="eventlist" class="nav nav-list"></ul>
 		</div>
 	</div>
-
+	
 	<div class="clearfix"></div>
-	<br><br>
-	<div id="disqus_thread"></div>
-	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-	<div class="modal fade" id="events-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h3 class="modal-title">Event</h3>
-				</div>
-				<div class="modal-body" style="height: 400px">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<script type="text/javascript" src="${ctx }/resources/calendar/components/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx }/resources/calendar/components/underscore/underscore-min.js"></script>
@@ -151,14 +117,6 @@
 	<script type="text/javascript" src="${ctx }/resources/calendar/js/calendar.js"></script>
 	<script type="text/javascript" src="${ctx }/resources/calendar/js/app.js"></script>
 
-	<script type="text/javascript">
-		var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
-		(function() {
-			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-		})();
-	</script>
 </div>
 </body>
 </html>

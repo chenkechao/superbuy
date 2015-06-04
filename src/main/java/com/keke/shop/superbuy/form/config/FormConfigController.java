@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.shop.superbuy.form.config.entity.DfField;
 import com.keke.shop.superbuy.form.config.entity.DfForm;
 import com.keke.shop.superbuy.form.config.service.DfFormManager;
-import com.keke.shop.superbuy.oa.leave.entity.Leave;
 
 @Controller
 @RequestMapping(value="/form/config")
@@ -68,6 +67,18 @@ public class FormConfigController {
 	@ResponseBody
 	public DfForm detail(@PathVariable("id") Long id){
 		DfForm dfForm = dfFormManager.get(id);
+//		String json = null;
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			json = mapper.writeValueAsString(dfForm);
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		if(!Hibernate.isInitialized(dfForm)){
+			Hibernate.initialize(dfForm);
+		}
+		dfForm.getName();
 		return dfForm;
 	}
 	
@@ -135,7 +146,7 @@ public class FormConfigController {
 			//if(Field.F)
 		}
 		formManager.submitTableForm(dfForm, request.getParameterMap());
-		return "form/config/list";
+		return "form/config/formList";
 	}
 	
 	@RequestMapping(value="delete/{id}")

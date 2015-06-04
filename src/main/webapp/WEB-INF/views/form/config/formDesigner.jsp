@@ -16,11 +16,11 @@
 </head>
 <body>
 
-<div class="container" style="padding-top: 5px; padding-left: 5px">
+<div class="container">
     <form method="post" id="saveform" name="saveform" action="">
         <input type="hidden" name="fields" id="fields" value="${form.fieldNum }">
         <div class="row">
-            <div class="span2">
+            <div class="col-md-2">
                 <ul class="nav nav-list">
                     <li class="nav-header">表单控件</li>
                     <li><a href="javascript:void(0);" onclick="formDesign.exec('text');" class="btn btn-link">文本框</a></li>
@@ -37,7 +37,7 @@
                 </ul>
             </div>
 
-            <div class="span10">
+            <div class="col-md-10">
                 <script id="formEditor" type="text/plain" style="width:100%;">${form.originalHtml}</script>
             </div>
         </div><!--end row-->

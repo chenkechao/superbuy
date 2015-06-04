@@ -60,7 +60,7 @@ public class FormManager {
 		boolean isExists = true;
 		
 		try {
-			dfFormManager.checkTableFormExist(getTableName(dfForm));
+			isExists = dfFormManager.checkTableFormExist(getTableName(dfForm));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import org.springframework.context.annotation.Lazy;
+
 import com.keke.shop.superbuy.security.entity.SecurityEntity;
 
 @Entity
@@ -37,7 +40,7 @@ public class DfForm extends SecurityEntity{
 		this.name = name;
 	}
 	
-	@Column(name="displayName")
+	@Column(name="display_name")
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -53,7 +56,7 @@ public class DfForm extends SecurityEntity{
 		this.creator = creator;
 	}
 	
-	@Column(name="createTime")
+	@Column(name="create_time")
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -69,7 +72,7 @@ public class DfForm extends SecurityEntity{
 		this.type = type;
 	}
 	
-	@Column(name="fieldNum")
+	@Column(name="field_num")
 	public int getFieldNum() {
 		return fieldNum;
 	}
@@ -77,7 +80,7 @@ public class DfForm extends SecurityEntity{
 		this.fieldNum = fieldNum;
 	}
 	
-	@Column(columnDefinition="TEXT",name="originalHtml")
+	@Column(columnDefinition="TEXT",name="original_html")
 	public String getOriginalHtml() {
 		return originalHtml;
 	}
@@ -85,11 +88,22 @@ public class DfForm extends SecurityEntity{
 		this.originalHtml = originalHtml;
 	}
 	
-	@Column(columnDefinition="TEXT",name="parseHtml")
+	@Column(columnDefinition="TEXT",name="parse_html")
 	public String getParseHtml() {
 		return parseHtml;
 	}
 	public void setParseHtml(String parseHtml) {
 		this.parseHtml = parseHtml;
 	}
+
+	@Override
+	public String toString() {
+		return "DfForm [name=" + name + ", displayName=" + displayName
+				+ ", creator=" + creator + ", createTime=" + createTime
+				+ ", type=" + type + ", fieldNum=" + fieldNum
+				+ ", originalHtml=" + originalHtml + ", parseHtml=" + parseHtml
+				+ ", id=" + id + "]";
+	}
+
+	
 }
