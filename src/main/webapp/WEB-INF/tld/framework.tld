@@ -9,7 +9,7 @@
 	<uri></uri>
 	<tag>
 		<name>page</name>
-		<tagclass>com.snakerflow.app.web.taglibs.PageTag</tagclass>
+		<tagclass>com.keke.shop.superbuy.util.page.PageTag</tagclass>
 		<attribute>
 			<name>totalRecords</name>
 			<required>true</required>
@@ -37,4 +37,53 @@
 		</attribute>
 	</tag>
 
+	<tag>
+		<name>select</name>
+		<tagclass>com.keke.shop.superbuy.util.page.SelectTag</tagclass>
+		<attribute>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>configName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>readOnly</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>displayType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>from</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

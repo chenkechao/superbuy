@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="${ctx }/resources/switch/css/bootstrap-switch.css">
 <!-- Bootstrap fileinput -->
 <link href="${ctx }/resources/fileinput/css/fileinput.css" rel="stylesheet">
+<!-- Bootstrap table -->
+<link href="${ctx }/resources/table/css/bootstrap-table.css" rel="stylesheet">
 <!-- Main stylesheet -->
 <link href="${ctx }/resources/style/style.css" rel="stylesheet">
 
@@ -27,6 +29,7 @@
 <script src="${ctx }/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${ctx }/resources/switch/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="${ctx }/resources/fileinput/js/fileinput.js"></script>
+<script src="${ctx }/resources/table/js/bootstrap-table-all.js"></script>
 <script src="${ctx }/resources/jquery-sparkline/js/jquery.sparkline.js" type="text/javascript"></script>
 <script src="${ctx }/resources/js/jquery.form.js"></script> <!-- jQuery -->
 <script src="${ctx }/resources/js/custom.js"></script> <!-- Custom codes -->

@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import org.hibernate.SQLQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.keke.shop.superbuy.form.config.dao.DictionaryDao;
 import com.keke.shop.superbuy.form.config.entity.Dictionary;
@@ -22,6 +23,7 @@ import com.keke.shop.superbuy.orm.PropertyFilter;
  * @since 0.1
  */
 @Component
+@Transactional
 public class DictionaryManager {
 	@Autowired
 	private DictionaryDao dictionaryDao;
