@@ -11,6 +11,60 @@
   		padding-top: 0px;
   	}
   </style>
+  <script type="text/javascript">
+	  function rowStyle(row, index) {
+	      var classes = ['active', 'success', 'info', 'warning', 'danger'];
+	
+	      if (row.status == "未接受邀请") {
+	          return {
+	              classes: 'warning'
+	          };
+	      }
+	
+	      if (row.status == "程序错误，发送邀请未成功") {
+	          return {
+	              classes: 'danger'
+	          };
+	      }
+	      return {};
+	  }
+	  function queryParams() {
+	      return {
+	          type: 'owner',
+	          sort: 'updated',
+	          direction: 'desc',
+	          per_page: 100,
+	          page: 1
+	      };
+	  }
+  
+	  var $table = $('#table'), $remove = $('#re_send_selected');
+	  $(function () {
+	      $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+	          $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+	      });
+	      $remove.click(function () {
+	          var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+	              return row.id
+	          });
+	          alert('重新发送选中邀请, rows: ' + ids);
+	          $remove.prop('disabled', true);
+	      });
+	  });
+  
+	  function actionFormatter(value, row, index) {
+	      return [
+	          '<button class="btn btn-primary resend">重新发送邀请</button>'
+	      ].join('');
+	  }
+	
+	  window.actionEvents = {
+	      'click .resend': function (e, value, row, index) {
+	          alert('重新发送该邀请, row: ' + JSON.stringify(row));
+	          console.log(value, row, index);
+	      }
+	  };
+  </script>
 </head>
 
 <body>
@@ -64,52 +118,37 @@
                 </div>
 
                   <div class="widget-content">
-					<table class="table table-striped table-bordered table-hover">
+                  	<div id="toolbar" class="fixed-table-toolbar" style="margin-bottom: -40px">
+					    <button id="re_send_selected" class="btn btn-danger remove" disabled>
+					        重新发送选中邀请
+					    </button>
+					</div>
+					<table class="table table-striped table-bordered table-hover"
+					   id="table" data-toggle="table"
+				       data-url="${ctx }/invited/json"
+				       data-click-to-select="true"
+				       data-row-style="rowStyle"
+				       data-query-params="queryParams"
+				       data-pagination="true"
+				       data-search="true"
+				       data-height="600">
 						<thead>
-							<tr>
-								<td>配置名称</td>
-								<td>显示名称</td>
-								<td>操作</td>
-							</tr>
-						</thead>
-						<tbody>
-						<c:forEach items="${page.result}" var="dictionary">
-							<tr>
-								<td>
-									${dictionary.name}&nbsp;</td>
-								<td>
-									${dictionary.cnName}&nbsp;</td>
-								<td><c:choose>
-										<c:when test="${empty lookup}">
-											<a href="${ctx}/config/dictionary/delete/${dictionary.id }"
-												class="btnDel" title="删除">删除</a>
-											<a href="${ctx}/config/dictionary/update/${dictionary.id }"
-												class="btnEdit" title="编辑">编辑</a>
-											<a href="${ctx}/config/dictionary/view/${dictionary.id }"
-												class="btnView" title="查看">查看</a>
-										</c:when>
-										<c:otherwise>
-											<a href="javascript:void(0)" class="btnSelect" title="选择"
-												onclick="bringback('${dictionary.id}','${dictionary.name }')">选择</a>
-										</c:otherwise>
-									</c:choose></td>
-							</tr>
-						</c:forEach>
-						</tbody>
-						<frame:page curPage="${page.pageNo}" totalPages="${page.totalPages }"
-							totalRecords="${page.totalCount }" lookup="${lookup }" />
+
+					    <tr>
+					        <th data-field="state" data-checkbox="true"></th>
+					        <th data-field="id">ID</th>
+					        <th data-field="invited_name">受邀人名称</th>
+					        <th data-field="invited_phone">受邀人手机</th>
+					        <th data-field="invited_email">受邀人邮箱</th>
+					        <th data-field="inviter_name">邀请人名称</th>
+					        <th data-field="inviter_org">邀请人部门</th>
+					        <th data-field="invite_time">邀请时间</th>
+					        <th data-field="status">邀请状态</th>
+					        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
+					    </tr>
+					    </thead>
 					</table>
 					<div class="widget-foot">
-
-                      
-                        <ul class="pagination pull-right">
-                          <li><a href="#">Prev</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">Next</a></li>
-                        </ul>
                       
                       <div class="clearfix"></div> 
 

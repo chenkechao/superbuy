@@ -30,6 +30,7 @@
 <script src="${ctx }/resources/switch/js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
 <script src="${ctx }/resources/fileinput/js/fileinput.js"></script>
 <script src="${ctx }/resources/table/js/bootstrap-table-all.js"></script>
+<script src="${ctx }/resources/table/js/bootstrap-table-zh-CN.js"></script>
 <script src="${ctx }/resources/jquery-sparkline/js/jquery.sparkline.js" type="text/javascript"></script>
 <script src="${ctx }/resources/js/jquery.form.js"></script> <!-- jQuery -->
 <script src="${ctx }/resources/js/custom.js"></script> <!-- Custom codes -->

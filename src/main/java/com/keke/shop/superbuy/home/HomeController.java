@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.shop.superbuy.security.entity.User;
 import com.keke.shop.superbuy.security.shiro.ShiroPrincipal;
 import com.keke.shop.superbuy.security.shiro.ShiroUtils;
@@ -32,6 +33,13 @@ public class HomeController {
 	@RequestMapping(value="/main")
 	public ModelAndView main() {
 		ModelAndView mav = new ModelAndView("home/main");
+		return mav;
+	}
+	
+	@RequestMapping(value="/invited/json",produces = "application/json")
+	@ResponseBody
+	public ModelAndView invitedJson() {
+		ModelAndView mav = new ModelAndView("config/dictionary/data/invited");
 		return mav;
 	}
 }
