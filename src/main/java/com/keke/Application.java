@@ -1,3 +1,3 @@
-package com.keke.shop.superbuy;
+package com.keke;
 
 public interface Application {}

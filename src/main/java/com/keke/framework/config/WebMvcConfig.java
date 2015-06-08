@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.keke.shop.superbuy.Application;
+import com.keke.Application;
 import com.keke.framework.util.CP_PropertyEditorRegistrar;
 
 @Configuration
