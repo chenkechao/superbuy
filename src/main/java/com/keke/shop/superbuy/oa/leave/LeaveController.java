@@ -33,7 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
 import com.keke.shop.superbuy.service.oa.leave.LeaveManager;
-import com.keke.shop.superbuy.util.Variable;
+import com.keke.framework.util.Variable;
 
 @Controller
 @RequestMapping(value = "/oa/leave")

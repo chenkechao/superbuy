@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.dao.AuthorityDao;
 import com.keke.shop.superbuy.security.entity.Authority;
 import com.keke.shop.superbuy.security.entity.Role;

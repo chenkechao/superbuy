@@ -2,13 +2,13 @@ package com.keke.shop.superbuy.signup;
 
 import org.junit.Test;
 
+import com.keke.framework.config.WebAppConfigurationAware;
+
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.keke.shop.superbuy.config.WebAppConfigurationAware;
 
 public class SignupControllerTest extends WebAppConfigurationAware {
     @Test

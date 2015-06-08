@@ -60,7 +60,7 @@ public class IndexAction extends ActionSupport {
 
 	private Date now = new Date(System.currentTimeMillis());
     
-    @TypeConversion(converter = "com.keke.shop.superbuy.util.DateConverter")
+    @TypeConversion(converter = "com.keke.framework.util.DateConverter")
     public Date getDateNow() { return now; }
     
     public String execute() throws Exception {

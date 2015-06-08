@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.keke.shop.superbuy.form.config.dao.DictionaryDao;
 import com.keke.shop.superbuy.form.config.entity.Dictionary;
 import com.keke.shop.superbuy.form.config.entity.DictionaryItem;
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 
 /**
  * 配置字典管理类

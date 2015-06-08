@@ -2,7 +2,7 @@ package com.keke.shop.superbuy.security.dao;
 
 import org.springframework.stereotype.Component;
 
-import com.keke.shop.superbuy.orm.hibernate.HibernateDao;
+import com.keke.framework.orm.hibernate.HibernateDao;
 import com.keke.shop.superbuy.security.entity.User;
 
 /**

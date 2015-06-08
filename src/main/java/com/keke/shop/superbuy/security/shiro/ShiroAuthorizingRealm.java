@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 import com.keke.shop.superbuy.security.entity.User;
 import com.keke.shop.superbuy.security.service.UserManager;
-import com.keke.shop.superbuy.util.EncodeUtils;
+import com.keke.framework.util.EncodeUtils;
 
 /**
  * shiro的认证授权域

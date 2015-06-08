@@ -54,7 +54,9 @@
   
 	  function actionFormatter(value, row, index) {
 	      return [
-	          '<button class="btn btn-primary resend">重新发送邀请</button>'
+	          '<a href="${ctx}/config/dictionary/delete/${dictionary.id }" class="btnDel" title="删除">删除</a>'
+	          + '<a href="${ctx}/config/dictionary/update/${dictionary.id }" class="btnEdit" title="编辑">编辑</a>'
+			  + '<a href="${ctx}/config/dictionary/view/${dictionary.id }" class="btnView" title="查看">查看</a>'
 	      ].join('');
 	  }
 	
@@ -125,7 +127,7 @@
 					</div>
 					<table class="table table-striped table-bordered table-hover"
 					   id="table" data-toggle="table"
-				       data-url="${ctx }/invited/json"
+				       data-url="${ctx }/config/dictionary/list/json"
 				       data-click-to-select="true"
 				       data-row-style="rowStyle"
 				       data-query-params="queryParams"
@@ -137,13 +139,9 @@
 					    <tr>
 					        <th data-field="state" data-checkbox="true"></th>
 					        <th data-field="id">ID</th>
-					        <th data-field="invited_name">受邀人名称</th>
-					        <th data-field="invited_phone">受邀人手机</th>
-					        <th data-field="invited_email">受邀人邮箱</th>
-					        <th data-field="inviter_name">邀请人名称</th>
-					        <th data-field="inviter_org">邀请人部门</th>
-					        <th data-field="invite_time">邀请时间</th>
-					        <th data-field="status">邀请状态</th>
+					        <th data-field="name">名称</th>
+					        <th data-field="cnName">中文名称</th>
+					        <th data-field="description">描述</th>
 					        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
 					    </tr>
 					    </thead>

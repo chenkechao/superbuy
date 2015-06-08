@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Query;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.keke.shop.superbuy.form.config.dao.DfFieldDao;
 import com.keke.shop.superbuy.form.config.dao.DfFormDao;
 import com.keke.shop.superbuy.form.config.entity.DfField;
 import com.keke.shop.superbuy.form.config.entity.DfForm;
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.dao.OrgDao;
 import com.keke.shop.superbuy.security.entity.Org;
 

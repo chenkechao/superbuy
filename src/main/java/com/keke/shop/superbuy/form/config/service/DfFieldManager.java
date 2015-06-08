@@ -1,21 +1,8 @@
 package com.keke.shop.superbuy.form.config.service;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,13 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.keke.shop.superbuy.form.config.dao.DfFieldDao;
-import com.keke.shop.superbuy.form.config.dao.DfFormDao;
 import com.keke.shop.superbuy.form.config.entity.DfField;
-import com.keke.shop.superbuy.form.config.entity.DfForm;
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
-import com.keke.shop.superbuy.security.dao.OrgDao;
-import com.keke.shop.superbuy.security.entity.Org;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 
 /**
  * 部门管理类

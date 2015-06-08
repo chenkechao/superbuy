@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.entity.Menu;
 import com.keke.shop.superbuy.security.service.MenuManager;
 

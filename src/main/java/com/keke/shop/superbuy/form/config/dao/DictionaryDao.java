@@ -3,7 +3,7 @@ package com.keke.shop.superbuy.form.config.dao;
 import org.springframework.stereotype.Component;
 
 import com.keke.shop.superbuy.form.config.entity.Dictionary;
-import com.keke.shop.superbuy.orm.hibernate.HibernateDao;
+import com.keke.framework.orm.hibernate.HibernateDao;
 
 /**
  * 配置字典持久化类

@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.dao.UserDao;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.User;
-import com.keke.shop.superbuy.util.Digests;
-import com.keke.shop.superbuy.util.EncodeUtils;
+import com.keke.framework.util.Digests;
+import com.keke.framework.util.EncodeUtils;
 
 /**
  * 用户管理类

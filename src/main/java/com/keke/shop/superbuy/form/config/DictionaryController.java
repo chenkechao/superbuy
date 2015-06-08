@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.shop.superbuy.form.config.entity.Dictionary;
 import com.keke.shop.superbuy.form.config.entity.DictionaryItem;
 import com.keke.shop.superbuy.form.config.service.DictionaryManager;
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 
 /**
  * 配置字典管理Controller
@@ -49,6 +51,21 @@ public class DictionaryController {
 		page = dictionaryManager.findPage(page, filters);
 		model.addAttribute("page", page);
 		return "config/dictionary/dictionaryList";
+	}
+	
+	@RequestMapping(value="list/json",produces = "application/json")
+	@ResponseBody
+	public String list() {
+		List<Dictionary> distionaryList = dictionaryManager.getAll();
+		String json = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			json = mapper.writeValueAsString(distionaryList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	/**

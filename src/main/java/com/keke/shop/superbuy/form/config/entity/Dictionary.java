@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 配置字典实体类
  * @author yuqs
@@ -30,6 +32,7 @@ public class Dictionary extends DictionaryEntity {
 	//描述
 	private String description;
 	//字典选项
+	@JsonIgnore
 	private List<DictionaryItem> dictionaryItems = new ArrayList<DictionaryItem>();
 	@Column(name = "name", unique = true, nullable = false, length = 200)
 	public String getName() {

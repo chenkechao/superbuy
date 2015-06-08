@@ -9,7 +9,7 @@
 	<uri></uri>
 	<tag>
 		<name>page</name>
-		<tagclass>com.keke.shop.superbuy.util.page.PageTag</tagclass>
+		<tagclass>com.keke.framework.util.page.PageTag</tagclass>
 		<attribute>
 			<name>totalRecords</name>
 			<required>true</required>
@@ -39,7 +39,7 @@
 
 	<tag>
 		<name>select</name>
-		<tagclass>com.keke.shop.superbuy.util.page.SelectTag</tagclass>
+		<tagclass>com.keke.framework.util.page.SelectTag</tagclass>
 		<attribute>
 			<name>type</name>
 			<required>true</required>

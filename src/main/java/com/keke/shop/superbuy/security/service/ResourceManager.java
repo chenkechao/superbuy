@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.keke.shop.superbuy.orm.Page;
-import com.keke.shop.superbuy.orm.PropertyFilter;
+import com.keke.framework.orm.Page;
+import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.dao.ResourceDao;
 import com.keke.shop.superbuy.security.entity.Authority;
 import com.keke.shop.superbuy.security.entity.Resource;
