@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * 用户实体类，继承抽象安全实体类
@@ -54,8 +56,10 @@ public class User extends SecurityEntity
 	//所属部门
 	private Org org;
 	//角色列表（多对多关联）
+	@JsonIgnore
 	private List<Role> roles = new ArrayList<Role>();
 	//权限列表（多对多关联）
+	@JsonIgnore
 	private List<Authority> authorities = new ArrayList<Authority>();
 	
 	public User() {

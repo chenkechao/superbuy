@@ -48,6 +48,10 @@
       function dictionaryList(){
     	  $('#mainIframe').attr("src",'${ctx }/config/dictionary');
       }
+      
+      function userList(){
+    	  $('#mainIframe').attr("src",'${ctx }/security/user');
+      }
   </script>
 </head>
 
@@ -403,7 +407,14 @@
               <li><a href="#" onClick="runningList()">运行中流程</a></li>
               <li><a href="#" onCLick="modelList()">模型工作区</a></li>
             </ul>
-          </li>                                     
+          </li> 
+           <li class="has_sub"><a href="#"><i class="icon-file-alt"></i>权限管理  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+            <ul>
+              <li><a href="#" onClick="userList()">用户管理</a></li>
+              <li><a href="#" onClick="runningList()">运行中流程</a></li>
+              <li><a href="#" onCLick="modelList()">模型工作区</a></li>
+            </ul>
+          </li>                                    
         </ul>
     </div>
 

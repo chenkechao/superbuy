@@ -11,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
+import com.keke.shop.superbuy.form.config.entity.Dictionary;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.entity.User;
@@ -53,6 +57,21 @@ public class UserController {
 		page = userManager.findPage(page, filters);
 		model.addAttribute("page", page);
 		return "security/userList";
+	}
+	
+	@RequestMapping(value="list/json",produces = "application/json")
+	@ResponseBody
+	public String list() {
+		List<User> userList = userManager.getAll();
+		String json = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			json = mapper.writeValueAsString(userList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	/**

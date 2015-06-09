@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 部门实体类，继承抽象安全实体类
  * @author yuqs
@@ -25,6 +27,7 @@ public class Org extends SecurityEntity
 	//根部门ID号默认为0
 	public static final Long ROOT_ORG_ID = 0l;
 	//上级部门
+	@JsonIgnore
     private Org parentOrg;
     //部门名称
     private String name;
@@ -37,6 +40,7 @@ public class Org extends SecurityEntity
     //部门类型（扩展使用）
     private String type;
     //部门管辖的所有用户列表（一对多关联）
+    @JsonIgnore
     private List<User> users = new ArrayList<User>();
     //部门管辖的所有下级部门列表（一对多关联）
     private List<Org> orgs = new ArrayList<Org>();
