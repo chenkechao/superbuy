@@ -54,9 +54,9 @@
   
 	  function actionFormatter(value, row, index) {
 	      return [
-	          '<a href="${ctx}/security/user/delete/${user.id }" class="btnDel" title="删除" onclick="return confirmDel();">删除</a>'
-	          + '<a href="${ctx}/security/user/update/${user.id }" class="btnEdit" title="编辑">编辑</a>'
-			  + '<a href="${ctx}/security/user/view/${user.id }" class="btnView" title="查看">查看</a>'
+	          '<a href="${ctx}/security/user/delete/'+row.id+'" class="btnDel" title="删除" onclick="return confirmDel();">删除</a>'
+	          + '<a href="${ctx}/security/user/update/'+row.id+'" class="btnEdit" title="编辑">编辑</a>'
+			  + '<a href="${ctx}/security/user/view/'+row.id+'" class="btnView" title="查看">查看</a>'
 	      ].join('');
 	  }
 	
@@ -120,31 +120,33 @@
                 </div>
 
                   <div class="widget-content">
-                  	<div id="toolbar" class="fixed-table-toolbar" style="margin-bottom: -40px">
-					    <button id="re_send_selected" class="btn btn-danger remove" disabled>
-					        重新发送选中邀请
-					    </button>
-					</div>
-					<table class="table table-striped table-bordered table-hover"
-					   id="table" data-toggle="table"
-				       data-url="${ctx }/security/user/list/json"
-				       data-click-to-select="true"
-				       data-row-style="rowStyle"
-				       data-query-params="queryParams"
-				       data-pagination="true"
-				       data-search="true"
-				       data-height="600">
-						<thead>
-
-					    <tr>
-					        <th data-field="state" data-checkbox="true"></th>
-					        <th data-field="username">账号</th>
-					        <th data-field="fullname">姓名</th>
-					        <th data-field="enabled">是否可用</th>
-					        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
-					    </tr>
-					    </thead>
-					</table>
+	                  <div class="padd">
+	                  	<div id="toolbar" class="fixed-table-toolbar" style="margin-bottom: -40px">
+						    <button id="re_send_selected" class="btn btn-danger remove" disabled>
+						        重新发送选中邀请
+						    </button>
+						</div>
+						<table class="table table-striped table-bordered table-hover"
+						   id="table" data-toggle="table"
+					       data-url="${ctx }/security/user/list/json"
+					       data-click-to-select="true"
+					       data-row-style="rowStyle"
+					       data-query-params="queryParams"
+					       data-pagination="true"
+					       data-search="true"
+					       data-height="600">
+							<thead>
+	
+						    <tr>
+						        <th data-field="state" data-checkbox="true"></th>
+						        <th data-field="username">账号</th>
+						        <th data-field="fullname">姓名</th>
+						        <th data-field="enabled">是否可用</th>
+						        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
+						    </tr>
+						    </thead>
+						</table>
+						</div>
 					<div class="widget-foot">
                       
                       <div class="clearfix"></div> 

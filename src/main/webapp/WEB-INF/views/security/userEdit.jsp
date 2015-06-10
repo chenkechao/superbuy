@@ -1,137 +1,297 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
+<%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<title>帐号管理</title>
-<%@ include file="/common/meta.jsp"%>
-<link rel="stylesheet" href="${ctx}/styles/css/style.css"
-	type="text/css" media="all" />
-<link rel="stylesheet" type="text/css"
-	href="${ctx}/styles/wbox/wbox/wbox.css" />
-<script src="${ctx}/styles/js/jquery-1.8.3.min.js"
-	type="text/javascript"></script>
-<script type="text/javascript" src="${ctx}/styles/wbox/wbox.js"></script>
-<script>
-		var iframewbox;
-	function openOrg() {
- 		iframewbox=$("#selectOrgBtn").wBox({
-			   	requestType: "iframe",
-			   	iframeWH:{width:800,height:400},
-			   	title:"选择上级部门",
-			   	show: true,
-				target:"${ctx}/security/org?lookup=1"
-			   });
-	}
-	
-	function callbackProcess(id, name) {
-		if(iframewbox) {
-			document.getElementById("parentOrgId").value=id;
-			document.getElementById("parentOrgName").value=name;
-			iframewbox.close();
-		}
-	}
-</script>
+  <title>leaveApply</title> 
+  <%@include file="/common/meta.jsp"%>
+  <style>
+  	body{
+  		padding-top: 0px;
+  	}
+  </style>
+  <script type="text/javascript">
+  $(function(){
+	  
+	   //defaults
+	   $.fn.editable.defaults.url = '/post'; 
+
+	    //enable / disable
+	   $('#enable').click(function() {
+	       $('#user .editable').editable('toggleDisabled');
+	   });    
+	    
+	    //editables 
+	    $('#username').editable({
+	           url: '/post',
+	           type: 'text',
+	           pk: 1,
+	           name: 'username',
+	           title: 'Enter username'
+	    });
+	    
+	    $('#firstname').editable({
+	        validate: function(value) {
+	           if($.trim(value) == '') return 'This field is required';
+	        }
+	    });
+	    
+	    $('#sex').editable({
+	        prepend: "not selected",
+	        source: [
+	            {value: 1, text: 'Male'},
+	            {value: 2, text: 'Female'}
+	        ],
+	        display: function(value, sourceData) {
+	             var colors = {"": "gray", 1: "green", 2: "blue"},
+	                 elem = $.grep(sourceData, function(o){return o.value == value;});
+	                 
+	             if(elem.length) {    
+	                 $(this).text(elem[0].text).css("color", colors[value]); 
+	             } else {
+	                 $(this).empty(); 
+	             }
+	        }   
+	    });    
+	    
+	    $('#status').editable();   
+	    
+	    $('#group').editable({
+	       showbuttons: false 
+	    });   
+
+	    $('#vacation').editable({
+	        datepicker: {
+	            todayBtn: 'linked'
+	        } 
+	    });  
+	        
+	    $('#dob').editable();
+	          
+	    $('#event').editable({
+	        placement: 'right',
+	        combodate: {
+	            firstItem: 'name'
+	        }
+	    });      
+	    
+	    $('#meeting_start').editable({
+	        format: 'yyyy-mm-dd hh:ii',    
+	        viewformat: 'dd/mm/yyyy hh:ii',
+	        validate: function(v) {
+	           if(v && v.getDate() == 10) return 'Day cant be 10!';
+	        },
+	        datetimepicker: {
+	           todayBtn: 'linked',
+	           weekStart: 1
+	        }        
+	    });            
+	    
+	    $('#comments').editable({
+	        showbuttons: 'bottom'
+	    }); 
+	    
+	    $('#note').editable(); 
+	    $('#pencil').click(function(e) {
+	        e.stopPropagation();
+	        e.preventDefault();
+	        $('#note').editable('toggle');
+	   });   
+	   
+	    $('#state').editable({
+	        source: ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
+	    }); 
+	    
+	    $('#state2').editable({
+	        value: 'California',
+	        typeahead: {
+	            name: 'state',
+	            local: ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
+	        }
+	    });   
+	   
+	   $('#fruits').editable({
+	       pk: 1,
+	       limit: 3,
+	       source: [
+	        {value: 1, text: 'banana'},
+	        {value: 2, text: 'peach'},
+	        {value: 3, text: 'apple'},
+	        {value: 4, text: 'watermelon'},
+	        {value: 5, text: 'orange'}
+	       ]
+	    }); 
+	    
+	    $('#tags').editable({
+	        inputclass: 'input-large',
+	        select2: {
+	            tags: ['html', 'javascript', 'css', 'ajax'],
+	            tokenSeparators: [",", " "]
+	        }
+	    });   
+
+	    var countries = [];
+	    $.each({"BD": "Bangladesh", "BE": "Belgium", "BF": "Burkina Faso", "BG": "Bulgaria", "BA": "Bosnia and Herzegovina", "BB": "Barbados", "WF": "Wallis and Futuna", "BL": "Saint Bartelemey", "BM": "Bermuda", "BN": "Brunei Darussalam", "BO": "Bolivia", "BH": "Bahrain", "BI": "Burundi", "BJ": "Benin", "BT": "Bhutan", "JM": "Jamaica", "BV": "Bouvet Island", "BW": "Botswana", "WS": "Samoa", "BR": "Brazil", "BS": "Bahamas", "JE": "Jersey", "BY": "Belarus", "O1": "Other Country", "LV": "Latvia", "RW": "Rwanda", "RS": "Serbia", "TL": "Timor-Leste", "RE": "Reunion", "LU": "Luxembourg", "TJ": "Tajikistan", "RO": "Romania", "PG": "Papua New Guinea", "GW": "Guinea-Bissau", "GU": "Guam", "GT": "Guatemala", "GS": "South Georgia and the South Sandwich Islands", "GR": "Greece", "GQ": "Equatorial Guinea", "GP": "Guadeloupe", "JP": "Japan", "GY": "Guyana", "GG": "Guernsey", "GF": "French Guiana", "GE": "Georgia", "GD": "Grenada", "GB": "United Kingdom", "GA": "Gabon", "SV": "El Salvador", "GN": "Guinea", "GM": "Gambia", "GL": "Greenland", "GI": "Gibraltar", "GH": "Ghana", "OM": "Oman", "TN": "Tunisia", "JO": "Jordan", "HR": "Croatia", "HT": "Haiti", "HU": "Hungary", "HK": "Hong Kong", "HN": "Honduras", "HM": "Heard Island and McDonald Islands", "VE": "Venezuela", "PR": "Puerto Rico", "PS": "Palestinian Territory", "PW": "Palau", "PT": "Portugal", "SJ": "Svalbard and Jan Mayen", "PY": "Paraguay", "IQ": "Iraq", "PA": "Panama", "PF": "French Polynesia", "BZ": "Belize", "PE": "Peru", "PK": "Pakistan", "PH": "Philippines", "PN": "Pitcairn", "TM": "Turkmenistan", "PL": "Poland", "PM": "Saint Pierre and Miquelon", "ZM": "Zambia", "EH": "Western Sahara", "RU": "Russian Federation", "EE": "Estonia", "EG": "Egypt", "TK": "Tokelau", "ZA": "South Africa", "EC": "Ecuador", "IT": "Italy", "VN": "Vietnam", "SB": "Solomon Islands", "EU": "Europe", "ET": "Ethiopia", "SO": "Somalia", "ZW": "Zimbabwe", "SA": "Saudi Arabia", "ES": "Spain", "ER": "Eritrea", "ME": "Montenegro", "MD": "Moldova, Republic of", "MG": "Madagascar", "MF": "Saint Martin", "MA": "Morocco", "MC": "Monaco", "UZ": "Uzbekistan", "MM": "Myanmar", "ML": "Mali", "MO": "Macao", "MN": "Mongolia", "MH": "Marshall Islands", "MK": "Macedonia", "MU": "Mauritius", "MT": "Malta", "MW": "Malawi", "MV": "Maldives", "MQ": "Martinique", "MP": "Northern Mariana Islands", "MS": "Montserrat", "MR": "Mauritania", "IM": "Isle of Man", "UG": "Uganda", "TZ": "Tanzania, United Republic of", "MY": "Malaysia", "MX": "Mexico", "IL": "Israel", "FR": "France", "IO": "British Indian Ocean Territory", "FX": "France, Metropolitan", "SH": "Saint Helena", "FI": "Finland", "FJ": "Fiji", "FK": "Falkland Islands (Malvinas)", "FM": "Micronesia, Federated States of", "FO": "Faroe Islands", "NI": "Nicaragua", "NL": "Netherlands", "NO": "Norway", "NA": "Namibia", "VU": "Vanuatu", "NC": "New Caledonia", "NE": "Niger", "NF": "Norfolk Island", "NG": "Nigeria", "NZ": "New Zealand", "NP": "Nepal", "NR": "Nauru", "NU": "Niue", "CK": "Cook Islands", "CI": "Cote d'Ivoire", "CH": "Switzerland", "CO": "Colombia", "CN": "China", "CM": "Cameroon", "CL": "Chile", "CC": "Cocos (Keeling) Islands", "CA": "Canada", "CG": "Congo", "CF": "Central African Republic", "CD": "Congo, The Democratic Republic of the", "CZ": "Czech Republic", "CY": "Cyprus", "CX": "Christmas Island", "CR": "Costa Rica", "CV": "Cape Verde", "CU": "Cuba", "SZ": "Swaziland", "SY": "Syrian Arab Republic", "KG": "Kyrgyzstan", "KE": "Kenya", "SR": "Suriname", "KI": "Kiribati", "KH": "Cambodia", "KN": "Saint Kitts and Nevis", "KM": "Comoros", "ST": "Sao Tome and Principe", "SK": "Slovakia", "KR": "Korea, Republic of", "SI": "Slovenia", "KP": "Korea, Democratic People's Republic of", "KW": "Kuwait", "SN": "Senegal", "SM": "San Marino", "SL": "Sierra Leone", "SC": "Seychelles", "KZ": "Kazakhstan", "KY": "Cayman Islands", "SG": "Singapore", "SE": "Sweden", "SD": "Sudan", "DO": "Dominican Republic", "DM": "Dominica", "DJ": "Djibouti", "DK": "Denmark", "VG": "Virgin Islands, British", "DE": "Germany", "YE": "Yemen", "DZ": "Algeria", "US": "United States", "UY": "Uruguay", "YT": "Mayotte", "UM": "United States Minor Outlying Islands", "LB": "Lebanon", "LC": "Saint Lucia", "LA": "Lao People's Democratic Republic", "TV": "Tuvalu", "TW": "Taiwan", "TT": "Trinidad and Tobago", "TR": "Turkey", "LK": "Sri Lanka", "LI": "Liechtenstein", "A1": "Anonymous Proxy", "TO": "Tonga", "LT": "Lithuania", "A2": "Satellite Provider", "LR": "Liberia", "LS": "Lesotho", "TH": "Thailand", "TF": "French Southern Territories", "TG": "Togo", "TD": "Chad", "TC": "Turks and Caicos Islands", "LY": "Libyan Arab Jamahiriya", "VA": "Holy See (Vatican City State)", "VC": "Saint Vincent and the Grenadines", "AE": "United Arab Emirates", "AD": "Andorra", "AG": "Antigua and Barbuda", "AF": "Afghanistan", "AI": "Anguilla", "VI": "Virgin Islands, U.S.", "IS": "Iceland", "IR": "Iran, Islamic Republic of", "AM": "Armenia", "AL": "Albania", "AO": "Angola", "AN": "Netherlands Antilles", "AQ": "Antarctica", "AP": "Asia/Pacific Region", "AS": "American Samoa", "AR": "Argentina", "AU": "Australia", "AT": "Austria", "AW": "Aruba", "IN": "India", "AX": "Aland Islands", "AZ": "Azerbaijan", "IE": "Ireland", "ID": "Indonesia", "UA": "Ukraine", "QA": "Qatar", "MZ": "Mozambique"}, function(k, v) {
+	        countries.push({id: k, text: v});
+	    }); 
+	    $('#country').editable({
+	        source: countries,
+	        select2: {
+	            width: 200,
+	            placeholder: 'Select country',
+	            allowClear: true
+	        } 
+	    });      
+
+
+	    
+	    $('#address').editable({
+	        url: '/post',
+	        value: {
+	            city: "Moscow", 
+	            street: "Lenina", 
+	            building: "12"
+	        },
+	        validate: function(value) {
+	            if(value.city == '') return 'city is required!'; 
+	        },
+	        display: function(value) {
+	            if(!value) {
+	                $(this).empty();
+	                return; 
+	            }
+	            var html = '<b>' + $('<div>').text(value.city).html() + '</b>, ' + $('<div>').text(value.street).html() + ' st., bld. ' + $('<div>').text(value.building).html();
+	            $(this).html(html); 
+	        }         
+	    });              
+	         
+	   $('#user .editable').on('hidden', function(e, reason){
+	        if(reason === 'save' || reason === 'nochange') {
+	            var $next = $(this).closest('tr').next().find('.editable');
+	            if($('#autoopen').is(':checked')) {
+	                setTimeout(function() {
+	                    $next.editable('show');
+	                }, 300); 
+	            } else {
+	                $next.focus();
+	            } 
+	        }
+	   });
+	   
+	});
+  </script>
 </head>
 
 <body>
-	<form id="inputForm" action="${ctx }/security/user/update"
-		method="post">
-		<input type="hidden" name="id" id="id" value="${id }" />
-		<table width="100%" border="0" align="center" cellpadding="0"
-			class="table_all_border" cellspacing="0"
-			style="margin-bottom: 0px; border-bottom: 0px">
-			<tr>
-				<td class="td_table_top" align="center">用户管理</td>
-			</tr>
-		</table>
-		<table class="table_all" align="center" border="0" cellpadding="0"
-			cellspacing="0" style="margin-top: 0px">
-			<tr>
-				<td class="td_table_1"><span>账号：</span></td>
-				<td class="td_table_2"><input type="text" class="input_240"
-					id="username" name="username" value="${user.username }" /></td>
-				<td class="td_table_1"><span>姓名：</span></td>
-				<td class="td_table_2"><input type="text" class="input_240"
-					id="fullname" name="fullname" value="${user.fullname }" /></td>
-			</tr>
-			<tr>
-				<td class="td_table_1"><span>密码：</span></td>
-				<td class="td_table_2"><input type="password" class="input_240"
-					id="plainPassword" name="plainPassword"
-					value="${user.plainPassword }" /></td>
-				<td class="td_table_1"><span>确认密码：</span></td>
-				<td class="td_table_2"><input type="password" class="input_240"
-					id="passwordConfirm" name="passwordConfirm"
-					value="${user.plainPassword }" /></td>
-			</tr>
-			<tr>
-				<td class="td_table_1"><span>邮箱：</span></td>
-				<td class="td_table_2"><input type="text" class="input_240"
-					id="email" name="email" value="${user.email }" /></td>
-				<td class="td_table_1"><span>性别：</span></td>
-				<td class="td_table_2"><frame:select name="sex" type="radio"
-						configName="sex" value="${user.sex == null ? '1' : user.sex }"
-						cssClass="input_radio" /></td>
-			</tr>
-			<tr>
-				<td class="td_table_1"><span>是否可用：</span></td>
-				<td class="td_table_2" colspan="3"><frame:select name="enabled"
-						type="radio" configName="yesNo"
-						value="${user.enabled == null ? '1' : user.enabled }"
-						cssClass="input_radio" /></td>
-			</tr>
-			<tr>
-				<td class="td_table_1"><span>部门：</span></td>
-				<td class="td_table_2" colspan="3"><input type="hidden"
-					id="parentOrgId" name="parentOrgId" value="${user.org.id }">
-					<input type="text" id="parentOrgName" readonly="readonly"
-					name="parentOrgName" class="input_520" value="${user.org.name }">
-					<input type='button' class='button_70px' value='选择部门'
-					id="selectOrgBtn" onclick="openOrg()" /></td>
-			</tr>
-		</table>
-		<table align="center" border="0" cellpadding="0" cellspacing="0">
-			<tr align="left">
-				<td colspan="1"><input type="submit" class="button_70px"
-					name="submit" value="提交"> &nbsp;&nbsp; <input type="button"
-					class="button_70px" name="reback" value="返回"
-					onclick="history.back()"></td>
-			</tr>
-		</table>
 
-		<table class="table_all" align="center" border="0" cellpadding="0"
-			cellspacing="0">
-			<tr>
-				<td align=center width=10% class="td_list_1" nowrap><input
-					type="checkbox" title="全选" id="selectAll"></td>
-				<td align=center width=45% class="td_list_1" nowrap><a
-					href="javascript:sort('name','asc')">角色名称</a></td>
-			</tr>
 
-			<c:forEach items="${roles}" var="role">
-				<tr>
-					<td class="td_list_2" align=center nowrap><label
-						class="checkbox"> <input type="checkbox"
-							name="orderIndexs" value="${role.id}"
-							${role.selected== 1 ? 'checked=true' : '' }>
-					</label></td>
-					<td class="td_list_2" align=left nowrap>${role.name}&nbsp;</td>
-				</tr>
-			</c:forEach>
-		</table>
-	</form>
+<!-- Main bar -->
+  	<div class="mainbar">
+      <!-- Page heading -->
+	    <div class="page-head">
+        <!-- Page heading -->
+	      <h2 class="pull-left">Forms 
+          <!-- page meta -->
+          <span class="page-meta">Something Goes Here</span>
+        </h2>
+
+
+        <!-- Breadcrumb -->
+        <div class="bread-crumb pull-right">
+          <a href="index.html"><i class="icon-home"></i> Home</a> 
+          <!-- Divider -->
+          <span class="divider">/</span> 
+          <a href="#" class="bread-current">Forms</a>
+        </div>
+
+        <div class="clearfix"></div>
+
+	    </div>
+	    <!-- Page heading ends -->
+
+
+
+	    <!-- Matter -->
+
+	    <div class="matter">
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+
+              <div class="widget wgreen">
+                
+                <div class="widget-head">
+                  <div class="pull-left">Forms</div>
+                  <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="widget-content">
+                  <div class="padd">
+
+                    <h6>Input Boxs</h6>
+                    <hr />
+                    <!-- Form starts.  -->
+	                <table class="table table-striped table-bordered table-hover">
+	                	<thead>
+	                		<tr>
+	                			<th>name</th>
+	                			<th>value</th>
+							</tr>
+	                	</thead>
+	                	<tbody> 
+		                    <tr>         
+		                        <td width="35%">Simple text field</td>
+		                        <td width="65%"><a href="#" id="username" data-type="text" data-pk="1" data-title="Enter username">superuser</a></td>
+		                    </tr>
+		                    <tr>         
+		                        <td>Empty text field, required</td>
+		                        <td><a href="#" id="firstname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your firstname"></a></td>
+		                    </tr>  
+		                    <tr>         
+		                        <td>Select, local array, custom display</td>
+		                        <td><a href="#" id="sex" data-type="select" data-pk="1" data-value="" data-title="Select sex"></a></td>
+		                    </tr>
+		                    <tr>         
+		                        <td>Select, remote array, no buttons</td>
+		                        <td><a href="#" id="group" data-type="select" data-pk="1" data-value="5" data-source="/groups" data-title="Select group">Admin</a></td>
+		                    </tr> 
+		                    <tr>         
+		                        <td>Select, error while loading</td>
+		                        <td><a href="#" id="status" data-type="select" data-pk="1" data-value="0" data-source="/status" data-title="Select status">Active</a></td>
+		                    </tr>  
+		                         
+		                    <tr>         
+		                        <td>Datepicker</td>
+		                        <td>
+		                        
+		                        <span class="notready">not implemented for Bootstrap 3 yet</span>
+		                        
+		                        </td>
+		                    </tr>
+	                	</tbody>
+	            	</table>
+                  </div>
+                </div>
+                  <div class="widget-foot">
+                    <!-- Footer goes here -->
+                  </div>
+              </div>  
+
+            </div>
+
+          </div><!-- row ends -->
+
+        </div><!-- container -->
+		  </div><!-- matter -->
+	</div>
+
 </body>
-<script type="text/javascript">
-	$("#selectAll").click(function(){
-		var status = $(this).attr("checked");
-		if(status) {
-			$("input[name='orderIndexs']").attr("checked",true);
-		} else {
-			$("input[name='orderIndexs']").attr("checked",false);
-		}
-	    
-	});
-	</script>
 </html>

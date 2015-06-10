@@ -122,8 +122,23 @@ public class UserController {
 	 */
 	@RequestMapping(value = "view/{id}", method = RequestMethod.GET)
 	public String view(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("user", userManager.get(id));
+		model.addAttribute("userId", id);
 		return "security/userView";
+	}
+	
+	@RequestMapping(value = "view/json/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String view(@PathVariable("id") Long id) {
+		User user = userManager.get(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = null;
+		try {
+			json = mapper.writeValueAsString(user);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	/**

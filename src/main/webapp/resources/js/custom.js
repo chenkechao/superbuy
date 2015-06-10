@@ -258,14 +258,8 @@ function loadDetail(url,callback) {
 		  dataType:"json",//
 		  error:function(data){
 			alert('error');
-			$.each(data, function(k, v) {
-				alert(k+','+v);
-				
-			});
 		  },
 		  success:function(data){
-			  alert('success');
-			  alert(data);
 			  if(callback != null){
 				  if ($.isFunction(callback)) {
 						callback(data);
@@ -279,6 +273,37 @@ function loadDetail(url,callback) {
 							}
 						} else {
 				            $('#view-info td[name=' + k + ']', dialog).text(v);
+						}
+						
+			        });
+			  }
+		  }
+	  });
+}
+
+function loadDetail1(url,callback) {
+	alert('dd');
+	$.ajax({
+		  url:url,
+		  cache:false,
+		  dataType:"json",//
+		  error:function(data){
+			alert('error');
+		  },
+		  success:function(data){
+			  if(callback != null){
+				  if ($.isFunction(callback)) {
+						callback(data);
+					}
+			  }else{
+				  $.each(data, function(k, v) {
+						// 格式化日期
+						if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
+							if(v != null){
+								$('#' + k).text(new Date(v).format('yyyy-MM-dd hh:mm'));
+							}
+						} else {
+				            $('#' + k).text(v);
 						}
 						
 			        });

@@ -1,57 +1,124 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@ include file="/common/taglibs.jsp"%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
+<%@include file="/common/taglibs.jsp"%>
+<%@include file="/common/include.jsp"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<title>帐号查看</title>
-<%@ include file="/common/meta.jsp"%>
-<link rel="stylesheet" href="${ctx}/styles/css/style.css"
-	type="text/css" media="all" />
-<script src="${ctx}/styles/js/jquery-1.8.3.min.js"
-	type="text/javascript"></script>
+  <title>leaveApply</title> 
+  <%@include file="/common/meta.jsp"%>
+  <style>
+  	body{
+  		padding-top: 0px;
+  	}
+  </style>
+  <script type="text/javascript">
+  $(function(){
+	  var url = '${ctx}/security/user/view/json/'+${userId};
+	  loadDetail1(url);
+  });
+  </script>
 </head>
 
 <body>
-	<form id="inputForm" action="" method="post">
-		<input type="hidden" name="id" id="id" value="${id }" />
-		<table class="table_all" align="center" border="0" cellpadding="0"
-			cellspacing="0">
-			<tr>
-				<td class="td_table_1"><span>账号：</span></td>
-				<td class="td_table_2">${user.username }&nbsp;</td>
-				<td class="td_table_1"><span>姓名：</span></td>
-				<td class="td_table_2">${user.fullname }&nbsp;</td>
-			</tr>
-			<tr>
-				<td class="td_table_1"><span>邮箱：</span></td>
-				<td class="td_table_2" colspan="3">${user.email }&nbsp;</td>
-			</tr>
-			<tr>
-				<td class="td_table_1"><span>部门：</span></td>
-				<td class="td_table_2" colspan="3">${user.org.name }&nbsp;</td>
-			</tr>
-		</table>
-		<table align="center" border="0" cellpadding="0" cellspacing="0">
-			<tr align="left">
-				<td colspan="1"><input type="button" class="button_70px"
-					name="reback" value="返回" onclick="history.back()"></td>
-			</tr>
-		</table>
 
-		<table class="table_all" align="center" border="0" cellpadding="0"
-			cellspacing="0">
-			<tr>
-				<td align=center width=45% class="td_list_1" nowrap><a
-					href="javascript:sort('name','asc')">角色名称</a></td>
-			</tr>
 
-			<c:forEach items="${user.roles}" var="role">
-				<tr>
-					<td class="td_list_2" align=left nowrap>${role.name}&nbsp;</td>
-				</tr>
-			</c:forEach>
-		</table>
-	</form>
+<!-- Main bar -->
+  	<div class="mainbar">
+      <!-- Page heading -->
+	    <div class="page-head">
+        <!-- Page heading -->
+	      <h2 class="pull-left">Forms 
+          <!-- page meta -->
+          <span class="page-meta">Something Goes Here</span>
+        </h2>
+
+
+        <!-- Breadcrumb -->
+        <div class="bread-crumb pull-right">
+          <a href="index.html"><i class="icon-home"></i> Home</a> 
+          <!-- Divider -->
+          <span class="divider">/</span> 
+          <a href="#" class="bread-current">Forms</a>
+        </div>
+
+        <div class="clearfix"></div>
+
+	    </div>
+	    <!-- Page heading ends -->
+
+
+
+	    <!-- Matter -->
+
+	    <div class="matter">
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+
+              <div class="widget wgreen">
+                
+                <div class="widget-head">
+                  <div class="pull-left">Forms</div>
+                  <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="widget-content">
+                  <div class="padd">
+
+                    <h6>Input Boxs</h6>
+                    <hr />
+                    <!-- Form starts.  -->
+	                <table class="table table-striped table-bordered table-hover">
+	                	<thead>
+	                		<tr>
+	                			<th>name</th>
+	                			<th>value</th>
+							</tr>
+	                	</thead>
+	                	<tbody> 
+		                    <tr>         
+		                        <td width="35%">账号</td>
+		                        <td width="65%"><a href="#" id="username" data-type="text" data-pk="1" data-title="Enter username"></a></td>
+		                    </tr>
+		                    <tr>         
+		                        <td>姓名</td>
+		                        <td><a href="#" id="fullname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your fullname"></a></td>
+		                    </tr>  
+		                    <tr>         
+		                        <td>邮箱</td>
+		                        <td><a href="#" id="email" data-type="select" data-pk="1" data-value="" data-title="Select email"></a></td>
+		                    </tr>
+		                    <tr>         
+		                        <td>部门</td>
+		                        <td><a href="#" id="group" data-type="select" data-pk="1" data-value="5" data-source="/groups" data-title="Select group"></a></td>
+		                    </tr> 
+		                    <tr>         
+		                        <td>角色</td>
+		                        <td><a href="#" id="status" data-type="select" data-pk="1" data-value="0" data-source="/status" data-title="Select status"></a></td>
+		                    </tr>  
+	                	</tbody>
+	            	</table>
+                  </div>
+                </div>
+                  <div class="widget-foot">
+                    <!-- Footer goes here -->
+                  </div>
+              </div>  
+
+            </div>
+
+          </div><!-- row ends -->
+
+        </div><!-- container -->
+		  </div><!-- matter -->
+	</div>
+
 </body>
 </html>

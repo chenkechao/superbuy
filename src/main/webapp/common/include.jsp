@@ -10,6 +10,8 @@
 <link href="${ctx }/resources/fileinput/css/fileinput.css" rel="stylesheet">
 <!-- Bootstrap table -->
 <link href="${ctx }/resources/table/css/bootstrap-table.css" rel="stylesheet">
+<!-- Bootstrap editable -->
+<link href="${ctx }/resources/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 <!-- Main stylesheet -->
 <link href="${ctx }/resources/style/style.css" rel="stylesheet">
 
@@ -31,6 +33,7 @@
 <script src="${ctx }/resources/fileinput/js/fileinput.js"></script>
 <script src="${ctx }/resources/table/js/bootstrap-table-all.js"></script>
 <script src="${ctx }/resources/table/js/bootstrap-table-zh-CN.js"></script>
+<script src="${ctx }/resources/bootstrap3-editable/js/bootstrap-editable.js"></script>
 <script src="${ctx }/resources/jquery-sparkline/js/jquery.sparkline.js" type="text/javascript"></script>
 <script src="${ctx }/resources/js/jquery.form.js"></script> <!-- jQuery -->
 <script src="${ctx }/resources/js/custom.js"></script> <!-- Custom codes -->

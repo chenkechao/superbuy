@@ -935,39 +935,6 @@ header .header-data .hdata em{
 	border-bottom: 1px solid #fff;
 }
 
-.widget .table{
-	margin: 0px;
-	width: 100%;
-}
-
-.widget .table .btn{
-	font-size: 11px !important;
-}
-
-.widget .table-bordered{
-	border-radius: 0px;
-	border: 0px;
-}
-
-.widget .table-bordered th{
-	border-bottom: 1px solid #ddd !important;
-}
-
-.widget .table-bordered td{
-	border-top: 0px !important;
-	border-bottom: 1px solid #ddd !important;
-	border-radius: 0px !important;
-}
-
-.widget .table-bordered td:first-child, .widget .table-bordered th:first-child{
-	border-left: 0px;
-}
-
-.widget .table-bordered thead:first-child tr:first-child > th:first-child, 
-.widget .table-bordered tbody:first-child tr:first-child > td:first-child {
-	border-radius: 0px;
-}
-
 .widget.wblack{
   background: #fafafa url('../img/black.png') repeat;
   color: #ddd;
@@ -1145,14 +1112,6 @@ header .header-data .hdata em{
 
 .widget.wblack .pagination ul > li > a:hover{
 	background: #222;
-}
-
-.widget.wblack .table td{
-	border-top: 1px solid #222;
-}
-
-.widget.wblack .table tr:hover{
-	background: rgba(255,255,255,0.1);
 }
 
 .widget.wblack .nav-tabs > .active > a, .widget.wblack .nav-tabs > .active > a:hover {
