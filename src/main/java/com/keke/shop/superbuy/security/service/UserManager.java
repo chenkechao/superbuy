@@ -60,6 +60,10 @@ public class UserManager {
 		return userDao.get(id);
 	}
 	
+	public User load(Long id) {
+		return userDao.load(id);
+	}
+	
 	/**
 	 * 根据用户名称，获取用户实体
 	 * @param username

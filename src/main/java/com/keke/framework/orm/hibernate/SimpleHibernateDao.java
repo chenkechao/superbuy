@@ -152,7 +152,7 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public void delete(final PK id) {
 		Assert.notNull(id, "id不能为空");
-		delete(get(id));
+		delete(load(id));
 		logger.debug("delete entity {},id is {}", entityClass.getSimpleName(), id);
 	}
 
@@ -161,9 +161,19 @@ public class SimpleHibernateDao<T, PK extends Serializable> {
 	 */
 	public T get(final PK id) {
 		Assert.notNull(id, "id不能为空");
-		return (T) getSession().load(entityClass, id);
+		//return (T) getSession().load(entityClass, id);
+		return (T) getSession().get(entityClass, id);
 	}
 
+	/**
+	 * 按id获取对象.
+	 */
+	public T load(final PK id) {
+		Assert.notNull(id, "id不能为空");
+		//return (T) getSession().load(entityClass, id);
+		return (T) getSession().load(entityClass, id);
+	}
+	
 	/**
 	 * 按id列表获取对象列表.
 	 */

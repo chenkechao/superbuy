@@ -13,6 +13,55 @@
   </style>
   <script type="text/javascript">
   $(function(){
+	  
+	   //defaults
+	   $.fn.editable.defaults.url = '${ctx}/security/user/update'; 
+
+	    //enable / disable
+	   $('#enable').click(function() {
+	       $('#user .editable').editable('toggleDisabled');
+	   });    
+	    
+	    //editables 
+	    
+	    $('#username').editable({
+	    	  type: "text",
+	    	  title: "Enter username",
+	    	  url: '${ctx}/security/user/update', 
+	    	  params: function (params) {
+	    	    return {
+	    	      username: $(this).data("username"),
+	    	      value: params.value        
+	    	    };
+	    	  }
+	    	});
+	    
+	    $('#fullname').editable({
+	        validate: function(value) {
+	           if($.trim(value) == '') return 'This field is required';
+	        }
+	    });
+	    
+	    $('#email').editable({
+	        prepend: "not selected",
+	        source: [
+	            {value: 1, text: 'Male'},
+	            {value: 2, text: 'Female'}
+	        ],
+	        display: function(value, sourceData) {
+	             var colors = {"": "gray", 1: "green", 2: "blue"},
+	                 elem = $.grep(sourceData, function(o){return o.value == value;});
+	                 
+	             if(elem.length) {    
+	                 $(this).text(elem[0].text).css("color", colors[value]); 
+	             } else {
+	                 $(this).empty(); 
+	             }
+	        }   
+	    });    
+	});
+  
+  $(function(){
 	  var url = '${ctx}/security/user/view/json/'+${userId};
 	  loadDetail1(url);
   });
@@ -97,7 +146,7 @@
 		                    </tr>
 		                    <tr>         
 		                        <td>部门</td>
-		                        <td><a href="#" id="group" data-type="select" data-pk="1" data-value="5" data-source="/groups" data-title="Select group"></a></td>
+		                        <td><a href="#" id="org.name" data-type="select" data-pk="1" data-value="5" data-source="/groups" data-title="Select group"></a></td>
 		                    </tr> 
 		                    <tr>         
 		                        <td>角色</td>

@@ -146,21 +146,9 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(User user, Long[] orderIndexs, Long parentOrgId) {
-		if(orderIndexs != null) {
-			for(Long order : orderIndexs) {
-				Role role = new Role();
-				role.setId(order);
-				user.getRoles().add(role);
-			}
-		}
-		if(parentOrgId != null && parentOrgId.longValue() > 0) {
-			Org parent = new Org(parentOrgId);
-			user.setOrg(parent);
-		}
-		userManager.save(user);
-		return "redirect:/security/user";
+	@RequestMapping(value = "update")
+	public String update(User user, HttpServletRequest request) {
+		return "username:1";
 	}
 	
 	/**

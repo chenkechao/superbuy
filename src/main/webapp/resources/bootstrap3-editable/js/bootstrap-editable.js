@@ -2075,7 +2075,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                             data: params,
                             type: 'POST'  
                         };
-                        
+                        alert(params);
                         // use success / error from options 
                         config.success = config.success || editable.options.success;
                         config.error = config.error || editable.options.error;

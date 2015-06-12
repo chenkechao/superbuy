@@ -282,7 +282,6 @@ function loadDetail(url,callback) {
 }
 
 function loadDetail1(url,callback) {
-	alert('dd');
 	$.ajax({
 		  url:url,
 		  cache:false,
