@@ -15,26 +15,21 @@
   $(function(){
 	  
 	   //defaults
-	   $.fn.editable.defaults.url = '${ctx}/security/user/update'; 
-
-	    //enable / disable
-	   $('#enable').click(function() {
-	       $('#user .editable').editable('toggleDisabled');
-	   });    
+	   //$.fn.editable.defaults.url = '${ctx}/security/user/update';
+	   $.fn.editable.defaults.mode = 'inline';
+	   
+	   $('.myeditable').editable();	   
+	   
+	   $('.myeditable').on('save.newuser',function(){
+		   var that = this;
+ 		    setTimeout(function() {
+		        $(that).closest('tr').next().find('.myeditable').editable('show');
+		    }, 200);
+	   });
 	    
-	    //editables 
-	    
-	    $('#username').editable({
-	    	  type: "text",
-	    	  title: "Enter username",
-	    	  url: '${ctx}/security/user/update', 
-	    	  params: function (params) {
-	    	    return {
-	    	      username: $(this).data("username"),
-	    	      value: params.value        
-	    	    };
-	    	  }
-	    	});
+	   $('#username').editable('option','validate',function(v){
+		   if(!v) return 'not null';
+	   });
 	    
 	    $('#fullname').editable({
 	        validate: function(value) {
@@ -42,23 +37,32 @@
 	        }
 	    });
 	    
-	    $('#email').editable({
-	        prepend: "not selected",
-	        source: [
-	            {value: 1, text: 'Male'},
-	            {value: 2, text: 'Female'}
-	        ],
-	        display: function(value, sourceData) {
-	             var colors = {"": "gray", 1: "green", 2: "blue"},
-	                 elem = $.grep(sourceData, function(o){return o.value == value;});
-	                 
-	             if(elem.length) {    
-	                 $(this).text(elem[0].text).css("color", colors[value]); 
-	             } else {
-	                 $(this).empty(); 
-	             }
-	        }   
-	    });    
+	    $('#savebtn').click(function() {
+	    	   $('.myeditable').editable('submit', { 
+	    		   url:'${ctx}/security/user/update',
+	    	       ajaxOptions: {
+	    	    	   cache:false,
+	    	           dataType: 'text' //assuming json response
+	    	       },           
+	    	       success: function() {
+	    	    	   alert('11');
+	    	       },
+	    	       error: function(errors) {
+	    	    	   alert('22');
+	    	           var msg = '';
+	    	       }
+	    	   });
+	    	});
+	    
+	    $('#cancelbtn').click(function() {
+	        $('.myeditable').editable('setValue', null)  //clear values
+	            .editable('option', 'pk', null)          //clear pk
+	            .removeClass('editable-unsaved');        //remove bold css
+	                       
+	        $('#save-btn').show();
+	        $('#msg').hide();                
+	    });
+	    
 	});
   
   $(function(){
@@ -134,26 +138,32 @@
 	                	<tbody> 
 		                    <tr>         
 		                        <td width="35%">账号</td>
-		                        <td width="65%"><a href="#" id="username" data-type="text" data-pk="1" data-title="Enter username"></a></td>
+		                        <td width="65%">
+		                        <a href="#" id="id" class="myeditable" style="display:none" data-type="text" data-value="${userId }"></a>
+		                        <a href="#" id="username" class="myeditable" data-type="text" data-title="Enter username"></a></td>
 		                    </tr>
 		                    <tr>         
 		                        <td>姓名</td>
-		                        <td><a href="#" id="fullname" data-type="text" data-pk="1" data-placement="right" data-placeholder="Required" data-title="Enter your fullname"></a></td>
+		                        <td><a href="#" id="fullname" class="myeditable" data-type="text" data-placement="right" data-placeholder="Required" data-title="Enter your fullname"></a></td>
 		                    </tr>  
 		                    <tr>         
 		                        <td>邮箱</td>
-		                        <td><a href="#" id="email" data-type="select" data-pk="1" data-value="" data-title="Select email"></a></td>
+		                        <td><a href="#" id="email" class="myeditable" data-type="text" data-title="Select email"></a></td>
 		                    </tr>
 		                    <tr>         
 		                        <td>部门</td>
-		                        <td><a href="#" id="org.name" data-type="select" data-pk="1" data-value="5" data-source="/groups" data-title="Select group"></a></td>
+		                        <td><a href="#" id="org.name" class="myeditable" data-type="select" data-source="${ctx}/security/user/getOrgs" data-title="Select group"></a></td>
 		                    </tr> 
 		                    <tr>         
 		                        <td>角色</td>
-		                        <td><a href="#" id="status" data-type="select" data-pk="1" data-value="0" data-source="/status" data-title="Select status"></a></td>
+		                        <td><a href="#" id="roleIndexs" class="myeditable"  data-type="checklist" data-source="${ctx}/security/user/getRoles" data-title="Select roles"></a></td>
 		                    </tr>  
 	                	</tbody>
 	            	</table>
+	            	<div>
+						<button type="button" id="savebtn" class="btn btn-primary">Submit</button>
+						<button type="button" id="cancelbtn" class="btn btn-default">Cancel</button>
+					</div>
                   </div>
                 </div>
                   <div class="widget-foot">

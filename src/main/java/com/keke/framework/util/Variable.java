@@ -6,13 +6,43 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.ConvertUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Variable {
 
     private String keys;
     private String values;
     private String types;
+    
+    private long id;
+    private String value;
+    private String text;
 
-    public String getKeys() {
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getKeys() {
         return keys;
     }
 
@@ -36,6 +66,7 @@ public class Variable {
         this.types = types;
     }
 
+    @JsonIgnore
     public Map<String, Object> getVariableMap() {
         Map<String, Object> vars = new HashMap<String, Object>();
 

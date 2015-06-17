@@ -1,7 +1,11 @@
 package com.keke.shop.superbuy.security.web;
 
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,16 +15,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
+import com.keke.framework.util.Variable;
 import com.keke.shop.superbuy.form.config.entity.Dictionary;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.entity.User;
+import com.keke.shop.superbuy.security.service.OrgManager;
 import com.keke.shop.superbuy.security.service.RoleManager;
 import com.keke.shop.superbuy.security.service.UserManager;
 
@@ -38,6 +45,9 @@ public class UserController {
 	//注入角色管理对象
 	@Autowired
 	private RoleManager roleManager;
+	//注入部门管理对象
+	@Autowired
+	private OrgManager orgManager;
 	
 	/**
 	 * 分页查询用户，返回用户列表视图
@@ -75,46 +85,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 新建用户时，返回用户编辑视图
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String create(Model model) {
-		model.addAttribute("user", new User());
-		model.addAttribute("roles", roleManager.getAll());
-		return "security/userEdit";
-	}
-
-	/**
-	 * 编辑用户时，返回用户编辑视图
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable("id") Long id, Model model) {
-		User entity = userManager.get(id);
-		List<Role> roles = roleManager.getAll();
-		List<Role> roless = entity.getRoles();
-		for(Role role : roles) {
-			for(Role selRole : roless) {
-				if(role.getId().longValue() == selRole.getId().longValue())
-				{
-					role.setSelected(1);
-				}
-				if(role.getSelected() == null)
-				{
-					role.setSelected(0);
-				}
-			}
-		}
-		model.addAttribute("user", userManager.get(id));
-		model.addAttribute("roles", roles);
-		return "security/userEdit";
-	}
-	
-	/**
 	 * 编辑用户时，返回用户查看视图
 	 * @param id
 	 * @param model
@@ -141,14 +111,66 @@ public class UserController {
 		return json;
 	}
 	
-	/**
-	 * 新增、编辑用户页面的提交处理。保存用户实体，并返回用户列表视图
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping(value = "update")
-	public String update(User user, HttpServletRequest request) {
-		return "username:1";
+	@RequestMapping(value = "update",produces = "application/text")
+	@ResponseBody
+	public String update(User user,@RequestParam("roleIndexs[]") String[] roleIndexs,HttpServletRequest request) {
+		if(roleIndexs != null) {
+			for(String order : roleIndexs) {
+				Role role = new Role();
+				role.setId(Long.parseLong(order));
+				user.getRoles().add(role);
+			}
+		}
+		userManager.save(user);
+		return "success";
+	}
+	
+	@RequestMapping(value="getOrgs",produces = "application/json")
+	@ResponseBody
+	public String getOrgs() {
+		List<Org> orgList = orgManager.getAll();
+		List<Variable> variables = new ArrayList<Variable>();
+		for(Org org:orgList) {
+			Variable variable = new Variable();
+			//variable.setId(org.getId());
+			variable.setValue(String.valueOf(org.getId()));
+			variable.setText(org.getName());
+			variables.add(variable);
+		}
+		
+		String json = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			json = mapper.writeValueAsString(variables);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@RequestMapping(value="getRoles",produces = "application/json")
+	@ResponseBody
+	public String getRoles(){
+		List<Role> roleList = roleManager.getAll();
+		List<Variable> variables = new ArrayList<Variable>();
+		for(Role role:roleList) {
+			Variable variable = new Variable();
+			//variable.setId(org.getId());
+			variable.setValue(String.valueOf(role.getId()));
+			variable.setText(role.getName());
+			variables.add(variable);
+		}
+		
+		String json = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			json = mapper.writeValueAsString(variables);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	/**

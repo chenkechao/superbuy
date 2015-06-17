@@ -296,6 +296,9 @@ function loadDetail1(url,callback) {
 					}
 			  }else{
 				  $.each(data, function(k, v) {
+					  if(v==''){
+						  v = null;
+					  }
 						// 格式化日期
 						if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
 							if(v != null){
