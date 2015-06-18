@@ -96,6 +96,11 @@ public class UserController {
 		return "security/userView";
 	}
 	
+	@RequestMapping(value = "/userForm", method = RequestMethod.GET)
+	public String userForm() {
+		return "security/userForm";
+	}
+	
 	@RequestMapping(value = "view/json/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String view(@PathVariable("id") Long id) {

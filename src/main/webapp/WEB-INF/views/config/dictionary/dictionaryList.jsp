@@ -45,7 +45,7 @@
 	      });
 	      $remove.click(function () {
 	          var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-	              return row.id
+	              return row.id;
 	          });
 	          alert('重新发送选中邀请, rows: ' + ids);
 	          $remove.prop('disabled', true);
@@ -66,6 +66,10 @@
 	          console.log(value, row, index);
 	      }
 	  };
+	  
+	  function createDictionary() {
+		  $('#mainIframe',$(parent.document)).attr("src",'${ctx }/config/dictionary/dictionaryForm');
+	  }
   </script>
 </head>
 
@@ -93,15 +97,6 @@
 
 	    <div class="matter">
         <div class="container">
-
-		<div>
-				<button tkey="createDfForm" type="button" class="btn btn-primary handle">新建</button>
-				<button type="button" class="btn btn-default">Primary</button>
-				<button type="button" class="btn btn-success">Success</button>
-				<button type="button" class="btn btn-info">Info</button>
-				<button type="button" class="btn btn-warning">Warning</button>
-				<button type="button" class="btn btn-danger">Danger</button>
-			</div>
           <!-- Table -->
 
             <div class="row">
@@ -121,9 +116,15 @@
 
                   <div class="widget-content">
                   	<div id="toolbar" class="fixed-table-toolbar" style="margin-bottom: -40px">
-					    <button id="re_send_selected" class="btn btn-danger remove" disabled>
+					    <button id="re_send_selected" class="btn btn-danger remove">
 					        重新发送选中邀请
 					    </button>
+					    <button id="createDictionary" type="button" class="btn btn-primary" onClick="createDictionary()">新建</button>
+						<button type="button" class="btn btn-default">Primary</button>
+						<button type="button" class="btn btn-success">Success</button>
+						<button type="button" class="btn btn-info">Info</button>
+						<button type="button" class="btn btn-warning">Warning</button>
+						<button type="button" class="btn btn-danger">Danger</button>
 					</div>
 					<table class="table table-striped table-bordered table-hover"
 					   id="table" data-toggle="table"

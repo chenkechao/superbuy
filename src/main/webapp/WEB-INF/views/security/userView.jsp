@@ -152,7 +152,7 @@
 		                    </tr>
 		                    <tr>         
 		                        <td>部门</td>
-		                        <td><a href="#" id="org.name" class="myeditable" data-type="select" data-source="${ctx}/security/user/getOrgs" data-title="Select group"></a></td>
+		                        <td><a href="#" id="org.id" class="myeditable" data-type="select" data-source="${ctx}/security/user/getOrgs" data-title="Select group"></a></td>
 		                    </tr> 
 		                    <tr>         
 		                        <td>角色</td>

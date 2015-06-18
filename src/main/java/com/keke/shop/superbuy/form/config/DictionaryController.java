@@ -73,10 +73,10 @@ public class DictionaryController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String create(Model model) {
+	@RequestMapping(value = "dictionaryForm", method = RequestMethod.GET)
+	public String dictionaryForm(Model model) {
 		model.addAttribute("dictionary", new Dictionary());
-		return "config/dictionary/dictionaryEdit";
+		return "config/dictionary/dictionaryForm";
 	}
 
 	/**

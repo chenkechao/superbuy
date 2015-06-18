@@ -66,6 +66,10 @@
 	          console.log(value, row, index);
 	      }
 	  };
+	  
+	  function createUser() {
+		  $('#mainIframe',$(parent.document)).attr("src",'${ctx }/security/user/userForm');
+	  }
   </script>
 </head>
 
@@ -93,15 +97,6 @@
 
 	    <div class="matter">
         <div class="container">
-
-		<div>
-				<button tkey="createDfForm" type="button" class="btn btn-primary handle">新建</button>
-				<button type="button" class="btn btn-default">Primary</button>
-				<button type="button" class="btn btn-success">Success</button>
-				<button type="button" class="btn btn-info">Info</button>
-				<button type="button" class="btn btn-warning">Warning</button>
-				<button type="button" class="btn btn-danger">Danger</button>
-			</div>
           <!-- Table -->
 
             <div class="row">
@@ -125,6 +120,12 @@
 						    <button id="re_send_selected" class="btn btn-danger remove" disabled>
 						        重新发送选中邀请
 						    </button>
+						    <button id="createUser" type="button" class="btn btn-primary" onClick="createUser()">新建</button>
+							<button type="button" class="btn btn-default">Primary</button>
+							<button type="button" class="btn btn-success">Success</button>
+							<button type="button" class="btn btn-info">Info</button>
+							<button type="button" class="btn btn-warning">Warning</button>
+							<button type="button" class="btn btn-danger">Danger</button>
 						</div>
 						<table class="table table-striped table-bordered table-hover"
 						   id="table" data-toggle="table"
