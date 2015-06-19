@@ -14,31 +14,44 @@
   <script type="text/javascript">
   	$(function(){
   		$('.no-records-found').remove();
+  		var id = ${index + 1};
+  		
+        getRowItem = function () {
+            var rowItem = [];
+
+            rowItem.push({
+            	orderby: "<input id='orderby_"+id+"' type='text' class='form-control' name='orderbys'>",
+            	code: "<input id='code_"+id+"' type='text' class='form-control' name='codes' >",
+                name: "<input id='itemName_"+id+"' type='text' class='form-control' name='itemNames' >"
+            });
+            id++;
+            return rowItem;
+        },
+     // init table use data
+        $table = $('#table-methods-table').bootstrapTable({
+            data: getRowItem()
+        });
+        
+        $('#append-data').click(function () {
+		    $table.bootstrapTable($(this).data('method'), getRowItem());
+		});
   	});
-  
-  	function addItem() {
-		var table = document.getElementById("itemTable");
-		var row = table.insertRow(-1);
-		var cell = row.insertCell(-1);
-		cell.innerHTML = "<input type='checkbox' name=''>";
-		
-		var cell = row.insertCell(-1);
-		cell.innerHTML = "<input type='text' value='" + 1 + "' name='orderbys'>";
-		
-		cell = row.insertCell(-1);
-		cell.innerHTML = "<input type='text' value='' name='codes' >";
-		
-		cell = row.insertCell(-1);
-		cell.innerHTML = "<input type='text' value='' name='itemNames' >";
-		
-		cell = row.insertCell(-1);
-		cell.innerHTML = "<a href='javascript:void(0)' onclick='delRow1' title='删除'>删除</a>";
-	}
+  	
+  	function actionFormatter(value, row, index) {
+	      return [
+	          '<a class="save" href="#" title="保存">保存</a>'
+	      ].join('');
+	  }
+  	
+  	 window.actionEvents = {
+  		      'click .save': function (e, value, row, index) {
+  		        alert(row);
+  		      }
+  		  };
   </script>
 </head>
 
 <body>
-
 
 <!-- Main bar -->
   	<div class="mainbar">
@@ -119,7 +132,7 @@
                                 <div class="form-group">
 					                <label for="email" class="col-sm-4 control-label">添加选项：</label>
 					                <div class="col-sm-8">
-						            	<button type="button" class="btn btn-default" onclick="addItem()">添加选项</button>
+						            	<button id="append-data" type="button" class="btn btn-default" data-method="append">添加选项</button>
 						            </div>
 					            </div>  
 
@@ -128,7 +141,7 @@
 								     <label for="email" class="col-md-4 control-label">选项列表：</label>
 								     <div class="col-md-8">
 										 <table class="table table-striped table-bordered table-hover"
-										   id="itemTable" data-toggle="table"
+										   id="table-methods-table" data-toggle="table"
 										   data-click-to-select="true"
 									       data-height="200"
 									       data-responseHandler="handle">
@@ -138,7 +151,7 @@
 										        <th data-field="orderby">序号</th>
 										        <th data-field="code">编号</th>
 										        <th data-field="name">名称</th>
-										        <th data-field="action">操作</th>
+										        <th data-field="action"  data-formatter="actionFormatter" data-events="actionEvents">操作</th>
 										    </tr>
 										    </thead>
 										</table>
