@@ -12,6 +12,23 @@
   	}
   </style>
   <script type="text/javascript">
+  
+	  var $table = $('#table'), $remove = $('#re_send_selected');
+	  $(function () {
+		  $table.bootstrapTable('refresh');
+		  
+	      $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
+	          $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+	      });
+	      $remove.click(function () {
+	          var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+	              return row.id;
+	          });
+	          alert('重新发送选中邀请, rows: ' + ids);
+	          $remove.prop('disabled', true);
+	      });
+	  });
+	  
 	  function rowStyle(row, index) {
 	      var classes = ['active', 'success', 'info', 'warning', 'danger'];
 	
@@ -38,25 +55,11 @@
 	      };
 	  }
   
-	  var $table = $('#table'), $remove = $('#re_send_selected');
-	  $(function () {
-	      $table.on('check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table', function () {
-	          $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
-	      });
-	      $remove.click(function () {
-	          var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
-	              return row.id;
-	          });
-	          alert('重新发送选中邀请, rows: ' + ids);
-	          $remove.prop('disabled', true);
-	      });
-	  });
-  
 	  function actionFormatter(value, row, index) {
 	      return [
-	          '<a href="${ctx}/config/dictionary/delete/${dictionary.id }" class="btnDel" title="删除">删除</a>'
-	          + '<a href="${ctx}/config/dictionary/update/${dictionary.id }" class="btnEdit" title="编辑">编辑</a>'
-			  + '<a href="${ctx}/config/dictionary/view/${dictionary.id }" class="btnView" title="查看">查看</a>'
+	          '<a href="${ctx}/config/dictionary/delete/'+row.id+' class="btnDel" title="删除">删除</a>'
+	          + '<a href="${ctx}/config/dictionary/update/'+row.id+'" class="btnEdit" title="编辑">编辑</a>'
+			  + '<a href="${ctx}/config/dictionary/view/'+row.id+'" class="btnView" title="查看">查看</a>'
 	      ].join('');
 	  }
 	
@@ -129,6 +132,7 @@
 					<table class="table table-striped table-bordered table-hover"
 					   id="table" data-toggle="table"
 				       data-url="${ctx }/config/dictionary/list/json"
+				       data-cache="false"
 				       data-click-to-select="true"
 				       data-row-style="rowStyle"
 				       data-query-params="queryParams"

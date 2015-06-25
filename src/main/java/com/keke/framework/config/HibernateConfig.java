@@ -15,7 +15,7 @@ class HibernateConfig extends DefaultDataSourceConfig{
     public LocalSessionFactoryBean configureLocalSessionFactoryBean() {
     	LocalSessionFactoryBean bean = new LocalSessionFactoryBean();
     	bean.setDataSource(dataSource());
-    	bean.setPackagesToScan("com.keke.shop.superbuy");
+    	bean.setPackagesToScan("com.keke");
     	bean.setMappingResources(null);
     	Properties p = new Properties();
     	p.put("hibernate.current_session_context_class", "org.springframework.orm.hibernate4.SpringSessionContext");

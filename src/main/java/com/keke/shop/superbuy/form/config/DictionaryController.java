@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -104,6 +106,36 @@ public class DictionaryController {
 		return "config/dictionary/dictionaryView";
 	}
 	
+	@RequestMapping(value = "view/json/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String view(@PathVariable("id") Long id) {
+		Dictionary dictionary = dictionaryManager.get(id);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = null;
+		try {
+			json = mapper.writeValueAsString(dictionary);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	@RequestMapping(value = "dictionaryItem/list/json/{name}", method = RequestMethod.GET)
+	@ResponseBody
+	public String dictionaryItemList(@PathVariable("name") String name) {
+		List<DictionaryItem> dictionaryItemList = dictionaryManager.getItemsByName(name);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = null;
+		try {
+			json = mapper.writeValueAsString(dictionaryItemList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
 	/**
 	 * 新增、编辑配置字典页面的提交处理。保存配置字典实体，并返回配置字典列表视图
 	 * @param dictionary
@@ -113,15 +145,19 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(Dictionary dictionary, String[] itemNames, Integer[] orderbys, String[] codes) {
+	public String update(Dictionary dictionary,@RequestParam(required=false) String[] itemNames,
+			@RequestParam(required=false) Integer[] orderbys,
+			@RequestParam(required=false)String[] codes) {
 		List<DictionaryItem> items = new ArrayList<DictionaryItem>();
-		for(int i = 0; i < itemNames.length; i++) {
-			DictionaryItem ci = new DictionaryItem();
-			ci.setDictionary(dictionary);
-			ci.setName(itemNames[i]);
-			ci.setOrderby(orderbys[i]);
-			ci.setCode(codes[i]);
-			items.add(ci);
+		if(itemNames != null){
+			for(int i = 0; i < itemNames.length; i++) {
+				DictionaryItem ci = new DictionaryItem();
+				ci.setDictionary(dictionary);
+				ci.setName(itemNames[i]);
+				ci.setOrderby(orderbys[i]);
+				ci.setCode(codes[i]);
+				items.add(ci);
+			}
 		}
 		dictionaryManager.save(dictionary, items);
 		return "redirect:/config/dictionary";
@@ -138,20 +174,4 @@ public class DictionaryController {
 		return "redirect:/config/dictionary";
 	}
 
-    /**
-     * 根据字典名称获取数据
-     * @param config
-     * @return
-     */
-    @RequestMapping(value = "items")
-    @ResponseBody
-    public List<DictionaryItem> getItems(String config) {
-        return dictionaryManager.getItemsByName(config);
-    }
-
-    @RequestMapping(value = "dicts")
-    @ResponseBody
-    public List<Dictionary> getDicts() {
-        return dictionaryManager.getAll();
-    }
 }

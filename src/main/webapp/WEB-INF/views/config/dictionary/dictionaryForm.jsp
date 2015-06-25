@@ -106,7 +106,7 @@
                     <h6>Input Boxs</h6>
                     <hr />
                     <!-- Form starts.  -->
-                     <form id="user" class="form-horizontal" role="form" action="${ctx }/oa/leave/start" method="post">
+                     <form id="dictionary" class="form-horizontal" role="form" action="${ctx }/config/dictionary/update" method="post">
                               
                                 <div class="form-group">
 					                <label for="name" class="col-sm-4 control-label">配置名称：</label>
@@ -142,7 +142,6 @@
 								     <div class="col-md-8">
 										 <table class="table table-striped table-bordered table-hover"
 										   id="table-methods-table" data-toggle="table"
-										   data-click-to-select="true"
 									       data-height="200"
 									       data-responseHandler="handle">
 											<thead>
@@ -157,6 +156,14 @@
 										</table>
 									</div>
 								</div>
+								
+								 <hr />
+                                <div class="form-group">
+                                  <div class="col-lg-offset-4 col-md-4">
+                                    <input type="submit" value="保存" class="btn btn-primary">
+                                    <input type="submit" value="取消" class="btn btn-primary">
+                                  </div>
+                                </div>
                               </form>
                   </div>
                 </div>
