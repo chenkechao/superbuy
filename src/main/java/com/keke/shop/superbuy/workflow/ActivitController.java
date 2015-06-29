@@ -44,6 +44,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.keke.shop.superbuy.workflow.util.WorkflowUtils;
@@ -67,23 +68,40 @@ public class ActivitController {
 	@RequestMapping(value="/processList/{processType}")
 	public ModelAndView processList(@PathVariable String processType){
 		ModelAndView mav = new ModelAndView("workflow/processList");
-		
+		return mav;
+	}
+
+	/*
+	 * 流程定义列表
+	 */
+	@RequestMapping(value="/processList/{processType}/list/json", produces="application/json")
+	@ResponseBody
+	public List<ProcessDefinition> processListJson(@PathVariable String processType){
 		List<Object[]> objects = new ArrayList<Object[]>();
+		List<ProcessDefinition> processDefinitionList = new ArrayList<ProcessDefinition>();
 		if(!StringUtils.equals(processType, "all")) {
 			
 		}else{
 			ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
-			List<ProcessDefinition> processDefinitionList = processDefinitionQuery.listPage(0,100);
-			for(ProcessDefinition processDefinition:processDefinitionList) {
-				String deploymentId = processDefinition.getDeploymentId();
-				Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
-				objects.add(new Object[]{processDefinition,deployment});
-			}
+			processDefinitionList = processDefinitionQuery.list();
+//			for(ProcessDefinition processDefinition:processDefinitionList) {
+//				String deploymentId = processDefinition.getDeploymentId();
+//				Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+//				objects.add(new Object[]{processDefinition,deployment});
+//			}
 		}
-		mav.addObject("processList",objects);
-		return mav;
+//		String json = null;
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			json = mapper.writeValueAsString(processDefinitionList);
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return json;
+		return processDefinitionList;
 	}
-
+	
 	/*
 	 * 部署全部流程
 	 */

@@ -71,10 +71,15 @@
   });
   
   function actionFormatter(value, row, index) {
-      return [
-          '<a href="${ctx}/security/user/delete/'+row.id+'" class="btnDel" title="删除" onclick="return confirmDel();">删除</a>'
-          + '<a href="#" class="edit" title="编辑">编辑</a>'
-      ].join('');
+	  var string = '';
+	  if(row.temp=='1'){
+		  string = '<a href="#" class="save" title="保存">保存</a>'
+		  			+ '<a href="#" class="cancel" title="取消">取消</a>';
+	  }else{
+		  string ='<a href="${ctx}/security/user/delete/'+row.id+'" class="btnDel" title="删除" onclick="return confirmDel();">删除</a>'
+          + '<a href="#" class="edit" title="编辑">编辑</a>';
+	  }
+      return [string].join('');
   }
 
   window.actionEvents = {
@@ -84,11 +89,26 @@
               index: index,
               row: {
                   orderby: "<input id='orderby_"+row.id+"' value='"+row.orderby+"'>",
-                  code: "<input id='code_"+row.code+"' value='"+row.code+"'>",
-                  name: "<input id='name_"+row.name+"' value='"+row.name+"'>",
+                  code: "<input id='code_"+row.id+"' value='"+row.code+"'>",
+                  name: "<input id='name_"+row.id+"' value='"+row.name+"'>",
+                  temp:"1"
               }
           });
-      }
+      },
+  	'click .save':function(e, value, row, index){
+  		alert(JSON.stringify(row));
+  	},
+  	'click .cancel':function(e, value, row, index){
+  		$("#table-methods-table").bootstrapTable('updateRow', {
+            index: index,
+            row: {
+                orderby: $(row.orderby).attr('value'),
+                code: $(row.code).attr('value'),
+                name: $(row.name).attr('value'),
+                temp:"0"
+            }
+        });
+  	}
   };
   </script>
 </head>

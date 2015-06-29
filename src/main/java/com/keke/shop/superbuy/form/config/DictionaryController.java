@@ -57,17 +57,18 @@ public class DictionaryController {
 	
 	@RequestMapping(value="list/json",produces = "application/json")
 	@ResponseBody
-	public String list() {
+	public List<Dictionary> list() {
 		List<Dictionary> distionaryList = dictionaryManager.getAll();
-		String json = null;
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			json = mapper.writeValueAsString(distionaryList);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return json;
+//		String json = null;
+//		ObjectMapper mapper = new ObjectMapper();
+//		try {
+//			json = mapper.writeValueAsString(distionaryList);
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return json;
+		return distionaryList;
 	}
 	
 	/**
