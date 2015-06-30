@@ -57,16 +57,18 @@
   
 	  function actionFormatter(value, row, index) {
 	      return [
-	          '<a href="${ctx}/config/dictionary/delete/'+row.id+' class="btnDel" title="删除">删除</a>'
-	          + '<a href="${ctx}/config/dictionary/update/'+row.id+'" class="btnEdit" title="编辑">编辑</a>'
-			  + '<a href="${ctx}/config/dictionary/view/'+row.id+'" class="btnView" title="查看">查看</a>'
+	          '<a href="#" class="delete">删除</a><br/>'
+	          + '<a href="#" class="convert">转换为Model</a>'
+			  + '<a href="#" tkey="startup" tid="'+row.id+'" class="handle">启动</a>'
 	      ].join('');
 	  }
 	
 	  window.actionEvents = {
-	      'click .resend': function (e, value, row, index) {
-	          alert('重新发送该邀请, row: ' + JSON.stringify(row));
-	          console.log(value, row, index);
+	      'click .delete': function (e, value, row, index) {
+	    	  deleteProcessDefinition(row.id,row.deploymentId);
+	      },
+	      'click .convert' : function(e, value, row, index) {
+	    	  convertToModel(row.id);
 	      }
 	  };
 	  
@@ -104,6 +106,31 @@
     	    	}]
           	}
       }
+	  
+	  function deleteProcessDefinition(processDefinitionId,deploymentId){
+	      	$.ajax({
+	      		url:"${ctx }/workflow/process/deleteProcessDefinition/"+deploymentId,
+	      		cache : false,
+	      		success:function(){
+	      			location.reload();
+	      		},
+	      		error:function(){
+	      			alert("error");
+	      		}
+	      	});
+	      }
+	  
+	  function convertToModel(processDefinitionId){
+	      	 $.ajax({
+	      		 url:"${ctx }/workflow/process/convertToModel/"+processDefinitionId,
+	      		 success:function(){
+	      			 alert("da");
+	      		 },
+	      		 error:function(){
+	      		 	alert("error1f");
+	      		 }
+	      	 });
+	      }
   </script>
 </head>
 
@@ -178,7 +205,15 @@
 
 					    <tr>
 					        <th data-field="state" data-checkbox="true"></th>
-					        <th data-field="id">ID</th>
+					        <th data-field="id">ProcessDefinitionId</th>
+					        <th data-field="deploymentId">DeploymentId</th>
+					        <th data-field="name">名称</th>
+					        <th data-field="key">KEY</th>
+					        <th data-field="version">版本号</th>
+					        <th data-field="id">XML</th>
+					        <th data-field="id">图片</th>
+					        <th data-field="deploymentTime">部署时间</th>
+					        <th data-field="suspended">是否挂起</th>
 					        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
 					    </tr>
 					    </thead>

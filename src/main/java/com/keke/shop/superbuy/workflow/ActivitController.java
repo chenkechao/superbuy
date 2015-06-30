@@ -6,8 +6,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipInputStream;
 
@@ -76,19 +78,30 @@ public class ActivitController {
 	 */
 	@RequestMapping(value="/processList/{processType}/list/json", produces="application/json")
 	@ResponseBody
-	public List<ProcessDefinition> processListJson(@PathVariable String processType){
+	public List<Map<String,Object>> processListJson(@PathVariable String processType){
 		List<Object[]> objects = new ArrayList<Object[]>();
+		List<Map<String,Object>> processList = new ArrayList<Map<String,Object>>();
 		List<ProcessDefinition> processDefinitionList = new ArrayList<ProcessDefinition>();
 		if(!StringUtils.equals(processType, "all")) {
 			
 		}else{
 			ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
 			processDefinitionList = processDefinitionQuery.list();
-//			for(ProcessDefinition processDefinition:processDefinitionList) {
-//				String deploymentId = processDefinition.getDeploymentId();
-//				Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
-//				objects.add(new Object[]{processDefinition,deployment});
-//			}
+			for(ProcessDefinition processDefinition:processDefinitionList) {
+				String deploymentId = processDefinition.getDeploymentId();
+				Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(deploymentId).singleResult();
+				objects.add(new Object[]{processDefinition,deployment});
+				
+				Map<String,Object> map = new HashMap<String,Object>();
+				map.put("id", processDefinition.getId());
+				map.put("deploymentId", deploymentId);
+				map.put("name", processDefinition.getName());
+				map.put("key", processDefinition.getKey());
+				map.put("version", processDefinition.getVersion());
+				map.put("deploymentTime", deployment.getDeploymentTime());
+				map.put("suspended", processDefinition.isSuspended());
+				processList.add(map);
+			}
 		}
 //		String json = null;
 //		ObjectMapper mapper = new ObjectMapper();
@@ -99,7 +112,7 @@ public class ActivitController {
 //			e.printStackTrace();
 //		}
 //		return json;
-		return processDefinitionList;
+		return processList;
 	}
 	
 	/*
