@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.keke.shop.superbuy.form.config.service.DictionaryManager;
+import com.keke.shop.superbuy.config.dictionary.service.DictionaryManager;
 
 /**
  * 选择控件构建器（支持select、radio、checkbox选择控件）

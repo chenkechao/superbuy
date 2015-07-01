@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
 import com.keke.framework.util.Variable;
-import com.keke.shop.superbuy.form.config.entity.Dictionary;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.entity.User;

@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.workflow;
+package com.keke.shop.superbuy.oa.form;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -25,7 +25,7 @@ public class FormController {
 	@Autowired
 	private FormService formService;
 	
-	@RequestMapping(value="/formkey/start/showStartForm/{processDefinitionId}")
+	@RequestMapping(value="/formkey/showStartForm/{processDefinitionId}")
 	@ResponseBody
 	public String showStartForm(@PathVariable("processDefinitionId")String processDefinitionId,HttpServletRequest request){
 		Object startForm = formService.getRenderedStartForm(processDefinitionId);

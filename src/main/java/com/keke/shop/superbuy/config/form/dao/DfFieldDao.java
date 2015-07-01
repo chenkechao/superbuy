@@ -1,11 +1,10 @@
-package com.keke.shop.superbuy.form.config.dao;
+package com.keke.shop.superbuy.config.form.dao;
 
 
 import org.springframework.stereotype.Component;
 
-import com.keke.shop.superbuy.form.config.entity.DfField;
-import com.keke.shop.superbuy.form.config.entity.DfForm;
 import com.keke.framework.orm.hibernate.HibernateDao;
+import com.keke.shop.superbuy.config.form.entity.DfField;
 /**
  * 部门持久化类
  * @author yuqs

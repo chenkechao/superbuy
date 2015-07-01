@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.form.config.entity;
+package com.keke.shop.superbuy.config.dictionary.entity;
 
 
 import java.util.ArrayList;

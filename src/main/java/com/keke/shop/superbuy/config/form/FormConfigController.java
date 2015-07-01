@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.form.config;
+package com.keke.shop.superbuy.config.form;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.keke.shop.superbuy.form.config.entity.DfField;
-import com.keke.shop.superbuy.form.config.entity.DfForm;
-import com.keke.shop.superbuy.form.config.service.DfFormManager;
+import com.keke.shop.superbuy.config.form.entity.DfField;
+import com.keke.shop.superbuy.config.form.entity.DfForm;
+import com.keke.shop.superbuy.config.form.service.DfFormManager;
+import com.keke.shop.superbuy.config.form.service.FormManager;
 
 @Controller
 @RequestMapping(value="/form/config")

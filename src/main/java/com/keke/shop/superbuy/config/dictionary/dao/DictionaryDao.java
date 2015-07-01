@@ -1,9 +1,9 @@
-package com.keke.shop.superbuy.form.config.dao;
+package com.keke.shop.superbuy.config.dictionary.dao;
 
 import org.springframework.stereotype.Component;
 
-import com.keke.shop.superbuy.form.config.entity.Dictionary;
 import com.keke.framework.orm.hibernate.HibernateDao;
+import com.keke.shop.superbuy.config.dictionary.entity.Dictionary;
 
 /**
  * 配置字典持久化类

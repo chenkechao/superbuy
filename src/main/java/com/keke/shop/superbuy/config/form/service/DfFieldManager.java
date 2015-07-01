@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.form.config.service;
+package com.keke.shop.superbuy.config.form.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.keke.shop.superbuy.form.config.dao.DfFieldDao;
-import com.keke.shop.superbuy.form.config.entity.DfField;
-import com.keke.framework.orm.Page;
-import com.keke.framework.orm.PropertyFilter;
+import com.keke.shop.superbuy.config.form.dao.DfFieldDao;
+import com.keke.shop.superbuy.config.form.entity.DfField;
+
 
 /**
  * 部门管理类

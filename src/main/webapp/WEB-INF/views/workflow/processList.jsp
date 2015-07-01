@@ -69,6 +69,9 @@
 	      },
 	      'click .convert' : function(e, value, row, index) {
 	    	  convertToModel(row.id);
+	      },
+	      'click .handle' : function(){
+	    	  return true;
 	      }
 	  };
 	  
@@ -85,10 +88,10 @@
     		  startup:  {
     	        width: 300,
     		    height: 300,
-    		    url:"${ctx }/form/formkey/start/showStartForm/",
+    		    url:"${ctx }/form/formkey/showStartForm/",
     	    	open:function(url,processDefinitionId) {
     	    		alert('fd');
-    	    		$(".modal-body",parent.window.$(parent.document)).load(url);
+    	    		$(".modal-body",parent.window.$(parent.document)).load(url+processDefinitionId);
     	    	},
     	    	savebtn:[{
     	    		text:'qidongliucheng',

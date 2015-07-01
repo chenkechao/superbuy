@@ -51,9 +51,9 @@
   	<property name="jobExecutorActivate" value="true" />
     <property name="customFormTypes">
       <list>
-        <bean class="com.keke.shop.superbuy.form.UserFormType"/>
-        <bean class="com.keke.shop.superbuy.form.ProcessDefinitionFormType"/> 
-        <bean class="com.keke.shop.superbuy.form.MonthFormType"/>   
+        <bean class="com.keke.shop.superbuy.oa.form.converter.UserFormType"/>
+        <bean class="com.keke.shop.superbuy.oa.form.converter.ProcessDefinitionFormType"/> 
+        <bean class="com.keke.shop.superbuy.oa.form.converter.MonthFormType"/>   
       </list>
     </property>
   </bean>
