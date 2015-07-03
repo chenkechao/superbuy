@@ -12,7 +12,6 @@
   	}
   </style>
   <script type="text/javascript">
-  
 	  var $table = $('#table'), $remove = $('#re_send_selected');
 	  $(function () {
 		  $table.bootstrapTable('refresh');
@@ -71,7 +70,7 @@
 	    	  convertToModel(row.id);
 	      },
 	      'click .handle' : function(){
-	    	  return true;
+	    	  handle.call(this);
 	      }
 	  };
 	  
@@ -90,7 +89,6 @@
     		    height: 300,
     		    url:"${ctx }/form/formkey/showStartForm/",
     	    	open:function(url,processDefinitionId) {
-    	    		alert('fd');
     	    		$(".modal-body",parent.window.$(parent.document)).load(url+processDefinitionId);
     	    	},
     	    	savebtn:[{
