@@ -7,6 +7,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,28 @@ public class FormController {
 	
 	@Autowired
 	private FormService formService;
+	
+	@Autowired
+	private RuntimeService runtimeService;
+	
+	@RequestMapping(value="/formkey/hasStartForm/{processDefinitionId}")
+	@ResponseBody
+	public String hasStartForm(@PathVariable("processDefinitionId")String processDefinitionId,HttpServletRequest request){
+		StartFormData startFormData = formService.getStartFormData(processDefinitionId);
+		if(startFormData!=null &&((startFormData.getFormProperties()!=null&&!startFormData.getFormProperties().isEmpty())||startFormData.getFormKey()!=null)){
+			return "true";
+		}else{
+			
+			try {
+				ProcessInstance processInstances = runtimeService.startProcessInstanceById(processDefinitionId);
+				return "success";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+		}
+		
+	}
 	
 	@RequestMapping(value="/formkey/showStartForm/{processDefinitionId}")
 	@ResponseBody

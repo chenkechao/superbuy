@@ -90,64 +90,6 @@
 	      }
 	  };
 	  
-	  var handleOpts = {
-    		  deploy:  {
-      	        width: 300,
-      		    height: 300,
-      		    url:"${ctx }/workflow/showUploadModal",
-      	    	open:function(url) {
-      	    		$(".modal-body",parent.window.$(parent.document)).load(url);
-      	    	},
-      	    	savebtn:[]
-              },
-    		  startup:  {
-    	        width: 300,
-    		    height: 300,
-    		    url:"${ctx }/form/formkey/showStartForm/",
-    	    	open:function(url,processDefinitionId) {
-    	    		$(".modal-body",parent.window.$(parent.document)).load(url+processDefinitionId);
-    	    	},
-    	    	savebtn:[{
-    	    		text:'qidongliucheng',
-    	    		css:'btn btn-primary',
-    	    		click:function(){
-    	    			//$(".form-horizontal",parent.window.$(parent.document)).submit();
-    	    		}
-    	    	}
-    	    	,{
-    	    		text:'quxiao',
-    	    		css:'btn btn-default',
-    	    		click:function(){
-    	    			$("#myModal",modal).modal("hide");
-    	    		}
-    	    	}]
-          	}
-      }
-	  
-	  function deleteProcessDefinition(processDefinitionId,deploymentId){
-	      	$.ajax({
-	      		url:"${ctx }/workflow/process/deleteProcessDefinition/"+deploymentId,
-	      		cache : false,
-	      		success:function(){
-	      			location.reload();
-	      		},
-	      		error:function(){
-	      			alert("error");
-	      		}
-	      	});
-	      }
-	  
-	  function convertToModel(processDefinitionId){
-	      	 $.ajax({
-	      		 url:"${ctx }/workflow/process/convertToModel/"+processDefinitionId,
-	      		 success:function(){
-	      			 alert("da");
-	      		 },
-	      		 error:function(){
-	      		 	alert("error1f");
-	      		 }
-	      	 });
-	      }
   </script>
 </head>
 
@@ -193,24 +135,9 @@
                 </div>
 
                   <div class="widget-content">
-                  	<div id="toolbar" class="fixed-table-toolbar" style="margin-bottom: -40px">
-					    <div class="btn-group">
-						  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Action <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu">
-						    <li><a href="#" onClick="processDefinitionList('all')">All</a></li>
-						    <li><a href="#" onClick="processDefinitionList('dynamicForm')">DynamicForm</a></li>
-						    <li role="separator" class="divider"></li>
-						    <li><a href="#">Separated link</a></li>
-						  </ul>
-						</div>
-						
-						<button type="button" class="btn btn-default handle" tkey="deploy">deploy</button>
-					</div>
 					<table class="table table-striped table-bordered table-hover"
 					   id="table" data-toggle="table"
-				       data-url="${ctx }/workflow/processList/all/list/json"
+				       data-url="${ctx }/workflow/processinstance/runningList/json"
 				       data-cache="false"
 				       data-click-to-select="true"
 				       data-row-style="rowStyle"
@@ -222,15 +149,7 @@
 
 					    <tr>
 					        <th data-field="state" data-checkbox="true"></th>
-					        <th data-field="id">ProcessDefinitionId</th>
-					        <th data-field="deploymentId">DeploymentId</th>
-					        <th data-field="name">名称</th>
-					        <th data-field="key">KEY</th>
-					        <th data-field="version">版本号</th>
-					        <th data-field="id">XML</th>
-					        <th data-field="id">图片</th>
-					        <th data-field="deploymentTime">部署时间</th>
-					        <th data-field="suspended">是否挂起</th>
+					        <th data-field="id">ProcessInstanceId</th>
 					        <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">操作</th>
 					    </tr>
 					    </thead>

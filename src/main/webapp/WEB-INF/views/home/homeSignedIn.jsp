@@ -23,14 +23,7 @@
       }
       
       function runningList(){
-    	  $.ajax({
-    		  url:'${ctx }/workflow/processinstance/running',
-    		  cache:false,
-    		  dataType:"html",//
-    		  success:function(data){
-    			 $(".mainbar").html(data);
-    		  }
-    	  });
+    	  $('#mainIframe').attr("src",'${ctx }/workflow/processinstance/runningList');
       }
       
       function leaveApply() {
