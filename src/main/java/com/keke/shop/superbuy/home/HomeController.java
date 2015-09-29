@@ -22,7 +22,7 @@ public class HomeController {
 		ModelAndView mav = null;
 		User user = (User) ShiroUtils.getUser();
 		if(user != null){
-			mav = new ModelAndView("home/homeSignedIn");
+			mav = new ModelAndView("home/index");
 			mav.addObject("user", user);
 		}else{
 			mav = new ModelAndView("signin/signin");
