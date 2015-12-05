@@ -12,10 +12,11 @@
     <properties>
         <struts2.version>2.3.24</struts2.version>
     
+    	<java-version>1.7</java-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
-        <java-version>1.8</java-version>
-        <io.spring.platform-version>1.1.1.RELEASE</io.spring.platform-version>
+        <io.spring.platform-version>2.0.1.BUILD-SNAPSHOT</io.spring.platform-version>
+        <activiti.version>5.19.0</activiti.version>
         <!-- AssertJ is not a part of Spring IO platform, so the version must be provided explicitly -->
         <assertj-core-version>1.5.0</assertj-core-version>
         <shiro.version>1.2.1</shiro.version>
@@ -144,9 +145,10 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity3</artifactId>
-        </dependency>
+		  <groupId>org.thymeleaf.extras</groupId>
+		  <artifactId>thymeleaf-extras-springsecurity3</artifactId>
+		  <version>3.0.0.ALPHA03</version>
+		</dependency>
         <!-- Persistence -->
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -301,22 +303,22 @@
          <dependency>
   			<groupId>org.activiti</groupId>
   			<artifactId>activiti-engine</artifactId>
-  			<version>5.16</version>
+  			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
   			<groupId>org.activiti</groupId>
   			<artifactId>activiti-spring</artifactId>
-  			<version>5.16</version>
+  			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
   			<groupId>org.activiti</groupId>
   			<artifactId>activiti-json-converter</artifactId>
-  			<version>5.16</version>
+  			<version>${activiti.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-explorer</artifactId>
-            <version>5.16</version>
+            <version>${activiti.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>vaadin</artifactId>
@@ -336,45 +338,18 @@
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-modeler</artifactId>
-            <version>5.16</version>
+            <version>${activiti.version}</version>
 		</dependency>
 		 <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-rest</artifactId>
-            <version>5.16</version>
+            <version>${activiti.version}</version>
         </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-diagram-rest</artifactId>
-            <version>5.16</version>
+            <version>${activiti.version}</version>
         </dependency>
-        
-         <dependency>
-			  <groupId>com.baidu.ueditor</groupId>
-			  <artifactId>ueditor</artifactId>
-			  <version>1.1.1</version>
-			  <scope>system</scope>
-			  <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ueditor-1.1.1.jar</systemPath>
-		 </dependency>
-		 <dependency>
-			  <groupId>com.baidu.ueditor</groupId>
-			  <artifactId>ueditor</artifactId>
-			  <scope>system</scope>
-			  <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/json.jar</systemPath>
-		 </dependency>
-		 <dependency>
-			  <groupId>com.baidu.ueditor</groupId>
-			  <artifactId>ueditor</artifactId>
-			  <version>1.9</version>
-			  <scope>system</scope>
-			  <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/commons-codec-1.9.jar</systemPath>
-		 </dependency>
-		 <!-- 
-		 <dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-jpamodelgen</artifactId>
-		</dependency>
-		 -->
     </dependencies>
     <build>
         <plugins>
@@ -384,7 +359,7 @@
                 <version>2.2</version>
                 <configuration>
                     <url>http://127.0.0.1:8080/manager/text</url>
-                    <server>tomcat7</server>
+                    <server>tomcat</server>
                     <path>/${project.artifactId}</path>  
                     <username>admin</username>
                     <password>admin</password>
@@ -410,6 +385,22 @@
                 <version>2.1.1</version>
                 <configuration>
                     <warName>superbuy-0.0.1-SNAPSHOT</warName>
+                    <warSourceDirectory>src\main\webapp</warSourceDirectory>
+                    <warSourceExcludes>source\**,build\**,dist\**,WEB-INF\lib\*,
+                        WEB-INF\classes\**,build.*
+                    </warSourceExcludes>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                    <webResources>
+                        <resource>
+                            <directory>src\main\webapp\WEB-INF\lib</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                            <includes>
+                                    <include>ueditor-1.1.1.jar</include>
+                                    <include>json.jar</include>
+                                    <include>commons-codec-1.9.jar</include>
+                               </includes>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>

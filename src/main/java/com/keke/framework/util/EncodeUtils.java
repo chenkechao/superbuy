@@ -13,9 +13,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
+import org.apache.shiro.codec.Base64;
+import org.apache.shiro.codec.Hex;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
@@ -33,39 +32,35 @@ public class EncodeUtils {
 	 * Hex编码.
 	 */
 	public static String hexEncode(byte[] input) {
-		return Hex.encodeHexString(input);
+		return Hex.encodeToString(input);
 	}
 
 	/**
 	 * Hex解码.
 	 */
 	public static byte[] hexDecode(String input) {
-		try {
-			return Hex.decodeHex(input.toCharArray());
-		} catch (DecoderException e) {
-			throw new IllegalStateException("Hex Decoder exception", e);
-		}
+			return Hex.decode(input.toCharArray());
 	}
 
 	/**
 	 * Base64编码.
 	 */
 	public static String base64Encode(byte[] input) {
-		return new String(Base64.encodeBase64(input));
+		return Base64.encodeToString(input);
 	}
 
 	/**
 	 * Base64编码, URL安全(将Base64中的URL非法字符如+,/=转为其他字符, 见RFC3548).
 	 */
 	public static String base64UrlSafeEncode(byte[] input) {
-		return Base64.encodeBase64URLSafeString(input);
+		return Base64.encodeToString(input);
 	}
 
 	/**
 	 * Base64解码.
 	 */
 	public static byte[] base64Decode(String input) {
-		return Base64.decodeBase64(input);
+		return Base64.decode(input);
 	}
 
 	/**
