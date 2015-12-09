@@ -56,6 +56,8 @@
         <bean class="com.keke.shop.superbuy.oa.form.converter.MonthFormType"/>   
       </list>
     </property>
+    <!-- 流程自动化部署 -->
+    <property name="deploymentResources" value="classpath*:/org/activiti/explorer/demo/process/testProcess.bpmn20.xml" />
   </bean>
   
   <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">

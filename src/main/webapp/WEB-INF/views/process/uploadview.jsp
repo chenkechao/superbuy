@@ -26,7 +26,7 @@ $(function(){
 	          
 		 var options = {  
 		    	target:'#test',
-		    	url:'${ctx }/workflow/deploy',
+		    	url:'${ctx }/process/deploy',
 		    	type:'post',
 		        beforeSubmit:  showRequest,  //提交前处理 
 		        success:       showResponse,  //处理完成 
@@ -35,7 +35,7 @@ $(function(){
 		    }; 
 		 
 		$('#uploadForm').on("submit",function(){
-			$('#uploadForm',parent.window.$(parent.document)).ajaxSubmit(options);  
+			$('#uploadForm').ajaxSubmit(options);  
 		        return false;
 		});
 });

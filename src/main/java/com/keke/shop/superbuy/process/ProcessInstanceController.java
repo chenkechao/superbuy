@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.workflow;
+package com.keke.shop.superbuy.process;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.keke.shop.superbuy.security.entity.User;
 import com.keke.shop.superbuy.security.shiro.ShiroUtils;
 
 @Controller
-@RequestMapping(value = "/workflow/processinstance")
+@RequestMapping(value = "/process/processinstance")
 public class ProcessInstanceController {
 	
 	@Autowired

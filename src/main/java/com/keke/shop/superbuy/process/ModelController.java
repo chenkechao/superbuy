@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.workflow;
+package com.keke.shop.superbuy.process;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Controller
-@RequestMapping(value = "/workflow/model")
+@RequestMapping(value = "/process/model")
 public class ModelController {
 
 	@Autowired
@@ -32,10 +32,20 @@ public class ModelController {
 	 */
 	@RequestMapping(value="list")
 	public ModelAndView modelList(){
-		ModelAndView mav = new ModelAndView("workflow/modelList");
-		List<Model> list = repositoryService.createModelQuery().list();
-		mav.addObject("modelList", list);
+		ModelAndView mav = new ModelAndView("process/model/modelList");
 		return mav;
+	}
+	
+	@RequestMapping(value="list/json", produces="application/json")
+	@ResponseBody
+	public List<Model> modelListJson(){
+		List<Model> list = repositoryService.createModelQuery().list();
+		return list;
+	}
+	
+	@RequestMapping(value="showCreateModelForm")
+	public String showCreateFormModal(){
+		return "process/model/createModelForm";
 	}
 	
 	@RequestMapping(value="create",method=RequestMethod.POST)

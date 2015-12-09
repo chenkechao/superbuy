@@ -1,4 +1,4 @@
-package com.keke.shop.superbuy.workflow;
+package com.keke.shop.superbuy.process;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,14 +46,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.keke.shop.superbuy.workflow.util.WorkflowUtils;
+import com.keke.shop.superbuy.process.util.WorkflowUtils;
 
 @Controller
-@RequestMapping(value="/workflow")
-public class ActivitController {
+@RequestMapping(value="/process")
+public class ProcessDefinitionController {
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -69,7 +68,7 @@ public class ActivitController {
 	 */
 	@RequestMapping(value="/processList/{processType}")
 	public ModelAndView processList(@PathVariable String processType){
-		ModelAndView mav = new ModelAndView("workflow/processList");
+		ModelAndView mav = new ModelAndView("process/processList");
 		return mav;
 	}
 
@@ -86,6 +85,7 @@ public class ActivitController {
 			
 		}else{
 			ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery().orderByDeploymentId().desc();
+			//TODO 分页功能待实现
 			processDefinitionList = processDefinitionQuery.list();
 			for(ProcessDefinition processDefinition:processDefinitionList) {
 				String deploymentId = processDefinition.getDeploymentId();
@@ -122,7 +122,7 @@ public class ActivitController {
 //	public String redeployAll() {
 //	}
 	
-	@RequestMapping(value="/deploy")
+	@RequestMapping(value="deploy")
 	@ResponseBody
 	public String deploy(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
 		//创建一个通用的多部分解析器
@@ -161,9 +161,10 @@ public class ActivitController {
 							}
 							
 							List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
-							for(ProcessDefinition processDefinition : list) {
-								WorkflowUtils.exportDiagramToFile(repositoryService, processDefinition,configurePropertiesFactoryBean.getProperty("export.diagram.path"));
-							}
+							//TODO 新版activiti是否会自动生成图片？
+//							for(ProcessDefinition processDefinition : list) {
+//								WorkflowUtils.exportDiagramToFile(repositoryService, processDefinition,configurePropertiesFactoryBean.getProperty("export.diagram.path"));
+//							}
 							return "success";
 						} catch (IOException e) {
 							logger.error("error on deploy process, because of file input stream", e);
@@ -197,7 +198,7 @@ public class ActivitController {
 	        }
 	}
 	
-	@RequestMapping(value="/process/convertToModel/{processDefinitionId}")
+	@RequestMapping(value="convertToModel/{processDefinitionId}")
 	@ResponseBody
 	public void convertToModel(@PathVariable String processDefinitionId) throws UnsupportedEncodingException, XMLStreamException {
 		ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
@@ -227,7 +228,7 @@ public class ActivitController {
 		//return "redirect:/workflow/model/list";
 	}
 	
-	@RequestMapping(value="process/deleteProcessDefinition/{deploymentId}")
+	@RequestMapping(value="deleteProcessDefinition/{deploymentId}")
 	@ResponseBody
 	public void deleteProcessDefinition(@PathVariable("deploymentId") String deploymentId) {
 		repositoryService.deleteDeployment(deploymentId,true);
@@ -247,16 +248,16 @@ public class ActivitController {
 			repositoryService.suspendProcessDefinitionById(processDefinitionId, true, null);
 			redirectAttributes.addFlashAttribute("message", "已挂起ID为[" + processDefinitionId + "]的流程定义。");
 		}
-		return "redirect:/workflow/processList";
+		return "redirect:/process/processList";
 	}
 	
 	 @RequestMapping(value="/showUploadModal")
 	 public String showUploadModal(ModelAndView mav) {
-		 return "workflow/uploadview";
+		 return "process/uploadview";
 	 }
 	 
 	 @RequestMapping(value="/showTraceModalView")
 	 public String showTraceModalView(ModelAndView mav) {
-		 return "workflow/traceview";
+		 return "process/traceview";
 	 }
 }
