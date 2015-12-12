@@ -110,4 +110,6 @@
         <aop:advisor pointcut-ref="baseServiceTxOperation" advice-ref="baseServiceAdvice"/>
     </aop:config>
      -->
+     <!-- 单例json对象 -->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
 </beans>

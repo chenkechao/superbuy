@@ -121,6 +121,7 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/editor/**").addResourceLocations("/editor/");
         registry.addResourceHandler("/explorer/**").addResourceLocations("/explorer/");
         registry.addResourceHandler("/libs/**").addResourceLocations("/libs/");
+        registry.addResourceHandler("/**/*.html").addResourceLocations("/");
     }
 
     /**                                                          

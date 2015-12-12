@@ -34,7 +34,7 @@ body {
 	}
 	
 	function actionFormatter(value, row, index) {
-		return [ '<a href="#" class="edit" target="_blank">编辑</a><br/>'
+		return [ '<a href="#" id="td_'+row.id+'" class="edit" target="_blank">编辑</a><br/>'
 				+ '<a href="#" class="deploy">部署</a>'
 				+ '<a href="#" class="export">导出</a>'
 				+ '<a href="#" class="delete">删除</a>' ]
@@ -43,32 +43,28 @@ body {
 	
 	window.actionEvents = {
 		'click .delete' : function(e, value, row, index) {
-			deleteProcessDefinition(row.id, row.deploymentId);
+			deleteModel(row.id);
 		},
-		'click .convert' : function(e, value, row, index) {
-			convertToModel(row.id);
-		},
-		'click .handle' : function(e, value, row, index) {
-			var object = this;
-			$.ajax({
-				url : "${ctx }/form/formkey/hasStartForm/" + row.id,
-				cache : false,
-				success : function(data) {
-					if (data == 'true') {
-						handle.call(object);
-					} else if (data == "success") {
-						alert("启动成功");
-					} else {
-						alert("启动失败");
-					}
-				},
-				error : function() {
-					alert("error");
-				}
-			});
+		'click .edit' : function(e, value, row, index) {
+			$("#td_"+row.id).attr("href","${ctx}/modeler.html?modelId="+row.id);
 		}
 	};
 
+	function deleteModel(modelId) {
+		$.ajax({
+			url : "${ctx }/process/model/delete/"
+					+ modelId,
+			cache : false,
+			success : function() {
+				location.reload();
+			},
+			 //TODO 回调
+			error : function() {
+				alert("error");
+			}
+		});
+	}
+	
 	var handleOpts = {
 		createmodel : {
 			width : 300,

@@ -11,6 +11,7 @@ import org.activiti.engine.repository.Model;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,5 +81,17 @@ public class ModelController {
            // logger.error("创建模型失败：", e);
 			return "error";
         }
+	}
+	
+	@RequestMapping(value="delete/{modelId}")
+	@ResponseBody
+	public String delete(@PathVariable String modelId){
+		try {
+			repositoryService.deleteModel(modelId);
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";
+		}
 	}
 }
