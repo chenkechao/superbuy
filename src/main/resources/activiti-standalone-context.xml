@@ -10,7 +10,9 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-       
+       <context:component-scan base-package="com.keke,org.activiti.conf,org.activiti.rest.editor,org.activiti.rest.service">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
   <!-- This Spring config file is NOT used in Alfresco, as the Activiti engine is wired in a different way there -->
    <!--
   <bean id="demoDataGenerator" class="com.keke.shop.superbuy.demo.DemoDataGenerator" init-method="init">

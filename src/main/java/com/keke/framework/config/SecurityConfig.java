@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
-@Configuration
-@EnableWebMvcSecurity
+//@Configuration
+//@EnableWebMvcSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Bean
