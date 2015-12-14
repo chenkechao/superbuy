@@ -28,7 +28,7 @@ import com.keke.shop.superbuy.config.form.service.DfFormManager;
 import com.keke.shop.superbuy.config.form.service.FormManager;
 
 @Controller
-@RequestMapping(value="/form/config")
+@RequestMapping(value="/config/form")
 public class FormConfigController {
 	
 	@Autowired
@@ -37,18 +37,23 @@ public class FormConfigController {
 	@Autowired
 	private DfFormManager dfFormManager;
 	
-	@RequestMapping(value="/formList")
+	@RequestMapping(value="/list")
 	public ModelAndView list(){
-		ModelAndView mav = new ModelAndView("form/config/formList");
-		List<DfForm> dfFormList = new ArrayList<DfForm>();
-		dfFormList = dfFormManager.getAll();
-		mav.addObject("formList", dfFormList);
+		ModelAndView mav = new ModelAndView("config/form/formList");
 		return mav;
 	}
 
+	@RequestMapping(value="/list/json", produces="application/json")
+	@ResponseBody
+	public List<DfForm> listJson(){
+		List<DfForm> dfFormList = new ArrayList<DfForm>();
+		dfFormList = dfFormManager.getAll();
+		return dfFormList;
+	}
+	
 	@RequestMapping(value="/showCreateForm")
 	public String showCreateFormModal(){
-		return "form/config/createformview";
+		return "config/form/createformview";
 	}
 	
 	@RequestMapping(value="/create",method=RequestMethod.POST)
@@ -58,7 +63,6 @@ public class FormConfigController {
 			formManager.saveDfForm(dfForm);
 			return "success";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error";
 		}
@@ -68,24 +72,15 @@ public class FormConfigController {
 	@ResponseBody
 	public DfForm detail(@PathVariable("id") Long id){
 		DfForm dfForm = dfFormManager.get(id);
-//		String json = null;
-//		ObjectMapper mapper = new ObjectMapper();
-//		try {
-//			json = mapper.writeValueAsString(dfForm);
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
+//		if(!Hibernate.isInitialized(dfForm)){
+//			Hibernate.initialize(dfForm);
 //		}
-		if(!Hibernate.isInitialized(dfForm)){
-			Hibernate.initialize(dfForm);
-		}
-		dfForm.getName();
 		return dfForm;
 	}
 	
 	@RequestMapping(value="designer/{id}")
 	public ModelAndView designer(@PathVariable Long id){
-		ModelAndView mav = new ModelAndView("form/config/formDesigner");
+		ModelAndView mav = new ModelAndView("config/form/formDesigner");
 		DfForm dfForm = dfFormManager.get(id);
 		mav.addObject("form", dfForm);
 		return mav;
@@ -151,8 +146,9 @@ public class FormConfigController {
 	}
 	
 	@RequestMapping(value="delete/{id}")
+	@ResponseBody
 	public String delete(@PathVariable("id") Long id){
 		dfFormManager.delete(id);
-		return "redirect:/form/config/formList";
+		return "success";
 	}
 }

@@ -1,4 +1,5 @@
 <form id="modalform" class="form-horizontal" role="form">
+	<input class="form-control" id="id" name="id" type="hidden"/>
 	<div class="form-group">
 		<label class="col-lg-4 control-label">biaodanmingcheng:</label>
 		<div class="col-lg-8">

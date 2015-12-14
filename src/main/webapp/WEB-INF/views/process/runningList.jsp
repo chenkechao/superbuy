@@ -137,7 +137,7 @@
                   <div class="widget-content">
 					<table class="table table-striped table-bordered table-hover"
 					   id="table" data-toggle="table"
-				       data-url="${ctx }/workflow/processinstance/runningList/json"
+				       data-url="${ctx }/process/processinstance/runningList/json"
 				       data-cache="false"
 				       data-click-to-select="true"
 				       data-row-style="rowStyle"

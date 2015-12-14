@@ -282,6 +282,7 @@ function loadDetail(url,callback) {
 }
 
 function loadDetail1(url,callback) {
+	var dialog = parent.window.$(parent.document);
 	$.ajax({
 		  url:url,
 		  cache:false,
@@ -302,10 +303,10 @@ function loadDetail1(url,callback) {
 						// 格式化日期
 						if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
 							if(v != null){
-								$('#' + k).text(new Date(v).format('yyyy-MM-dd hh:mm'));
+								$('#' + k, dialog).val(new Date(v).format('yyyy-MM-dd hh:mm'));
 							}
 						} else {
-				            $('#' + k).text(v);
+				            $('#' + k, dialog).val(v);
 						}
 						
 			        });

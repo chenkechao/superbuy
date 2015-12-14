@@ -24,7 +24,7 @@ public class ProcessInstanceController {
 	
 	@RequestMapping(value = "runningList")
 	public ModelAndView runningList() {
-		ModelAndView mav = new ModelAndView("workflow/runningList");
+		ModelAndView mav = new ModelAndView("process/runningList");
 		return mav;
 	}
 	

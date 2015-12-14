@@ -281,7 +281,7 @@ var formDesign = {
             //异步提交数据
             $.ajax({
                 type: 'POST',
-                url : '${ctx }/form/config/processor',
+                url : '${ctx }/config/form/processor',
                 //dataType : 'json',
                 data : {'type' : type_value,'formId':'${form.id}','parse_form':parse_form},
                 success : function(data){

@@ -11,23 +11,10 @@
 <link rel="shortcut icon"
 	href="${ctx }/resources/img/favicon/favicon.png">
 <script type="text/javascript">
-	function processList() {
-		$('#mainIframe').attr("src", '${ctx }/process/processList/all');
-	}
 
-	function modelList() {
-		$('#mainIframe').attr("src", '${ctx }/process/model/list');
+	function frameSrcChange(url){
+		$('#mainIframe').attr("src", url);
 	}
-
-	function formList() {
-		$('#mainIframe').attr("src", '${ctx }/form/config/formList');
-	}
-
-	function runningList() {
-		$('#mainIframe').attr("src",
-				'${ctx }/workflow/processinstance/runningList');
-	}
-
 	function leaveApply() {
 		$('#mainIframe').attr("src", '${ctx }/oa/leave/apply');
 	}
@@ -423,15 +410,15 @@
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>表单管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="formList()">表单列表</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx}/config/form/list')">表单列表</a></li>
 						<li><a href="#" onClick="dictionaryList()">数据字典</a></li>
 					</ul></li>
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="processList()">流程定义及部署管理</a></li>
-						<li><a href="#" onClick="runningList()">运行中流程</a></li>
-						<li><a href="#" onCLick="modelList()">模型工作区</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx}/process/processList/all')">流程定义及部署管理</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx}/process/processinstance/runningList')">运行中流程</a></li>
+						<li><a href="#" onCLick="frameSrcChange('${ctx}/process/model/list')">模型工作区</a></li>
 					</ul></li>
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>权限管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>

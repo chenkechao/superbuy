@@ -34,9 +34,11 @@ body {
 	}
 	
 	function actionFormatter(value, row, index) {
-		return [ '<a href="#" id="td_'+row.id+'" class="edit" target="_blank">编辑</a><br/>'
+		return [ '<a href="#" id="td_'+row.id+'" class="edit" CCrget="_blank">编辑</a><br/>'
 				+ '<a href="#" class="deploy">部署</a>'
-				+ '<a href="#" class="export">导出</a>'
+				+ '导出(<a href="#" id="exportXML_'+row.id+'" class="exportXML" target="_blank">BPMN</a>'
+						+'|<a href="#" id="exportJSON_'+row.id+'" class="exportJSON">JSON</a>'
+						+'|<a href="#" id="exportSVG_'+row.id+'" class="exportSVG">SVG</a>)'
 				+ '<a href="#" class="delete">删除</a>' ]
 				.join('');
 	}
@@ -47,12 +49,51 @@ body {
 		},
 		'click .edit' : function(e, value, row, index) {
 			$("#td_"+row.id).attr("href","${ctx}/modeler.html?modelId="+row.id);
+		},
+		'click .deploy' : function(e, value, row, index) {
+			deployModel(row.id);
+		},
+		'click .exportXML' : function(e, value, row, index) {
+			$("#exportXML_"+row.id).attr("href","${ctx}/process/model/export/"+row.id + "/bpmn");
+		},
+		'click .exportJSON' : function(e, value, row, index) {
+			$("#exportJSON_"+row.id).attr("href","${ctx}/process/model/export/"+row.id + "/json");
 		}
 	};
+	
+	function exportXML(modelId,type){
+		$.ajax({
+			url : "${ctx }/process/model/export/"
+					+ modelId + "/" +type,
+			cache : false,
+			success : function() {
+				location.reload();
+			},
+			 //TODO 回调
+			error : function() {
+				alert("error");
+			}
+		});
+	}
 
 	function deleteModel(modelId) {
 		$.ajax({
 			url : "${ctx }/process/model/delete/"
+					+ modelId,
+			cache : false,
+			success : function() {
+				location.reload();
+			},
+			 //TODO 回调
+			error : function() {
+				alert("error");
+			}
+		});
+	}
+	
+	function deployModel(modelId) {
+		$.ajax({
+			url : "${ctx }/process/model/deploy/"
 					+ modelId,
 			cache : false,
 			success : function() {
@@ -80,6 +121,21 @@ body {
 						css : 'btn btn-primary',
 						click : function() {
 							var modal = parent.window.$(parent.document);
+							var modal = parent.window.$(parent.document);
+							var options = {
+								url : '${ctx }/process/model/create',
+								type : 'post',
+								beforeSubmit : showRequest, //提交前处理 
+								success : showResponse, //处理完成 
+								dataType : 'html',
+								resetForm : true,
+							};
+
+							$('#createModelForm', modal).on("submit", function() {
+								alert('fda');
+								$('#createModelForm', modal).ajaxSubmit(options);
+								return false;
+							});
 							$('#createModelForm', modal).submit();
 						}
 					},
