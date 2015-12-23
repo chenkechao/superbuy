@@ -38,7 +38,7 @@ public class DfFieldManager {
 	}
 	
 	public List<String> queryDfFieldNames(String tableName){
-		List<DfField> list = dfFieldDao.getAll();
+		List<DfField> list = dfFieldDao.findBy("tableName", tableName);
 		List<String> nameList = new ArrayList<String>();
 		for(DfField dfField:list){
 			String fieldName = dfField.getFieldname();

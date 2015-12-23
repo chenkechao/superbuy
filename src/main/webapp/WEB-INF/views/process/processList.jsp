@@ -33,9 +33,9 @@ body {
 	}
 
 	function actionFormatter(value, row, index) {
-		return [ '<a href="#" class="delete">删除</a><br/>'
-				+ '<a href="#" class="convert">转换为Model</a>'
-				+ '<a href="#" tkey="startup" tid="'+row.id+'" class="handle">启动</a>' ]
+		return [ '<a href="#" class="btn btn-info delete">删除</a>'
+				+ '<a href="#" class="btn btn-info convert">转换为Model</a>'
+				+ '<a href="#" tkey="startup" tid="'+row.id+'" class="btn btn-info handle">启动</a>' ]
 				.join('');
 	}
 

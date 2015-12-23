@@ -44,6 +44,7 @@ public class FormManager {
 		if(datas == null) {
 			throw new NullPointerException();
 		}
+		//循环存储表单字段Item
 		for(Map.Entry<String,Object> entry : datas.entrySet()) {
 			Map<String,String> dfFieldMap = (Map<String, String>) entry.getValue();
 			ObjectMapper mapper = new ObjectMapper();
@@ -56,6 +57,7 @@ public class FormManager {
 		boolean isExists = true;
 		
 		try {
+			//检查表单表是否存在
 			isExists = dfFormManager.checkTableFormExist(getTableName(dfForm));
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -64,13 +66,14 @@ public class FormManager {
 		}
 		
 		try {
+			//更新或保存表单表
 			if(!isExists){
 				dfFormManager.createTableForm(getTableName(dfForm), dfFieldList);
 			}else{
 				dfFormManager.updateTableForm(getTableName(dfForm), dfFieldList);
 			}
 			
-			
+			//保存表单字段表
 			for(DfField dfField:dfFieldList) {
 				boolean hasDfFieldName = dfFieldManager.queryDfFieldNames(getTableName(dfForm)).contains(dfField.getFieldname());
 				if(!hasDfFieldName){

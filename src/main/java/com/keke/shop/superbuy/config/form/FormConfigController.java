@@ -127,13 +127,14 @@ public class FormConfigController {
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("taskId", taskId);
 		if(StringUtils.isEmpty(orderId)||StringUtils.isNotEmpty(taskId)) {
-			return "form/config/formUse";
+			return "config/form/formUse";
 		}else{
-			return "form/config/formUseView";
+			return "config/form/formUseView";
 		}
 	}
 	
-	@RequestMapping(value="submit",method=RequestMethod.POST)
+	@RequestMapping(value="use",method=RequestMethod.POST)
+	@ResponseBody
 	public String submit(long formId,HttpServletRequest request,String processId,String orderId,String taskId){
 		List<DfField> dfFields = formManager.getFields(formId);
 		DfForm dfForm = dfFormManager.get(formId);
@@ -142,7 +143,7 @@ public class FormConfigController {
 			//if(Field.F)
 		}
 		formManager.submitTableForm(dfForm, request.getParameterMap());
-		return "form/config/formList";
+		return "success";
 	}
 	
 	@RequestMapping(value="delete/{id}")

@@ -13,9 +13,10 @@ body {
 </style>
 <script type="text/javascript">
 	function actionFormatter(value, row, index) {
-		return [ '<a href="#" class="delete">删除</a>'
-				+ '<a href="#" id="design_'+row.id+'" class="design" target="_blank">设计</a>'
-				+ '<a href="#" tkey="showDfForm" tid="'+row.id+'" class="btn btn-info handle">查看</a>' ]
+		return [ '<a href="#" class="btn btn-info delete">删除</a>'
+				+ '<a href="#" id="design_'+row.id+'" class="btn btn-info design" target="_blank">设计</a>'
+				+ '<a href="#" tkey="showDfForm" tid="'+row.id+'" class="btn btn-info view">查看</a>'
+				+ '<a href="#" tkey="useDfForm" tid="'+row.id+'" class="btn btn-info use">录入数据</a>']
 				.join('');
 	}
 
@@ -26,15 +27,18 @@ body {
 		'click .design' : function(e, value, row, index) {
 			designForm(row.id);
 		},
-		'click .handle' : function(e, value, row, index) {
+		'click .view' : function(e, value, row, index) {
 			handle.call(this);
-		}
+		},
+		'click .use' : function(e, value, row, index) {
+			handle.call(this);
+		},
+		
 	};
-	
-	function deleteConfigForm(formId){
+
+	function deleteConfigForm(formId) {
 		$.ajax({
-			url : "${ctx}/config/form/delete/"
-					+ formId,
+			url : "${ctx}/config/form/delete/" + formId,
 			cache : false,
 			success : function(data) {
 				location.reload();
@@ -44,18 +48,23 @@ body {
 			}
 		});
 	}
-	
-	function designForm(formId){
-		$("#design_"+formId).attr("href","${ctx}/config/form/designer/"+formId);
+
+	function designForm(formId) {
+		$("#design_" + formId).attr("href",
+				"${ctx}/config/form/designer/" + formId);
 	}
-	
+
 	var handleOpts = {
-		createDfForm : {
+		showDfForm : {
 			width : 300,
 			height : 300,
 			url : "${ctx }/config/form/showCreateForm",
-			open : function(url) {
+			open : function(url, id) {
 				$(".modal-body", parent.window.$(parent.document)).load(url);
+				if(id != null){
+					var detailurl = '${ctx }/config/form/detail/' + id;
+					loadDetail1.call(this, detailurl);
+				}
 			},
 			savebtn : [ {
 				text : 'chuangjian',
@@ -71,11 +80,7 @@ body {
 						resetForm : true,
 					};
 
-					$('#modalform', modal).on("submit", function() {
-						$('#modalform', modal).ajaxSubmit(options);
-						return false;
-					});
-					$('#modalform', modal).submit();
+					$('#modalform', modal).ajaxSubmit(options);
 				}
 			}, {
 				text : 'quxiao',
@@ -87,14 +92,12 @@ body {
 				}
 			} ]
 		},
-		showDfForm : {
+		useDfForm : {
 			width : 300,
 			height : 300,
-			url : "${ctx }/config/form/showCreateForm",
+			url : "${ctx }/config/form/use",
 			open : function(url, id) {
-				$(".modal-body", parent.window.$(parent.document)).load(url);
-				var detailurl = '${ctx }/config/form/detail/' + id;
-				loadDetail1.call(this, detailurl);
+				$(".modal-body", parent.window.$(parent.document)).load(url+"/"+id);
 			},
 			savebtn : [ {
 				text : 'chuangjian',
@@ -102,18 +105,13 @@ body {
 				click : function() {
 					var modal = parent.window.$(parent.document);
 					var options = {
-						url : '${ctx }/config/form/create',
+						url : '${ctx }/config/form/use',
 						type : 'post',
 						beforeSubmit : showRequest, //æäº¤åå¤ç 
 						success : showResponse, //å¤çå®æ 
 						dataType : 'html',
 						resetForm : true,
 					};
-
-					$('#modalform', modal).on("submit", function() {
-						$('#modalform', modal).ajaxSubmit(options);
-						return false;
-					});
 					$('#modalform', modal).submit();
 				}
 			}, {
@@ -154,7 +152,7 @@ body {
 		<div class="matter">
 			<div class="container">
 				<div id="toolbar">
-					<button tkey="createDfForm" type="button"
+					<button tkey="showDfForm" type="button"
 						class="btn btn-primary handle">新建</button>
 					<button type="button" class="btn btn-default">Primary</button>
 					<button type="button" class="btn btn-success">Success</button>

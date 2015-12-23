@@ -34,12 +34,12 @@ body {
 	}
 	
 	function actionFormatter(value, row, index) {
-		return [ '<a href="#" id="td_'+row.id+'" class="edit" CCrget="_blank">编辑</a><br/>'
-				+ '<a href="#" class="deploy">部署</a>'
+		return [ '<a href="#" id="td_'+row.id+'" class="btn btn-info edit" CCrget="_blank">编辑</a>'
+				+ '<a href="#" class="btn btn-info deploy">部署</a>'
 				+ '导出(<a href="#" id="exportXML_'+row.id+'" class="exportXML" target="_blank">BPMN</a>'
 						+'|<a href="#" id="exportJSON_'+row.id+'" class="exportJSON">JSON</a>'
 						+'|<a href="#" id="exportSVG_'+row.id+'" class="exportSVG">SVG</a>)'
-				+ '<a href="#" class="delete">删除</a>' ]
+				+ '<a href="#" class="btn btn-info delete">删除</a>' ]
 				.join('');
 	}
 	
