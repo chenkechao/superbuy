@@ -95,9 +95,9 @@ public class UserController {
 		return "security/userView";
 	}
 	
-	@RequestMapping(value = "/userForm", method = RequestMethod.GET)
-	public String userForm() {
-		return "security/userForm";
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public String create() {
+		return "security/userEdit";
 	}
 	
 	@RequestMapping(value = "view/json/{id}", method = RequestMethod.GET)
@@ -115,6 +115,7 @@ public class UserController {
 		return json;
 	}
 	
+	//TODO 用户新增没有完成
 	@RequestMapping(value = "update",produces = "application/text")
 	@ResponseBody
 	public String update(User user,@RequestParam("roleIndexs[]") String[] roleIndexs,HttpServletRequest request) {

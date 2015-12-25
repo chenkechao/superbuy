@@ -11,10 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.entity.Org;
+import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.service.OrgManager;
 
 /**
@@ -48,6 +52,21 @@ public class OrgController {
 		model.addAttribute("page", page);
 		model.addAttribute("lookup", request.getParameter("lookup"));
 		return "security/orgList";
+	}
+	
+	@RequestMapping(value="list/json",produces = "application/json")
+	@ResponseBody
+	public String list() {
+		List<Org> orgList = orgManager.getAll();
+		String json = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			json = mapper.writeValueAsString(orgList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return json;
 	}
 	
 	/**

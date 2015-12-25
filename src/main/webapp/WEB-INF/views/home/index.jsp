@@ -30,10 +30,6 @@
 	function dictionaryList() {
 		$('#mainIframe').attr("src", '${ctx }/config/dictionary');
 	}
-
-	function userList() {
-		$('#mainIframe').attr("src", '${ctx }/security/user');
-	}
 </script>
 </head>
 
@@ -420,12 +416,15 @@
 						<li><a href="#" onClick="frameSrcChange('${ctx}/process/processinstance/runningList')">运行中流程</a></li>
 						<li><a href="#" onCLick="frameSrcChange('${ctx}/process/model/list')">模型工作区</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>权限管理
+				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>系统管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="userList()">用户管理</a></li>
-						<li><a href="#" onClick="runningList()">运行中流程</a></li>
-						<li><a href="#" onCLick="modelList()">模型工作区</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx }/security/user')">用户管理</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx }/security/role')">角色管理</a></li>
+						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/org')">部门管理</a></li>
+						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/authority')">权限管理</a></li>
+						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/resource')">资源管理</a></li>
+						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/menu')">菜单管理</a></li>
 					</ul></li>
 			</ul>
 		</div>

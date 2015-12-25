@@ -12,30 +12,24 @@ body {
 }
 </style>
 <script type="text/javascript">
+//TODO 新建dictionary时 添加动态表格需要调整
 	$(function() {
 		$('.no-records-found').remove();
-		var id = $
-		{
-			index + 1
-		}
-		;
-
-				getRowItem = function() {
-					var rowItem = [];
-
-					rowItem
-							.push({
-								orderby : "<input id='orderby_"+id+"' type='text' class='form-control' name='orderbys'>",
-								code : "<input id='code_"+id+"' type='text' class='form-control' name='codes' >",
-								name : "<input id='itemName_"+id+"' type='text' class='form-control' name='itemNames' >"
-							});
-					id++;
-					return rowItem;
-				},
-				// init table use data
-				$table = $('#table-methods-table').bootstrapTable({
-					data : getRowItem()
-				});
+		var id = ${index + 1};
+		getRowItem = function() {
+			var rowItem = [];
+			rowItem.push({
+				orderby : "<input id='orderby_"+id+"' type='text' class='form-control' name='orderbys'>",
+				code : "<input id='code_"+id+"' type='text' class='form-control' name='codes' >",
+				name : "<input id='itemName_"+id+"' type='text' class='form-control' name='itemNames' >"
+			});
+			id++;
+			return rowItem;
+		},
+		// init table use data
+		$table = $('#table-methods-table').bootstrapTable({
+			data : getRowItem()
+		});
 
 		$('#append-data').click(function() {
 			$table.bootstrapTable($(this).data('method'), getRowItem());

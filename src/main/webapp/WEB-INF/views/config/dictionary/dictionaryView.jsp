@@ -42,9 +42,10 @@ body {
 			}
 		});
 
+		/**
 		$('#savebtn').click(function() {
 			$('.myeditable').editable('submit', {
-				url : '${ctx}/security/user/update',
+				url : '${ctx}/config/dictionary/update',
 				ajaxOptions : {
 					cache : false,
 					dataType : 'text' //assuming json response
@@ -57,6 +58,12 @@ body {
 					var msg = '';
 				}
 			});
+		});**/
+		
+		//TODO 修改功能还需要研究
+		$('#savebtn').click(function(){
+			alert($("#name").attr("value"));
+			//$("#dictionaryForm").submit();
 		});
 
 		$('#cancelbtn').click(function() {
@@ -91,9 +98,9 @@ body {
 							{
 								index : index,
 								row : {
-									orderby : "<input id='orderby_"+row.id+"' value='"+row.orderby+"'>",
-									code : "<input id='code_"+row.id+"' value='"+row.code+"'>",
-									name : "<input id='name_"+row.id+"' value='"+row.name+"'>",
+									orderby : "<input id='orderby_"+row.id+"' name='orderbys' value='"+row.orderby+"'>",
+									code : "<input id='code_"+row.id+"' name='codes' value='"+row.code+"'>",
+									name : "<input id='name_"+row.id+"' name='names' value='"+row.name+"'>",
 									temp : "1"
 								}
 							});
@@ -148,9 +155,9 @@ body {
         var rowId = maxId + 1;
 		$("#items-table").bootstrapTable('append', 
 		{
-			orderby : "<input id='orderby_"+rowId+"' value=''>",
-			code : "<input id='code_"+rowId+"' value=''>",
-			name : "<input id='name_"+rowId+"' value=''>",
+			orderby : "<input id='orderby_"+rowId+"' name='orderbys' value=''>",
+			code : "<input id='code_"+rowId+"' name='codes' value=''>",
+			name : "<input id='name_"+rowId+"' name='names' value=''>",
 			temp : "1"
 		});
 	}
@@ -182,6 +189,7 @@ body {
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
+					<form id="dictionaryForm" action="${ctx}/config/dictionary/update" method="post">
 						<div class="padd">
 							<!-- Form starts.  -->
 							<table class="table table-striped table-bordered table-hover">
@@ -222,7 +230,6 @@ body {
 								<thead>
 									<tr>
 										<th data-field="state" data-radio="true"></th>
-										<th data-field="id">ID</th>
 										<th data-field="orderby">序号</th>
 										<th data-field="code">编号</th>
 										<th data-field="name">名称</th>
@@ -231,14 +238,17 @@ body {
 									</tr>
 								</thead>
 							</table>
-
-							<br> <br>
+							<br>
 							<div>
 								<button type="button" id="savebtn" class="btn btn-primary">Submit</button>
 								<button type="button" id="cancelbtn" class="btn btn-default">Cancel</button>
 							</div>
 						</div>
 						<!-- padd ends -->
+						<input id="input_id" name="id" type="hidden" value=""/>
+						<input id="input_name" name="name" type="hidden" value=""/>
+						<input id="input_cnName" name="cnName" type="hidden" value=""/>
+					</form>
 					</div>
 					<!-- col-md-12 ends -->
 				</div>
