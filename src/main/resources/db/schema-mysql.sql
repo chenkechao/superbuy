@@ -310,3 +310,15 @@ CREATE TABLE flow_borrow (
   repayment_date VARCHAR(50),
   order_id VARCHAR(50)
 );
+
+create or replace view v_userrole as select ru.*, u.username,r.name as rolename
+from sec_role_user ru, sec_user u,sec_role r where u.id=ru.user_id and r.id=ru.role_id;
+
+create or replace view act_id_user as select u.username as id_, 1 as rev_, u.fullname as first_,
+'' as last_, u.email as email_, u.password as PWD_, '' as picture_id_ from sec_user u;
+
+create or replace view act_id_group as select r.name id_, 1 as rev_ ,r.name as name_, 
+'assignment' as type_ from sec_role r;
+
+create or replace view act_id_membership as select ru.username as user_id_, 
+ru.rolename as group_id_ from v_userrole ru;

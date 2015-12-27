@@ -1,12 +1,11 @@
-package com.keke.shop.superbuy.service.oa.leave;
+package com.keke.shop.superbuy.oa.leave.service;
 
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.keke.shop.superbuy.dao.LeaveRepository;
+import com.keke.shop.superbuy.oa.leave.dao.LeaveRepository;
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
 
 @Component

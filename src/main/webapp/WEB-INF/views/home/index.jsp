@@ -11,8 +11,14 @@
 <link rel="shortcut icon"
 	href="${ctx }/resources/img/favicon/favicon.png">
 <script type="text/javascript">
+	$(function() {
+		$("#mainIframe").load(function() {
+			var mainheight = $(this).contents().find("body").height() + 30;
+			$(this).height(mainheight);
+		});
+	});
 
-	function frameSrcChange(url){
+	function frameSrcChange(url) {
 		$('#mainIframe').attr("src", url);
 	}
 	function leaveApply() {
@@ -34,9 +40,7 @@
 </head>
 
 <body>
-
 	<div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
-
 		<div class="conjtainer">
 			<!-- Menu button for smallar screens -->
 			<div class="navbar-header">
@@ -49,13 +53,10 @@
 			</div>
 
 
-
 			<!-- Navigation starts -->
 			<nav class="collapse navbar-collapse bs-navbar-collapse"
 				role="navigation">
-
 				<ul class="nav navbar-nav">
-
 					<!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
 					<li class="dropdown dropdown-big"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown"><span
@@ -111,10 +112,8 @@
 								<div class="drop-foot">
 									<a href="#">查看所有</a>
 								</div>
-
 							</li>
 						</ul></li>
-
 				</ul>
 
 				<!-- Search form -->
@@ -135,19 +134,15 @@
 									logout</a></li>
 							<li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
 						</ul></li>
-
 				</ul>
 			</nav>
-
 		</div>
 	</div>
-
 
 	<!-- Header starts -->
 	<header>
 		<div class="container">
 			<div class="row">
-
 				<!-- Logo section -->
 				<div class="col-md-4">
 					<!-- Logo. -->
@@ -162,16 +157,13 @@
 
 				<!-- Button section -->
 				<div class="col-md-4">
-
 					<!-- Buttons -->
 					<ul class="nav nav-pills">
-
 						<!-- Comment button with number of latest comments count -->
 						<li class="dropdown dropdown-big"><a class="dropdown-toggle"
 							href="#" data-toggle="dropdown"> <i class="icon-comments"></i>
 								聊天 <span class="label label-info">6</span>
 						</a>
-
 							<ul class="dropdown-menu">
 								<li>
 									<!-- Heading - h5 -->
@@ -217,7 +209,6 @@
 							href="#" data-toggle="dropdown"> <i class="icon-envelope-alt"></i>
 								收件箱 <span class="label label-primary">6</span>
 						</a>
-
 							<ul class="dropdown-menu">
 								<li>
 									<!-- Heading - h5 -->
@@ -253,7 +244,6 @@
 							href="#" data-toggle="dropdown"> <i class="icon-user"></i> 用户
 								<span class="label label-success">6</span>
 						</a>
-
 							<ul class="dropdown-menu">
 								<li>
 									<!-- Heading - h5 -->
@@ -293,16 +283,11 @@
 									</div>
 								</li>
 							</ul></li>
-
 					</ul>
-
 				</div>
-
 				<!-- Data section -->
-
 				<div class="col-md-4">
 					<div class="header-data">
-
 						<!-- Traffic data -->
 						<div class="hdata">
 							<div class="mcol-left">
@@ -347,20 +332,14 @@
 							</div>
 							<div class="clearfix"></div>
 						</div>
-
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</header>
-
 	<!-- Header ends -->
 
-	<!-- Main content starts -->
-
-	<div class="content">
-
+	<nav>
 		<!-- Sidebar -->
 		<div class="sidebar">
 			<div class="sidebar-dropdown">
@@ -406,42 +385,46 @@
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>表单管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="frameSrcChange('${ctx}/config/form/list')">表单列表</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx}/config/form/list')">表单列表</a></li>
 						<li><a href="#" onClick="dictionaryList()">数据字典</a></li>
 					</ul></li>
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="frameSrcChange('${ctx}/process/processList/all')">流程定义及部署管理</a></li>
-						<li><a href="#" onClick="frameSrcChange('${ctx}/process/processinstance/runningList')">运行中流程</a></li>
-						<li><a href="#" onCLick="frameSrcChange('${ctx}/process/model/list')">模型工作区</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx}/process/processList/all')">流程定义及部署管理</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx}/process/processinstance/runningList')">运行中流程</a></li>
+						<li><a href="#"
+							onCLick="frameSrcChange('${ctx}/process/model/list')">模型工作区</a></li>
 					</ul></li>
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>系统管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="frameSrcChange('${ctx }/security/user')">用户管理</a></li>
-						<li><a href="#" onClick="frameSrcChange('${ctx }/security/role')">角色管理</a></li>
-						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/org')">部门管理</a></li>
-						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/authority')">权限管理</a></li>
-						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/resource')">资源管理</a></li>
-						<li><a href="#" onCLick="frameSrcChange('${ctx }/security/menu')">菜单管理</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx }/security/user')">用户管理</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx }/security/role')">角色管理</a></li>
+						<li><a href="#"
+							onCLick="frameSrcChange('${ctx }/security/org')">部门管理</a></li>
+						<li><a href="#"
+							onCLick="frameSrcChange('${ctx }/security/authority')">权限管理</a></li>
+						<li><a href="#"
+							onCLick="frameSrcChange('${ctx }/security/resource')">资源管理</a></li>
+						<li><a href="#"
+							onCLick="frameSrcChange('${ctx }/security/menu')">菜单管理</a></li>
 					</ul></li>
 			</ul>
 		</div>
+	</nav>
+	<!-- Sidebar ends -->
 
-		<!-- Sidebar ends -->
-
-
-
-
-		<iframe id="mainIframe" name="mainIframe" src="${ctx }/main"
-			scrolling="no" frameborder="0" style="width: 100%; height: 100%;"></iframe>
-
-		<!-- Mainbar ends -->
-		<div class="clearfix"></div>
-
-	</div>
-	<!-- Content ends -->
+	<main> <iframe id="mainIframe" name="mainIframe"
+		src="${ctx }/main" scrolling="no" frameborder="0"
+		style="width: 100%; height: 100%;"></iframe> <!-- Mainbar ends -->
+	<div class="clearfix"></div>
+	</main>
 
 	<!-- Footer starts -->
 	<footer>
@@ -456,39 +439,10 @@
 			</div>
 		</div>
 	</footer>
-
 	<!-- Footer ends -->
 
 	<!-- Scroll to top -->
 	<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
-
-	<!-- Script for this page -->
-	<script type="text/javascript">
-		$(function() {
-
-			function showTooltip(x, y, contents) {
-				$('<div id="tooltip">' + contents + '</div>').css({
-					position : 'absolute',
-					display : 'none',
-					top : y + 5,
-					left : x + 5,
-					border : '1px solid #000',
-					padding : '2px 8px',
-					color : '#ccc',
-					'background-color' : '#000',
-					opacity : 0.9
-				}).appendTo("body").fadeIn(200);
-			}
-
-		});
-
-		$("#mainIframe").load(function() {
-			var mainheight = $(this).contents().find("body").height() + 30;
-			$(this).height(mainheight);
-		});
-
-		/* Curve chart ends */
-	</script>
 
 	<div id="myModal" class="modal fade" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true"

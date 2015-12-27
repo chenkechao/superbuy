@@ -13,11 +13,12 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.identity.User;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
-import com.keke.shop.superbuy.service.oa.leave.LeaveManager;
+import com.keke.shop.superbuy.oa.leave.service.LeaveManager;
+import com.keke.shop.superbuy.security.entity.User;
+import com.keke.shop.superbuy.security.shiro.ShiroUtils;
 import com.keke.framework.util.Variable;
 
 @Controller
@@ -63,31 +66,32 @@ public class LeaveController {
 	
 	@RequestMapping(value="start",method=RequestMethod.POST)
 	public String startWorkflow(@Valid @ModelAttribute Leave leave,RedirectAttributes redirectAttributes,HttpSession session) {
-		User user = (User) session.getAttribute("user");
+		User user = ShiroUtils.getUser();
+		//User user = (User) session.getAttribute("user");
 		if(user==null || "".equals(user.getId())) {
 			return "/";
 		}
-		leave.setUserId(user.getId());
+		leave.setUserId(String.valueOf(user.getId()));
 		Map<String,Object> variables = new HashMap<String,Object>();
 		
 		leaveManager.saveLeave(leave);
-		String businessKey = leave.getId().toString();
-		ProcessInstance processInstance = null;
+//		String businessKey = leave.getId().toString();
+//		ProcessInstance processInstance = null;
+//		
+//		try{
+//			identityService.setAuthenticatedUserId(leave.getUserId());
+//			processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
+//			String processInstanceId = processInstance.getId();
+//			leave.setProcessInstanceId(processInstanceId);
+//			logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
+//		}catch(Exception e){
+//			System.out.println(e.toString());
+//		}
+//		finally{
+//			identityService.setAuthenticatedUserId(null);
+//		}
 		
-		try{
-			identityService.setAuthenticatedUserId(leave.getUserId());
-			processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
-			String processInstanceId = processInstance.getId();
-			leave.setProcessInstanceId(processInstanceId);
-			logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
-		}catch(Exception e){
-			System.out.println(e.toString());
-		}
-		finally{
-			identityService.setAuthenticatedUserId(null);
-		}
-		
-		return "redirect:/oa/leave/list/task";
+		return "redirect:/config/user/list";
 	}
 	
 	@RequestMapping(value = "list/task")
