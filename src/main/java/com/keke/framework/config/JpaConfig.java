@@ -2,6 +2,7 @@ package com.keke.framework.config;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,7 @@ class JpaConfig extends DefaultDataSourceConfig implements TransactionManagement
 //        return new HikariDataSource(config);
 //    }
     
+	@Bean
     public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
@@ -53,8 +55,9 @@ class JpaConfig extends DefaultDataSourceConfig implements TransactionManagement
         return entityManagerFactoryBean;
     }
     
-  @Bean
+  @Bean(name="transactionManagerJPA")
   public PlatformTransactionManager annotationDrivenTransactionManager() {
-      return new JpaTransactionManager();
+	  JpaTransactionManager t = new JpaTransactionManager();
+      return t;
   }
 }
