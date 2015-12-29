@@ -36,6 +36,8 @@ import com.keke.shop.superbuy.oa.leave.entity.Leave;
 import com.keke.shop.superbuy.oa.leave.service.LeaveManager;
 import com.keke.shop.superbuy.security.entity.User;
 import com.keke.shop.superbuy.security.shiro.ShiroUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.util.Variable;
 
 @Controller
@@ -71,40 +73,44 @@ public class LeaveController {
 		if(user==null || "".equals(user.getId())) {
 			return "/";
 		}
-		leave.setUserId(String.valueOf(user.getId()));
+		leave.setUserId(user.getUsername());
 		Map<String,Object> variables = new HashMap<String,Object>();
 		
 		leaveManager.saveLeave(leave);
-//		String businessKey = leave.getId().toString();
-//		ProcessInstance processInstance = null;
-//		
-//		try{
-//			identityService.setAuthenticatedUserId(leave.getUserId());
-//			processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
-//			String processInstanceId = processInstance.getId();
-//			leave.setProcessInstanceId(processInstanceId);
-//			logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
-//		}catch(Exception e){
-//			System.out.println(e.toString());
-//		}
-//		finally{
-//			identityService.setAuthenticatedUserId(null);
-//		}
+		String businessKey = leave.getId().toString();
+		ProcessInstance processInstance = null;
 		
-		return "redirect:/config/user/list";
+		try{
+			identityService.setAuthenticatedUserId(user.getUsername());
+			processInstance = runtimeService.startProcessInstanceByKey("leave", businessKey, variables);
+			String processInstanceId = processInstance.getId();
+			leave.setProcessInstanceId(processInstanceId);
+			logger.debug("start process of {key={}, bkey={}, pid={}, variables={}}", new Object[]{"leave", businessKey, processInstanceId, variables});
+		}catch(Exception e){
+			System.out.println(e.toString());
+		}
+		finally{
+			identityService.setAuthenticatedUserId(null);
+		}
+		
+		return "redirect:/oa/leave/task/list";
 	}
 	
-	@RequestMapping(value = "list/task")
-	public ModelAndView taskList(HttpSession session, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/oa/leave/taskList");
-		User user = (User) session.getAttribute("user");
-		
+	@RequestMapping(value = "task/list")
+	public String taskList(){
+		return "oa/leave/task/list";
+	}
+	
+	@RequestMapping(value = "task/list/json", produces="application/json")
+	@ResponseBody
+	public List<Map<String,Object>> taskListJson() {
+		User user = ShiroUtils.getUser();
 		List<Leave> results = new ArrayList<Leave>();
-		TaskQuery taskQuery = taskService.createTaskQuery().taskCandidateOrAssigned(user.getId());
+		TaskQuery taskQuery = taskService.createTaskQuery().taskCandidateOrAssigned(String.valueOf(user.getUsername()));
 		List<Task> tasks = taskQuery.list();
 		
 		ProcessDefinition processDefinition = null;
-		
+		List<Map<String,Object>> mapList = new ArrayList<>();
 		for(Task task:tasks){
 			String processInstanceId = task.getProcessInstanceId();
 			ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
@@ -119,22 +125,35 @@ public class LeaveController {
 			}
 			
 			Leave leave = leaveManager.getLeave(new Long(businessKey));
-			leave.setTask(task);
-			leave.setProcessInstance(processInstance);
-			leave.setProcessDefinition(processDefinition);
-			results.add(leave);
-			
+//			leave.setTask(task);
+//			leave.setProcessInstance(processInstance);
+//			leave.setProcessDefinition(processDefinition);
+//			results.add(leave);
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("id", leave.getId());
+			map.put("leaveType", leave.getLeaveType());
+			map.put("userId", leave.getUserId());
+			map.put("applyTime", leave.getApplyTime());
+			map.put("startTime", leave.getStartTime());
+			map.put("endTime", leave.getEndTime());
+			map.put("createTime", task.getCreateTime());
+			map.put("suspended", processInstance.isSuspended());
+			map.put("processDefinitionId", processDefinition.getId());
+			map.put("assignee", task.getAssignee());
+			map.put("taskId", task.getId());
+			map.put("taskDefinitionKey", task.getTaskDefinitionKey());
+			map.put("taskName", task.getName());
+			mapList.add(map);
 		}
-		mav.addObject("results", results);
-		return mav;
+		return mapList;
 	}
 	
 	@RequestMapping(value="task/claim/{id}")
 	@ResponseBody
-	public String claim(@PathVariable("id") String taskId,HttpSession session,RedirectAttributes redirectAttributes) {
+	public String claim(@PathVariable("id") String taskId) {
+		User user = ShiroUtils.getUser();
 		try {
-			User user = (User) session.getAttribute("user");
-			taskService.claim(taskId, user.getId());
+			taskService.claim(taskId, user.getUsername());
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();

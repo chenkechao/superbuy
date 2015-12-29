@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>taskList</title> 
-  <%@include file="/common/meta.jsp"%>
-  <style>
-  	body{
-  		padding-top: 0px;
-  	}
-  </style>
-  <script type="text/javascript">
+<title>taskList</title>
+<%@include file="/common/meta.jsp"%>
+<style>
+body {
+	padding-top: 0px;
+}
+</style>
+<script type="text/javascript">
   	
   	$(function() {
 	    // 办理
@@ -25,9 +25,32 @@
 	      $(this).on(eName, selector, obj[eName][selector]);
 	}
   	
+  	function actionFormatter(value, row, index) {
+  		var assignee = row.assignee;
+  		var actionString = '';
+  		if(assignee == null) {
+  			actionString = '<a href="#" class="btn btn-info claim">签收</a>';
+  		}else{
+  			actionString = '<a href="#" tkey="'+row.taskDefinitionKey
+  				+'" tid="'+row.id+"/"+row.taskId+'" class="btn btn-info handle">办理</a>';
+  		}
+		return [actionString].join('');
+	}
+
+	window.actionEvents = {
+		'click .claim' : function(e, value, row, index) {
+			claim(row.taskId);
+		},
+		'click .handle' : function(e, value, row, index) {
+			var data = {taskId:row.taskId,id:row.id};
+			handle.call(this,data);
+		},
+		
+	};
+  	
       function claim(taskId){
       	 $.ajax({
-    		  url:'<%=request.getContextPath() %>/oa/leave/task/claim/'+taskId,
+    		  url:'${ctx}/oa/leave/task/claim/'+taskId,
     		  cache:false,
     		  success:function(resp){
     			 if (resp == 'success') {
@@ -39,20 +62,24 @@
     	  });
       }
       
-      
       var handleOpts = {
       	  deptLeaderAudit:  {
 	        width: 300,
 		    height: 300,
 		    url:"${ctx }/oa/leave/detail/showDetailForm",
-	    	open:function(id,taskId) {
-	    		loadDetail.call(this,id,taskId);
+	    	open:function(url, id) {
+	    		$(".modal-body", parent.window.$(parent.document)).load(url);
+				if(id != null){
+					var detailurl = '${ctx }/oa/leave/detail/' + id;
+					loadDetail1.call(this, detailurl);
+				}
 	    	},
 	    	savebtn:[{
 	    		text:'tongyi',
 	    		css:'btn btn-primary',
 	    		click:function(){
 	    			var taskId = $(this).data('taskId');
+	    			alert(taskId);
 	    			complete(taskId,[{
 	    				key:'deptLeaderPass',
 	    				value:true,
@@ -343,7 +370,7 @@
       	  	});
       	  }
 		// 发送任务完成请求
-	    $.post('<%=request.getContextPath() %>/oa/leave/complete/' + taskId, {
+	    $.post('<%=request.getContextPath()%>/oa/leave/complete/' + taskId, {
 	        keys: keys,
 	        values: values,
 	        types: types
@@ -358,42 +385,11 @@
 	    });
       }
       
-      function handle(){
-      	var modal = parent.window.$(parent.document);
-		// 当前节点的英文名称
-		var tkey = $(this).attr("tkey");
-		// 当前节点的中文名称
-		var tname = $(this).attr("tname");
-		// 请假记录ID
-		var rowId = $(this).parents("tr").attr("id");
-		// 任务ID
-		var taskId = $(this).parents("tr").attr("tid");
-		modal.find("#myModal")
-		.modal({remote:handleOpts[tkey].url})
-		.on("shown.bs.modal",function(){
-			if($(".handle-footer input",modal).length==0){
-				$.each(handleOpts[tkey].savebtn,function(){
-					$("<input>", {
-					  type: "button",
-					  val: this.text,
-					  class:this.css,
-					  click: this.click,
-					}).data({taskId:taskId}).appendTo($(".handle-footer",modal));
-				});
-				handleOpts[tkey].open.call(this,rowId,taskId);
-			}
-		}).on("hide.bs.modal",function(){
-			modal.find("#myModal").removeData("bs.modal");
-			$(".handle-footer input",modal).remove();
-			modal.find("#myModal").off("shown.bs.modal");
-		});
-	}
-     
       function graphTrace(){
     	  var modal = parent.window.$(parent.document);
   		var pid = $(this).attr("pid");
   		var pdid = $(this).attr("pdid");
-  		var url = "<%=request.getContextPath() %>/workflow/showTraceModalView";
+  		var url = "<%=request.getContextPath()%>/workflow/showTraceModalView";
   		modal.find("#myModal")
 		.modal({remote:url})
 		.on("shown.bs.modal",function(){
@@ -410,166 +406,128 @@
       function loadDetail(id,taskId,callback) {
       	var dialog = parent.window.$(parent.document);
 		$.ajax({
-			  url:"<%=request.getContextPath() %>/oa/leave/detail/"+id+"/"+taskId,
-			  cache:false,
-			  dataType:"json",//
-			  success:function(data){
-				  if(callback != null){
-					  if ($.isFunction(callback)) {
-							callback(data);
-						}
-				  }else{
-					  $.each(data, function(k, v) {
-							// 格式化日期
-							if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
-								if(v != null){
-									$('#view-info td[name=' + k + ']', dialog).text(new Date(v).format('yyyy-MM-dd hh:mm'));
-								}
-							} else {
-					            $('#view-info td[name=' + k + ']', dialog).text(v);
+			  url:"<%=request.getContextPath()%>/oa/leave/detail/" + id
+							+ "/" + taskId,
+					cache : false,
+					dataType : "json",//
+					success : function(data) {
+						if (callback != null) {
+							if ($.isFunction(callback)) {
+								callback(data);
 							}
-							
-				        });
-				  }
-			  }
-		  });
-    }
-    
-    Date.prototype.format = function(format) {
-	    var o = {
-	        "M+": this.getMonth() + 1, //month 
-	        "d+": this.getDate(), //day 
-	        "h+": this.getHours(), //hour 
-	        "m+": this.getMinutes(), //minute 
-	        "s+": this.getSeconds(), //second 
-	        "q+": Math.floor((this.getMonth() + 3) / 3), //quarter 
-	        "S": this.getMilliseconds() //millisecond 
-	    }
-	    if (/(y+)/.test(format)) 
-	        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-	    for (var k in o) 
-	        if (new RegExp("(" + k + ")").test(format)) 
-	            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-	    return format;
+						} else {
+							$
+									.each(
+											data,
+											function(k, v) {
+												// 格式化日期
+												if (k == 'applyTime'
+														|| k == 'startTime'
+														|| k == 'endTime') {
+													if (v != null) {
+														$(
+																'#view-info td[name='
+																		+ k
+																		+ ']',
+																dialog)
+																.text(
+																		new Date(
+																				v)
+																				.format('yyyy-MM-dd hh:mm'));
+													}
+												} else {
+													$(
+															'#view-info td[name='
+																	+ k + ']',
+															dialog).text(v);
+												}
+
+											});
+						}
+					}
+				});
 	}
 
-
-  </script>
+	Date.prototype.format = function(format) {
+		var o = {
+			"M+" : this.getMonth() + 1, //month 
+			"d+" : this.getDate(), //day 
+			"h+" : this.getHours(), //hour 
+			"m+" : this.getMinutes(), //minute 
+			"s+" : this.getSeconds(), //second 
+			"q+" : Math.floor((this.getMonth() + 3) / 3), //quarter 
+			"S" : this.getMilliseconds()
+		//millisecond 
+		}
+		if (/(y+)/.test(format))
+			format = format.replace(RegExp.$1, (this.getFullYear() + "")
+					.substr(4 - RegExp.$1.length));
+		for ( var k in o)
+			if (new RegExp("(" + k + ")").test(format))
+				format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
+						: ("00" + o[k]).substr(("" + o[k]).length));
+		return format;
+	}
+</script>
 </head>
 
 <body>
 
 
 	<!-- Main bar -->
-  	<div class="mainbar">
-      <!-- Page heading -->
-      <div class="page-head">
-        <h2 class="pull-left"><i class="icon-table"></i> Tables</h2>
+	<div class="mainbar">
+		<!-- Page heading -->
+		<div class="page-head">
+			<h2 class="pull-left">
+				<i class="icon-table"></i> Tables
+			</h2>
 
-        <!-- Breadcrumb -->
-        <div class="bread-crumb pull-right">
-          <a href="index.html"><i class="icon-home"></i> Home</a> 
-          <!-- Divider -->
-          <span class="divider">/</span> 
-          <a href="#" class="bread-current">Dashboard</a>
-        </div>
-
-        <div class="clearfix"></div>
-
-      </div>
-      <!-- Page heading ends -->
-
-	    <!-- Matter -->
-
-	    <div class="matter">
-        <div class="container">
-
-          <!-- Table -->
-
-            <div class="row">
-
-              <div class="col-md-12">
-
-                <div class="widget">
-
-                <div class="widget-head">
-                  <div class="pull-left">Tables</div>
-                  <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
-                  </div>  
-                  <div class="clearfix"></div>
-                </div>
-
-                  <div class="widget-content">
-
-                    <table class="table table-striped table-bordered table-hover">
-                      <thead>
-                      	<tr>
-							<th>jiazhong</th>
-							<th>shengqingren</th>
-							<th>shengqingshijian</th>
-							<th>kaishishijian</th>
-							<th>jieshushijian</th>
-							<th>dangqianjiedian</th>
-							<th>renwuchuangjianshijian</th>
-							<th>liuchengzhuangtai</th>
-							<th>caozuo</th>
-                      	</tr>
-                      </thead>
-                      <tbody>
-                      	<c:forEach items="${results}" var="leave">
-                      		<c:set var="task" value="${leave.task }"/>
-                      		<c:set var="pi" value="${leave.processInstance }"/>
-                      		<tr id="${leave.id}" tid="${task.id}">
-									<td>${leave.leaveType }</td>
-									<td>${leave.userId }</td>
-									<td>${leave.applyTime }</td>
-									<td>${leave.startTime }</td>
-									<td>${leave.endTime }</td>
-									<td><a class="trace" href='#' pid="${pi.id }" pdid="${pi.processDefinitionId}">fda</a></td>
-									<td>${task.createTime }</td>
-									<td>${pi.suspended }</td>
-									<td>
-										<c:if test="${empty task.assignee}">
-										<a class="claim" href="#" onClick="claim('${task.id}')">qianshou</a>
-										</c:if>
-										<c:if test="${not empty task.assignee}">
-										 <a tkey="${task.taskDefinitionKey}" tname="${task.name}" class="btn btn-info handle" data-toggle="modal">banli</a>
-										</c:if>
-									</td>
-                      		</tr>
-                      	</c:forEach>                                                    
-                      </tbody>
-                    </table>
-
-                    <div class="widget-foot">
-
-                      
-                        <ul class="pagination pull-right">
-                          <li><a href="#">Prev</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">Next</a></li>
-                        </ul>
-                      
-                      <div class="clearfix"></div> 
-
-                    </div><!--widget-foot ends  -->
-
-                </div><!-- widget-content ends -->
-
-              </div><!-- widget ends -->
-
-            </div><!-- con-md-12 ends -->
-
-            </div><!-- row ends -->
-
-        </div><!-- Container ends -->
-		  </div><!-- Matter ends -->
-</div>
-
+			<!-- Breadcrumb -->
+			<div class="bread-crumb pull-right">
+				<a href="index.html"><i class="icon-home"></i> Home</a>
+				<!-- Divider -->
+				<span class="divider">/</span> <a href="#" class="bread-current">Dashboard</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<!-- Page heading ends -->
+		<!-- Matter -->
+		<div class="matter">
+			<div class="container">
+				<!-- Table -->
+				<div class="row">
+					<div class="col-md-12">
+						<table class="table table-striped table-bordered table-hover"
+							id="table" data-toggle="table"
+							data-url="${ctx }/oa/leave/task/list/json"
+							data-row-style="rowStyle" data-query-params="queryParams"
+							data-cache="false" data-click-to-select="true"
+							data-toolbar="#toolbar" data-pagination="true" data-search="true"
+							data-height="600">
+							<thead>
+								<tr>
+									<th data-field="state" data-checkbox="true"></th>
+									<th data-field="leaveType">假种</th>
+									<th data-field="userId">申请人</th>
+									<th data-field="applyTime">申请时间</th>
+									<th data-field="startTime">开始时间</th>
+									<th data-field="endTime">结束时间</th>
+									<th data-field="processDefinitionId">当前节点</th>
+									<th data-field="createTime">任务完成时间</th>
+									<th data-field="suspended">流程状态</th>
+									<th data-field="action" data-formatter="actionFormatter"
+										data-events="actionEvents">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<!-- con-md-12 ends -->
+				</div>
+				<!-- row ends -->
+			</div>
+			<!-- Container ends -->
+		</div>
+		<!-- Matter ends -->
+	</div>
 </body>
 </html>

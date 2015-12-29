@@ -230,7 +230,7 @@ $(function() {
 	$('.handle').click(handle);
 });
 
-function handle() {
+function handle(data) {
 	var modal = parent.window.$(parent.document);
 	var tkey = $(this).attr("tkey");
 	var tid = $(this).attr("tid");
@@ -242,7 +242,7 @@ function handle() {
 					val : this.text,
 					class : this.css,
 					click : this.click,
-				}).appendTo($(".handle-footer", modal));
+				}).data(data).appendTo($(".handle-footer", modal));
 			});
 			handleOpts[tkey].open.call(modal, handleOpts[tkey].url, tid);
 		}

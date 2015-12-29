@@ -143,8 +143,10 @@ INSERT INTO sec_authority_resource (AUTHORITY_ID, RESOURCE_ID) VALUES (435, 435)
 INSERT INTO sec_authority_resource (AUTHORITY_ID, RESOURCE_ID) VALUES (436, 436);
 
 
-INSERT INTO sec_role (ID, DESCRIPTION, NAME) VALUES (1, '系统管理员', 'Admin');
-INSERT INTO sec_role (ID, DESCRIPTION, NAME) VALUES (2, '普通用户', 'General');
+INSERT INTO sec_role (ID, DESCRIPTION, NAME) VALUES (1, '系统管理员', 'admin');
+INSERT INTO sec_role (ID, DESCRIPTION, NAME) VALUES (2, '普通用户', 'user');
+INSERT INTO sec_role (ID, DESCRIPTION, NAME) VALUES (3, '部门经理', 'deptLeader');
+INSERT INTO sec_role (ID, DESCRIPTION, NAME) VALUES (4, '人事经理', 'hr');
 
 INSERT INTO sec_role_authority (ROLE_ID, AUTHORITY_ID) VALUES (1, 101);
 INSERT INTO sec_role_authority (ROLE_ID, AUTHORITY_ID) VALUES (1, 102);
@@ -226,9 +228,25 @@ VALUES (2, '', NULL, '', '1', 'test', 'f9e1a0299c2570eb5942fbbda0b2a8ceb2ef9769'
 INSERT INTO sec_user (ID, ADDRESS, AGE, EMAIL, ENABLED, FULLNAME, PASSWORD, SEX, TYPE, USERNAME, ORG, SALT)
 VALUES (3, '', NULL, '', '1', 'snaker', 'f9e1a0299c2570eb5942fbbda0b2a8ceb2ef9769', '1', NULL, 'snaker', 200202, 'e97e0cea2389225f');
 
+INSERT INTO sec_user (ID, ADDRESS, AGE, EMAIL, ENABLED, FULLNAME, PASSWORD, SEX, TYPE, USERNAME, ORG, SALT)
+VALUES (4, '', NULL, '', '1', 'hruser', 'f9e1a0299c2570eb5942fbbda0b2a8ceb2ef9769', '1', NULL, 'hruser', 200202, 'e97e0cea2389225f');
+INSERT INTO sec_user (ID, ADDRESS, AGE, EMAIL, ENABLED, FULLNAME, PASSWORD, SEX, TYPE, USERNAME, ORG, SALT)
+VALUES (5, '', NULL, '', '1', 'leaderuser', 'f9e1a0299c2570eb5942fbbda0b2a8ceb2ef9769', '1', NULL, 'leaderuser', 200202, 'e97e0cea2389225f');
+INSERT INTO sec_user (ID, ADDRESS, AGE, EMAIL, ENABLED, FULLNAME, PASSWORD, SEX, TYPE, USERNAME, ORG, SALT)
+VALUES (6, '', NULL, '', '1', 'kafeitu', 'f9e1a0299c2570eb5942fbbda0b2a8ceb2ef9769', '1', NULL, 'kafeitu', 200202, 'e97e0cea2389225f');
+
+
 INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (1, 1);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (6, 1);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (1, 2);
 INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (2, 2);
 INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (3, 2);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (4, 2);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (5, 2);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (6, 2);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (5, 3);
+INSERT INTO sec_role_user (USER_ID, ROLE_ID) VALUES (4, 4);
+
 
 INSERT INTO conf_dictionary (ID, DESCRIPTION, NAME, CN_NAME) VALUES (1, '', 'yesNo', '是否');
 INSERT INTO conf_dictionary (ID, DESCRIPTION, NAME, CN_NAME) VALUES (2, '', 'sex', '性别');

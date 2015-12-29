@@ -21,13 +21,6 @@
 	function frameSrcChange(url) {
 		$('#mainIframe').attr("src", url);
 	}
-	function leaveApply() {
-		$('#mainIframe').attr("src", '${ctx }/oa/leave/apply');
-	}
-
-	function taskList() {
-		$('#mainIframe').attr("src", '${ctx }/oa/leave/list/task');
-	}
 
 	function schedule() {
 		$('#mainIframe').attr("src", '${ctx }/oa/schedule/showCalendar');
@@ -360,10 +353,8 @@
 				<li class="has_sub"><a href="#"><i class="icon-list-alt"></i>
 						请假 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="leaveApply()">请假申请(普通)</a></li>
-						<li><a href="#" onClick="taskList()">请假办理(普通)</a></li>
-						<li><a href="widgets3.html">运行中流程(普通)</a></li>
-						<li><a href="widgets3.html">已结束流程(普通)</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/leave/apply')">请假申请(普通)</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/leave/task/list')">待办任务</a></li>
 					</ul></li>
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>动态表单
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
