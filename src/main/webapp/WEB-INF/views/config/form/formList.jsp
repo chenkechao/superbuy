@@ -87,7 +87,7 @@ body {
 				css : 'btn btn-default',
 				click : function() {
 					var modal = parent.window.$(parent.document);
-					modal.find("#myModal").modal("hide");
+					$("#myModal",modal).modal("hide");
 					// $("#myModal",parent.window.$(parent.document)).modal("hide");
 				}
 			} ]
@@ -119,7 +119,7 @@ body {
 				css : 'btn btn-default',
 				click : function() {
 					var modal = parent.window.$(parent.document);
-					modal.find("#myModal").modal("hide");
+					$("#myModal",modal).modal("hide");
 					// $("#myModal",parent.window.$(parent.document)).modal("hide");
 				}
 			} ]

@@ -185,9 +185,9 @@ public class LeaveController {
 		return "oa/leave/showReportBack";
 	}
 	
-	@RequestMapping(value="complete/{id}", method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="complete/{taskId}", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public String complete(@PathVariable("id") String taskId,Variable var) {
+	public String complete(@PathVariable("taskId") String taskId,Variable var) {
 		try {
 			Map<String,Object> variables = var.getVariableMap();
 			logger.debug(variables.toString());

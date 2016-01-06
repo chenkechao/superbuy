@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
 @Repository
-@Transactional(value="transactionManagerJPA")
 public class LeaveRepository {
 	
 	@PersistenceContext

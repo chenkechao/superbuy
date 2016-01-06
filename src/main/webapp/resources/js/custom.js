@@ -234,7 +234,10 @@ function handle(data) {
 	var modal = parent.window.$(parent.document);
 	var tkey = $(this).attr("tkey");
 	var tid = $(this).attr("tid");
-	modal.find("#myModal").modal().on("shown.bs.modal", function() {
+
+	$("#myModal", modal)
+	.modal()
+	.on("shown.bs.modal", function() {
 		if ($(".handle-footer input", modal).length == 0) {
 			$.each(handleOpts[tkey].savebtn, function() {
 				$("<input>", {
@@ -242,15 +245,17 @@ function handle(data) {
 					val : this.text,
 					class : this.css,
 					click : this.click,
-				}).data(data).appendTo($(".handle-footer", modal));
+				}).appendTo($(".handle-footer", modal));
 			});
 			handleOpts[tkey].open.call(modal, handleOpts[tkey].url, tid);
 		}
-	}).on("hide.bs.modal", function() {
-		modal.find("#myModal").removeData("bs.modal");
+	})
+	.on("hide.bs.modal", function() {
+		$("#myModal", modal).removeData("bs.modal");
 		$(".handle-footer input", modal).remove();
-		modal.find("#myModal").off("shown.bs.modal");
-	});
+		$("#myModal", modal).off("shown.bs.modal");
+	})
+	.data(data);
 }
 
 function showRequest(formData, jqForm, options) {

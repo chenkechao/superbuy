@@ -14,6 +14,7 @@ public class LeaveManager {
 	@Autowired
 	private LeaveRepository leaveRepository;
 	
+	@Transactional(value="transactionManagerJPA",readOnly = false)
 	public void saveLeave(Leave leave) {
 		if(leave.getId() == null) {
 			leave.setApplyTime(new Date());

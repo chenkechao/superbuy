@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
 
 @Component
-@Transactional
+@Transactional(value="transactionManagerJPA")
 public class AfterModifyApplyContentProcessor implements TaskListener{
 
 	private static final long serialVersionUID = 1L;

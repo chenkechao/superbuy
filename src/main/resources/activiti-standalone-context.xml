@@ -9,27 +9,28 @@
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<!--
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${dataSource.driverClassName}" />
 		<property name="url" value="${dataSource.url}" />
 		<property name="username" value="${dataSource.username}" />
 		<property name="password" value="${dataSource.password}" />
 		<property name="defaultAutoCommit" value="false" />
-	</bean>
+	</bean> -->
 
+	<!--
 	<bean id="transactionManagerMybatis" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
 		<property name="dataSource" ref="dataSource" /> </bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 	</bean>
-
+ 	-->
 
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<property name="dataSource" ref="dataSource" />
-		<property name="transactionManager" ref="transactionManagerMybatis" />
+		<property name="transactionManager" ref="transactionManagerJPA" />
 		<property name="databaseSchemaUpdate" value="true" />
-		<property name="jobExecutorActivate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
 		<property name="dbIdentityUsed" value="false"/>
 		<property name="customFormTypes">
 			<list>
@@ -73,7 +74,7 @@
 		<property name="repositoryService" ref="repositoryService" />
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
 	<!-- <tx:advice id="baseServiceAdvice" transaction-manager="transactionManager"> 
 		<tx:attributes> <tx:method name="getDao" propagation="NOT_SUPPORTED"/> <tx:method 

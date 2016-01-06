@@ -22,7 +22,7 @@ import com.keke.Application;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = Application.class)
-//class JpaConfig{
+//class JpaConfig extends DefaultDataSourceConfig{
 class JpaConfig extends DefaultDataSourceConfig implements TransactionManagementConfigurer {
 
 //    @Bean
@@ -48,8 +48,8 @@ class JpaConfig extends DefaultDataSourceConfig implements TransactionManagement
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();
-        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, getDialect());
-        jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, getHbm2ddlAuto());
+        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.MySQL5InnoDBDialect");
+        //jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, getHbm2ddlAuto());
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
         return entityManagerFactoryBean;

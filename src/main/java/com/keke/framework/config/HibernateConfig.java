@@ -20,9 +20,9 @@ class HibernateConfig extends DefaultDataSourceConfig{
     	Properties p = new Properties();
     	p.put("hibernate.current_session_context_class", "org.springframework.orm.hibernate4.SpringSessionContext");
     	p.put("hibernate.show_sql", true);
+    	p.put("connection.autoReconnect", true);
     	bean.setHibernateProperties(p);
     	bean.setNamingStrategy(new ImprovedNamingStrategy());
-    	bean.setHibernateProperties(null);
     	//bean.setMapperLocations(mapperLocations);
 		return bean;
     }

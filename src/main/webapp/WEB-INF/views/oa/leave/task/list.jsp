@@ -32,7 +32,8 @@ body {
   			actionString = '<a href="#" class="btn btn-info claim">签收</a>';
   		}else{
   			actionString = '<a href="#" tkey="'+row.taskDefinitionKey
-  				+'" tid="'+row.id+"/"+row.taskId+'" class="btn btn-info handle">办理</a>';
+  				+'" tid="'+row.id+"/"+row.taskId+'" class="btn btn-info handle">'+
+  				row.taskName+'</a>';
   		}
 		return [actionString].join('');
 	}
@@ -68,7 +69,7 @@ body {
 		    height: 300,
 		    url:"${ctx }/oa/leave/detail/showDetailForm",
 	    	open:function(url, id) {
-	    		$(".modal-body", parent.window.$(parent.document)).load(url);
+	    		$(".modal-body", $("#myModal",parent.window.$(parent.document))).load(url);
 				if(id != null){
 					var detailurl = '${ctx }/oa/leave/detail/' + id;
 					loadDetail1.call(this, detailurl);
@@ -78,8 +79,7 @@ body {
 	    		text:'tongyi',
 	    		css:'btn btn-primary',
 	    		click:function(){
-	    			var taskId = $(this).data('taskId');
-	    			alert(taskId);
+	    			var taskId = $("#myModal", parent.window.$(parent.document)).data('taskId');
 	    			complete(taskId,[{
 	    				key:'deptLeaderPass',
 	    				value:true,
@@ -91,7 +91,7 @@ body {
 	    		text:'bohui',
 	    		css:'btn btn-danger',
 	    		click:function(){
-	    			var taskId = $(this).data('taskId');
+	    			var taskId = $("#myModal", parent.window.$(parent.document)).data('taskId');
 	    			$("#myModal2",parent.window.$(parent.document))
 	    			.on("show.bs.modal",function(){
 	    				if($(".reason-footer input",parent.window.$(parent.document)).length==0){
@@ -123,6 +123,7 @@ body {
 								val:"quxiao",
 								class:"btn btn-default",
 								click:function(){
+									$("#myModal",parent.window.$(parent.document)).modal("hide");
 									$("#myModal2",parent.window.$(parent.document)).modal("hide");
 								}
 							}).appendTo($(".reason-footer",parent.window.$(parent.document)));
@@ -142,14 +143,18 @@ body {
       		width : 300,
       		height :300,
       		url:"${ctx }/oa/leave/detail/showDetailForm",
-      		open:function(id,taskId) {
-      			loadDetail.call(this,id,taskId);
+      		open:function(url,id) {
+      			$(".modal-body", $("#myModal",parent.window.$(parent.document))).load(url);
+				if(id != null){
+					var detailurl = '${ctx }/oa/leave/detail/' + id;
+					loadDetail1.call(this, detailurl);
+				}
       		},
       		savebtn:[{
       			text:"tongyi",
       			css:"btn btn-primary",
-      			click:function(taskId){
-      				var taskId = $(this).data('taskId');
+      			click:function(){
+      				var taskId = $("#myModal", parent.window.$(parent.document)).data('taskId');
       				complete(taskId,[{
       					key: 'hrPass',
 						value: true,
@@ -160,7 +165,7 @@ body {
       			text:'bohui',
 	    		css:'btn btn-danger',
 	    		click:function(){
-	    			var taskId = $(this).data('taskId');
+	    			var taskId = $("#myModal", parent.window.$(parent.document)).data('taskId');
 	    			$("#myModal2",parent.window.$(parent.document))
 	    			.on("show.bs.modal",function(){
 	    				if($(".reason-footer input",parent.window.$(parent.document)).length==0){
@@ -192,6 +197,7 @@ body {
 								val:"quxiao",
 								class:"btn btn-default",
 								click:function(){
+									$("#myModal",parent.window.$(parent.document)).modal("hide");
 									$("#myModal2",parent.window.$(parent.document)).modal("hide");
 								}
 							}).appendTo($(".reason-footer",parent.window.$(parent.document)));
@@ -211,58 +217,63 @@ body {
       		width:300,
       		height:300,
       		url:"${ctx }/oa/leave/detail/showModifyApply",
-      		open:function(id,taskId){
-      			loadDetail.call(this,id,taskId,function(data){
-      				var dialog = parent.window.$(parent.document);
-      				var backReason = "";
-      				$.each(data, function(k, v) {
-						// 格式化日期
-						if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
-							if(v != null){
-								$('#' + k, dialog).val(new Date(v).format('yyyy-MM-dd hh:mm'));
+      		open:function(url,id){
+      			$(".modal-body", $("#myModal",parent.window.$(parent.document))).load(url);
+      			if(id != null){
+					var detailurl = "${ctx}/oa/leave/detail/" + id;
+					loadDetail1.call(this, detailurl,
+							function(data){
+	      				var dialog = parent.window.$(parent.document);
+	      				var backReason = "";
+	      				$.each(data, function(k, v) {
+							// 格式化日期
+							if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
+								if(v != null){
+									$('#' + k, dialog).val(new Date(v).format('yyyy-MM-dd hh:mm'));
+								}
+							} else if(k == 'variables'){
+								$.each(v, function(k1, v1) {
+								    if(k1 =='leaderBackReason')	{
+								    	backReason += "<b>领导：</b>" + v1;
+								    }else if(k1 == 'hrBackReason') {
+								    	backReason += "<br/><b>HR:</b>" + v1;
+								    }
+								});
+								$("#backReason",dialog).html(backReason);
+							}else {
+					            $('#' + k, dialog).val(v);
 							}
-						} else if(k == 'variables'){
-							$.each(v, function(k1, v1) {
-							    if(k1 =='leaderBackReason')	{
-							    	backReason += "<b>领导：</b>" + v1;
-							    }else if(k1 == 'hrBackReason') {
-							    	backReason += "<br/><b>HR:</b>" + v1;
-							    }
-							});
-							$("#backReason",dialog).html(backReason);
-						}else {
-				            $('#' + k, dialog).val(v);
-						}
-		       		});
-		       		
-		       		var reApply = true;
-		       		$("#myTab",dialog).data("activeTab",reApply);
-		       		
-		       		$("#myTab",dialog).on("shown.bs.tab",function(e){
-		       			reApply = $(e.target).attr("value");
-		       			$("#myTab",dialog).data("activeTab",reApply);
-		       		});
-		       		
-		       		$('.form_datetime',dialog).datetimepicker({
-		    	        //language:  'fr',
-		    	        weekStart: 1,
-		    	        todayBtn:  1,
-		    			autoclose: 1,
-		    			todayHighlight: 1,
-		    			startView: 2,
-		    			forceParse: 0,
-		    	        showMeridian: 1
-		    	    }).on("hide.bs.modal",function(e){
-		    	    	return false;
-		    	    });
-      			});
+			       		});
+			       		
+			       		var reApply = true;
+			       		$("#myTab",dialog).data("activeTab",reApply);
+			       		
+			       		$("#myTab",dialog).on("shown.bs.tab",function(e){
+			       			reApply = $(e.target).attr("value");
+			       			$("#myTab",dialog).data("activeTab",reApply);
+			       		});
+			       		
+			       		$('.form_datetime',dialog).datetimepicker({
+			    	        //language:  'fr',
+			    	        weekStart: 1,
+			    	        todayBtn:  1,
+			    			autoclose: 1,
+			    			todayHighlight: 1,
+			    			startView: 2,
+			    			forceParse: 0,
+			    	        showMeridian: 1
+			    	    }).on("hide.bs.modal",function(e){
+			    	    	return false;
+			    	    });
+	      			});
+				}
       		},
       		savebtn:[{
       			text:'tijiao',
 	    		css:'btn btn-primary',
 	    		click:function(){
 	    			var dialog = parent.window.$(parent.document);
-	    			var taskId = $(this).data('taskId');
+	    			var taskId = $("#myModal", dialog).data('taskId');
 	    			var reApply = $("#myTab",dialog).data("activeTab");
 	    			complete(taskId,[{
 		       				key:'reApply',
@@ -303,27 +314,56 @@ body {
       		width:300,
       		height:300,
       		url:"${ctx }/oa/leave/detail/showReportBack",
-      		open:function(id,taskId){
-      			loadDetail.call(this, id, taskId);
-      			$('.form_datetime',parent.window.$(parent.document)).datetimepicker({
-	    	        //language:  'fr',
-	    	        weekStart: 1,
-	    	        todayBtn:  1,
-	    			autoclose: 1,
-	    			todayHighlight: 1,
-	    			startView: 2,
-	    			forceParse: 0,
-	    	        showMeridian: 1
-	    	    }).on("hide.bs.modal",function(e){
-	    	    	return false;
-	    	    });
+      		open:function(url,id){
+      			$(".modal-body", $("#myModal",parent.window.$(parent.document))).load(url);
+				if(id != null){
+					var detailurl = '${ctx }/oa/leave/detail/' + id;
+					loadDetail1.call(this, detailurl,
+							function(data){
+	      				var dialog = parent.window.$(parent.document);
+	      				var backReason = "";
+	      				$.each(data, function(k, v) {
+							// 格式化日期
+							if (k == 'applyTime' || k == 'startTime' || k == 'endTime') {
+								if(v != null){
+									$('#' + k, dialog).val(new Date(v).format('yyyy-MM-dd hh:mm'));
+								}
+							} else if(k == 'variables'){
+								$.each(v, function(k1, v1) {
+								    if(k1 =='leaderBackReason')	{
+								    	backReason += "<b>领导：</b>" + v1;
+								    }else if(k1 == 'hrBackReason') {
+								    	backReason += "<br/><b>HR:</b>" + v1;
+								    }
+								});
+								$("#backReason",dialog).html(backReason);
+							}else {
+					            $('#' + k, dialog).val(v);
+							}
+			       		});
+			       		
+			       		$('.form_datetime',dialog).datetimepicker({
+			    	        //language:  'fr',
+			    	        weekStart: 1,
+			    	        todayBtn:  1,
+			    			autoclose: 1,
+			    			todayHighlight: 1,
+			    			startView: 2,
+			    			forceParse: 0,
+			    	        showMeridian: 1
+			    	    }).on("hide.bs.modal",function(e){
+			    	    	return false;
+			    	    });
+	      			});
+				}
+				
       		},
       		savebtn:[{
       			text:'tijiao',
 	    		css:'btn btn-primary',
 	    		click:function(){
 	    			var dialog = parent.window.$(parent.document);
-	    			var taskId = $(this).data('taskId');
+	    			var taskId = $("#myModal", dialog).data('taskId');
 	    			var realityStartTime = $("#realityStartTime",dialog).val();
 	    			var realityEndTime = $("#realityEndTime",dialog).val();
 	    			if(realityStartTime == ''){
@@ -355,7 +395,6 @@ body {
       };
       
       function complete(taskId,variables) {
-    	  alert(variables);
       	  var keys="",values="",types="";
       	  if(variables) {
       	  	$.each(variables,function(){
@@ -370,14 +409,14 @@ body {
       	  	});
       	  }
 		// 发送任务完成请求
-	    $.post('<%=request.getContextPath()%>/oa/leave/complete/' + taskId, {
+	    $.post('${ctx}/oa/leave/complete/' + taskId, {
 	        keys: keys,
 	        values: values,
 	        types: types
 	    }, function(resp) {
 	        if (resp == 'success') {
-	            parent.window.$(parent.document).find("#myModal").modal("hide");
-	            parent.window.$(parent.document).find("#myModal2").modal("hide");
+	        	$("#myModal",parent.window.$(parent.document)).modal("hide");
+	        	$("#myModal2",parent.window.$(parent.document)).modal("hide");
 	            location.reload();
 	        } else {
 	            alert('error');
@@ -390,7 +429,7 @@ body {
   		var pid = $(this).attr("pid");
   		var pdid = $(this).attr("pdid");
   		var url = "<%=request.getContextPath()%>/workflow/showTraceModalView";
-  		modal.find("#myModal")
+  		$("#myModal",modal)
 		.modal({remote:url})
 		.on("shown.bs.modal",function(){
 			var traceframeurl = "${ctx }/diagram-viewer/index.html?processDefinitionId="+pdid+"&processInstanceId="+pid;
@@ -398,76 +437,11 @@ body {
 			$(".modal-dialog",modal).css({"width":"60%"});
 			$(".modal-body",modal).css("height","500px");
 		}).on("hide.bs.modal",function(){
-			modal.find("#myModal").removeData("bs.modal");
-			modal.find("#myModal").off("shown.bs.modal");
+			$("#myModal",modal).removeData("bs.modal");
+			$("#myModal",modal).off("shown.bs.modal");
 		});
       }
       
-      function loadDetail(id,taskId,callback) {
-      	var dialog = parent.window.$(parent.document);
-		$.ajax({
-			  url:"<%=request.getContextPath()%>/oa/leave/detail/" + id
-							+ "/" + taskId,
-					cache : false,
-					dataType : "json",//
-					success : function(data) {
-						if (callback != null) {
-							if ($.isFunction(callback)) {
-								callback(data);
-							}
-						} else {
-							$
-									.each(
-											data,
-											function(k, v) {
-												// 格式化日期
-												if (k == 'applyTime'
-														|| k == 'startTime'
-														|| k == 'endTime') {
-													if (v != null) {
-														$(
-																'#view-info td[name='
-																		+ k
-																		+ ']',
-																dialog)
-																.text(
-																		new Date(
-																				v)
-																				.format('yyyy-MM-dd hh:mm'));
-													}
-												} else {
-													$(
-															'#view-info td[name='
-																	+ k + ']',
-															dialog).text(v);
-												}
-
-											});
-						}
-					}
-				});
-	}
-
-	Date.prototype.format = function(format) {
-		var o = {
-			"M+" : this.getMonth() + 1, //month 
-			"d+" : this.getDate(), //day 
-			"h+" : this.getHours(), //hour 
-			"m+" : this.getMinutes(), //minute 
-			"s+" : this.getSeconds(), //second 
-			"q+" : Math.floor((this.getMonth() + 3) / 3), //quarter 
-			"S" : this.getMilliseconds()
-		//millisecond 
-		}
-		if (/(y+)/.test(format))
-			format = format.replace(RegExp.$1, (this.getFullYear() + "")
-					.substr(4 - RegExp.$1.length));
-		for ( var k in o)
-			if (new RegExp("(" + k + ")").test(format))
-				format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k]
-						: ("00" + o[k]).substr(("" + o[k]).length));
-		return format;
-	}
 </script>
 </head>
 
