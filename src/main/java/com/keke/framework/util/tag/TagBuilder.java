@@ -1,4 +1,4 @@
-package com.keke.framework.util.page;
+package com.keke.framework.util.tag;
 
 /**
  * 标签构建接口

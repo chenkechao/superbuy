@@ -23,6 +23,6 @@ public class LeaveManager {
 	}
 	
 	public Leave getLeave(Long id) {
-		return leaveRepository.findOneById(id);
+		return leaveRepository.findOne(id);
 	}
 }

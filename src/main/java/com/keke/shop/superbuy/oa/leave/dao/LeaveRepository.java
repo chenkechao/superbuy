@@ -1,29 +1,9 @@
 package com.keke.shop.superbuy.oa.leave.dao;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
 
 import com.keke.shop.superbuy.oa.leave.entity.Leave;
-@Repository
-public class LeaveRepository {
+@Component
+public interface LeaveRepository extends CrudRepository<Leave, Long>{
 	
-	@PersistenceContext
-    private EntityManager entityManager;
-    
-    public Leave save(Leave leave) {
-    	entityManager.persist(leave);
-    	return leave;
-    }
-	
-	public Leave findOneById(Long id) {
-		Leave leave = null;
-		try {
-			leave = entityManager.find(Leave.class,id);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return leave;
-	}
 }

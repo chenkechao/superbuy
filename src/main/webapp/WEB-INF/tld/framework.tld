@@ -86,4 +86,8 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+   		<name>menu</name>
+   		<tagclass>com.keke.framework.util.tag.MenuTag</tagclass>
+   	</tag>
 </taglib>

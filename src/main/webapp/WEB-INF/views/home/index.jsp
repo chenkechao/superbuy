@@ -21,14 +21,6 @@
 	function frameSrcChange(url) {
 		$('#mainIframe').attr("src", url);
 	}
-
-	function schedule() {
-		$('#mainIframe').attr("src", '${ctx }/oa/schedule/showCalendar');
-	}
-
-	function dictionaryList() {
-		$('#mainIframe').attr("src", '${ctx }/config/dictionary');
-	}
 </script>
 </head>
 
@@ -368,7 +360,7 @@
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>
 						日程安排 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="schedule()">日程安排</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/schedule/showCalendar')">日程安排</a></li>
 						<li><a href="statement.html">任务列表(外置)</a></li>
 						<li><a href="error.html">运行中流程表(外置)</a></li>
 						<li><a href="error-log.html">已结束流程(外置)</a></li>
@@ -378,7 +370,7 @@
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx}/config/form/list')">表单列表</a></li>
-						<li><a href="#" onClick="dictionaryList()">数据字典</a></li>
+						<li><a href="#" onClick="frameSrcChange('${ctx }/config/dictionary')">数据字典</a></li>
 					</ul></li>
 				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理
 						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>

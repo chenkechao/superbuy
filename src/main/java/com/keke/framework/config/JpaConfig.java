@@ -20,8 +20,10 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import com.keke.Application;
 
 @Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = Application.class)
+@EnableTransactionManagement//相当于<tx:annotation-driven>
+@EnableJpaRepositories(basePackageClasses = Application.class
+,entityManagerFactoryRef="entityManager"
+,transactionManagerRef="transactionManagerJPA")//启动spring jpa data功能
 //class JpaConfig extends DefaultDataSourceConfig{
 class JpaConfig extends DefaultDataSourceConfig implements TransactionManagementConfigurer {
 
@@ -40,7 +42,7 @@ class JpaConfig extends DefaultDataSourceConfig implements TransactionManagement
 //        return new HikariDataSource(config);
 //    }
     
-	@Bean
+	@Bean(name="entityManager")
     public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
@@ -58,6 +60,7 @@ class JpaConfig extends DefaultDataSourceConfig implements TransactionManagement
   @Bean(name="transactionManagerJPA")
   public PlatformTransactionManager annotationDrivenTransactionManager() {
 	  JpaTransactionManager t = new JpaTransactionManager();
+	  t.setEntityManagerFactory(configureEntityManagerFactory().getObject());
       return t;
   }
 }

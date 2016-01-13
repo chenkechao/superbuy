@@ -74,9 +74,10 @@
 		<property name="repositoryService" ref="repositoryService" />
 	</bean>
 
+<!--
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-	<!-- <tx:advice id="baseServiceAdvice" transaction-manager="transactionManager"> 
+	 <tx:advice id="baseServiceAdvice" transaction-manager="transactionManager"> 
 		<tx:attributes> <tx:method name="getDao" propagation="NOT_SUPPORTED"/> <tx:method 
 		name="getJdbcTemplate" propagation="NOT_SUPPORTED"/> <tx:method name="getHDao" 
 		propagation="NOT_SUPPORTED"/> <tx:method name="getHibernateDao" propagation="NOT_SUPPORTED"/> 
