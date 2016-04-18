@@ -25,24 +25,18 @@
 </head>
 
 <body>
-	<div class="navbar navbar-fixed-top bs-docs-nav" role="banner">
-		<div class="conjtainer">
-			<!-- Menu button for smallar screens -->
+	<nav class="navbar navbar-fixed-top" role="banner">
+		<div class="container-full">
 			<div class="navbar-header">
 				<button class="navbar-toggle btn-navbar" type="button"
 					data-toggle="collapse" data-target=".bs-navbar-collapse">
 					<span>菜单</span>
 				</button>
-				<!-- Site name for smallar screens -->
 				<a href="index.html" class="navbar-brand hidden-lg">首页</a>
-			</div>
+			</div><!-- for small screen -->
 
-
-			<!-- Navigation starts -->
-			<nav class="collapse navbar-collapse bs-navbar-collapse"
-				role="navigation">
+			<div class="collapse navbar-collapse" role="navigation">
 				<ul class="nav navbar-nav">
-					<!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
 					<li class="dropdown dropdown-big"><a href="#"
 						class="dropdown-toggle" data-toggle="dropdown"><span
 							class="label label-success"><i class="icon-cloud-upload"></i></span>
@@ -101,13 +95,12 @@
 						</ul></li>
 				</ul>
 
-				<!-- Search form -->
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search">
 					</div>
-				</form>
-				<!-- Links -->
+				</form><!-- Search form -->
+				
 				<ul class="nav navbar-nav pull-right">
 					<li class="dropdown pull-right"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#"> <i class="icon-user"></i>${user.id }<b
@@ -119,18 +112,15 @@
 									logout</a></li>
 							<li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
 						</ul></li>
-				</ul>
-			</nav>
+				</ul><!-- Links -->
+			</div>
 		</div>
-	</div>
+	</nav>
 
-	<!-- Header starts -->
 	<header>
 		<div class="container">
 			<div class="row">
-				<!-- Logo section -->
 				<div class="col-md-4">
-					<!-- Logo. -->
 					<div class="logo">
 						<h1>
 							<a href="#">Mac<span class="bold"></span></a>
@@ -140,11 +130,8 @@
 					<!-- Logo ends -->
 				</div>
 
-				<!-- Button section -->
 				<div class="col-md-4">
-					<!-- Buttons -->
 					<ul class="nav nav-pills">
-						<!-- Comment button with number of latest comments count -->
 						<li class="dropdown dropdown-big"><a class="dropdown-toggle"
 							href="#" data-toggle="dropdown"> <i class="icon-comments"></i>
 								聊天 <span class="label label-info">6</span>
@@ -189,7 +176,6 @@
 								</li>
 							</ul></li>
 
-						<!-- Message button with number of latest messages count-->
 						<li class="dropdown dropdown-big"><a class="dropdown-toggle"
 							href="#" data-toggle="dropdown"> <i class="icon-envelope-alt"></i>
 								收件箱 <span class="label label-primary">6</span>
@@ -224,7 +210,6 @@
 								</li>
 							</ul></li>
 
-						<!-- Members button with number of latest members count -->
 						<li class="dropdown dropdown-big"><a class="dropdown-toggle"
 							href="#" data-toggle="dropdown"> <i class="icon-user"></i> 用户
 								<span class="label label-success">6</span>
@@ -270,17 +255,14 @@
 							</ul></li>
 					</ul>
 				</div>
-				<!-- Data section -->
+				
 				<div class="col-md-4">
 					<div class="header-data">
-						<!-- Traffic data -->
 						<div class="hdata">
 							<div class="mcol-left">
-								<!-- Icon with red background -->
 								<i class="icon-signal bred"></i>
 							</div>
 							<div class="mcol-right">
-								<!-- Number of visitors -->
 								<p>
 									<a href="#">7000</a> <em>访问</em>
 								</p>
@@ -288,14 +270,11 @@
 							<div class="clearfix"></div>
 						</div>
 
-						<!-- Members data -->
 						<div class="hdata">
 							<div class="mcol-left">
-								<!-- Icon with blue background -->
 								<i class="icon-user bblue"></i>
 							</div>
 							<div class="mcol-right">
-								<!-- Number of visitors -->
 								<p>
 									<a href="#">3000</a> <em>用户</em>
 								</p>
@@ -303,14 +282,11 @@
 							<div class="clearfix"></div>
 						</div>
 
-						<!-- revenue data -->
 						<div class="hdata">
 							<div class="mcol-left">
-								<!-- Icon with green background -->
 								<i class="icon-money bgreen"></i>
 							</div>
 							<div class="mcol-right">
-								<!-- Number of visitors -->
 								<p>
 									<a href="#">5000</a><em>订单</em>
 								</p>
@@ -321,11 +297,9 @@
 				</div>
 			</div>
 		</div>
-	</header>
-	<!-- Header ends -->
+	</header><!-- Header ends -->
 
 	<nav>
-		<!-- Sidebar -->
 		<div class="sidebar">
 			<div class="sidebar-dropdown">
 				<a href="#">导航</a>
@@ -400,16 +374,14 @@
 					</ul></li>
 			</ul>
 		</div>
-	</nav>
-	<!-- Sidebar ends -->
+	</nav><!-- Sidebar ends -->
 
 	<main> <iframe id="mainIframe" name="mainIframe"
 		src="${ctx }/main" scrolling="no" frameborder="0"
 		style="width: 100%; height: 100%;"></iframe> <!-- Mainbar ends -->
 	<div class="clearfix"></div>
-	</main>
+	</main><!-- main ends -->
 
-	<!-- Footer starts -->
 	<footer>
 		<div class="container">
 			<div class="row">
@@ -421,8 +393,7 @@
 				</div>
 			</div>
 		</div>
-	</footer>
-	<!-- Footer ends -->
+	</footer><!-- Footer ends -->
 
 	<!-- Scroll to top -->
 	<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
