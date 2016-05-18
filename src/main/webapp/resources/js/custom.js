@@ -318,46 +318,38 @@ function loadDetail(url, callback) {
 }
 
 function loadDetail1(url, callback) {
+	alert('dd');
 	var dialog = parent.window.$(parent.document);
-	$
-			.ajax({
-				url : url,
-				cache : false,
-				dataType : "json",//
-				error : function(data) {
-					alert('error');
-				},
-				success : function(data) {
-					if (callback != null) {
-						if ($.isFunction(callback)) {
-							callback(data);
+	$.ajax({
+		url : url,
+		cache : false,
+		dataType : "json",//
+		error : function(data) {
+			alert('error');
+		},
+		success : function(data) {
+			alert('succ');
+			if (callback != null) {
+				if ($.isFunction(callback)) {
+					callback(data);
+				}
+			} else {
+				$.each(data,function(k, v) {
+					if (v == '') {
+						v = null;
+					}
+					// 格式化日期
+					if (k == 'applyTime'|| k == 'startTime'|| k == 'endTime') {
+						if (v != null) {
+							$('#' + k, dialog).val(new Date(v).format('yyyy-MM-dd hh:mm'));
 						}
 					} else {
-						$
-								.each(
-										data,
-										function(k, v) {
-											if (v == '') {
-												v = null;
-											}
-											// 格式化日期
-											if (k == 'applyTime'
-													|| k == 'startTime'
-													|| k == 'endTime') {
-												if (v != null) {
-													$('#' + k, dialog)
-															.val(
-																	new Date(v)
-																			.format('yyyy-MM-dd hh:mm'));
-												}
-											} else {
-												$('#' + k, dialog).val(v);
-											}
-
-										});
+						$('#' + k, dialog).val(v);
 					}
-				}
-			});
+				});
+			}
+		}
+	});
 }
 
 Date.prototype.format = function(format) {
