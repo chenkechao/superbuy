@@ -25,12 +25,14 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-fixed-top" role="banner">
-		<div class="container-full">
+	<nav class="navbar navbar-fixed-top">
+		<div class="container-fluid">
 			<div class="navbar-header">
 				<button class="navbar-toggle btn-navbar" type="button"
-					data-toggle="collapse" data-target=".bs-navbar-collapse">
-					<span>菜单</span>
+					data-toggle="collapse" data-target=".navbar-collapse"
+					aria-expanded="false">
+					<!-- <span class="glyphicon glyphicon-user"></span> -->
+					<span class="glyphicon glyphicon-menu-hamburger"></span>
 				</button>
 				<a href="index.html" class="navbar-brand hidden-lg">首页</a>
 			</div><!-- for small screen -->
@@ -115,6 +117,29 @@
 				</ul><!-- Links -->
 			</div>
 		</div>
+	</nav>
+	
+	<nav class="navbar navbar-fixed-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-3" style="font-size:25px">
+						<div class="glyphicon glyphicon-home"></div>
+						<div style="font-size:14px">首页</div>
+					</div>
+					<div class="col-xs-3" style="font-size:25px">
+						<div class="glyphicon glyphicon-th-list"></div>
+						<div style="font-size:14px">分类</div>
+					</div>
+					<div class="col-xs-3" style="font-size:25px">
+						<div class="glyphicon glyphicon-shopping-cart"></div>
+						<div style="font-size:14px">购物车</div>
+					</div>
+					<div class="col-xs-3" style="font-size:25px">
+						<div class="glyphicon glyphicon-user"></div>
+						<div style="font-size:14px">我的</div>
+					</div>
+				</div>
+			</div>
 	</nav>
 
 	<header>
@@ -298,7 +323,7 @@
 			</div>
 		</div>
 	</header><!-- Header ends -->
-
+	
 	<nav>
 		<div class="sidebar">
 			<div class="sidebar-dropdown">

@@ -4,7 +4,6 @@ body{
 	color: #666;
 	border-top: 3px solid #eee;
 	background:#343434 url("../img/back.png") repeat;  
-	padding-top: 37px;
 	-webkit-font-smoothing: antialiased;
 }
 
@@ -478,6 +477,10 @@ text-decoration:none;
   box-shadow: inset 0px 1px 1px #fff;
 }
 
+.navbar-fixed-bottom{
+	display:none;
+}
+
 .navbar .caret{
 	border-top-color: #666;
     border-bottom-color: #666;
@@ -542,7 +545,7 @@ text-decoration:none;
 
 header{
 	border-top: 1px solid #ccc;
-	padding: 25px 0px 15px 0px;
+	padding: 50px 0px 0px 0px;
 	background: #fafafa url("../img/cream.png") repeat;
 	border-bottom: 1px solid #ddd;
 }
@@ -1591,6 +1594,16 @@ footer .copy{
 /* Responsive */
 
 @media (max-width: 480px){
+	/*navbar*/
+	.navbar-fixed-top{
+		display:none;
+	}
+	
+	.navbar-fixed-bottom{
+		height:50px;
+		display:block;
+	}
+	
 	.mainbar .page-head h2{
 		float: none;
 	}

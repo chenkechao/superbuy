@@ -37,6 +37,7 @@
 <script src="${ctx }/resources/jquery-sparkline/js/jquery.sparkline.js" type="text/javascript"></script>
 <script src="${ctx }/resources/js/jquery.form.js"></script> <!-- jQuery -->
 <script src="${ctx }/resources/js/custom.js"></script> <!-- Custom codes -->
+<script src="${ctx }/resources/js/Hammer.js"></script>
 <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
   <script src="js/html5shim.js"></script>
