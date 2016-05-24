@@ -26,13 +26,18 @@ body {
 	$(function(){
 		var carousel = document.getElementById('carousel-example-generic');
 	    var hammer = new Hammer.Manager(carousel);
-	    var rotate = new Hammer.Swipe();
+	   /*8var rotate = new Hammer.Swipe();
 	    hammer.add(rotate);
 	    hammer.on('swipeleft',function(){
 	    	$('#carousel-example-generic').carousel('next');
 	    });
 	    hammer.on('swiperight',function(){
 	    	$('#carousel-example-generic').carousel('prev');
+	    });*/
+	    
+	    var hammer = new Hammer(carousel);
+	    hammer.on("dragdown",function(){
+	    	alert("dd");
 	    });
 	});
 </script>
