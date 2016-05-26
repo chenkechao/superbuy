@@ -54,7 +54,7 @@
 	            switch(ev.type) {
 	                // reset element on start
 	                case 'panstart':
-	                    //this.hide();
+	                    this.hide();
 	                    break;
 
 	                // on release we check how far we dragged
@@ -115,7 +115,7 @@
 	* @param {Number} height
 	*/
 	        Main.prototype.setHeight = function(height) {
-	            /*if(Modernizr.csstransforms3d) {
+	            if(Modernizr.csstransforms3d) {
 	                this.container.style.transform = 'translate3d(0,'+height+'px,0) ';
 	                this.container.style.oTransform = 'translate3d(0,'+height+'px,0)';
 	                this.container.style.msTransform = 'translate3d(0,'+height+'px,0)';
@@ -131,8 +131,7 @@
 	            }
 	            else {
 	                this.container.style.top = height+"px";
-	            }*/
-	        	this.container.style.top = height+"px";
+	            }
 	        };
 
 
@@ -198,7 +197,7 @@
 	        return document.getElementById(id);
 	    }
 
-	    var container_el = getEl('container');
+	    var container_el = document.getElementsByTagName('body')[0];
 	    var pullrefresh_el = getEl('pullrefresh');
 	    var pullrefresh_icon_el = getEl('pullrefresh-icon');
 	    var image_el = getEl('random-image');
@@ -342,7 +341,7 @@
 	</nav>
 
 	<header>
-		<div id="container">
+		<div>
 		    <div id="pullrefresh">
 		        <div class="message">
 		            <div id="pullrefresh-icon" class="icon arrow arrow-down"></div>
@@ -350,7 +349,7 @@
 		        </div>
 		    </div>
 		
-		    <div id="content">
+		    <div id="content" style="display:none">
 		        <h4>Pull-to-Refresh <small>random images</small></h4>
 		        <p>
 		       <img id="random-image" class="img-rounded" src="http://lorempixel.com/300/200/">
@@ -358,7 +357,7 @@
 		    </div>
 		</div>
 		
-		<div class="container">
+		<div id="messag_header" class="container">
 			<div class="row">
 				<div class="col-md-4">
 					<div class="logo">
@@ -541,10 +540,6 @@
 	
 	<nav>
 		<div class="sidebar">
-			<div class="sidebar-dropdown">
-				<a href="#">导航</a>
-			</div>
-
 			<!--- Sidebar navigation -->
 			<!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
 			<ul id="nav">

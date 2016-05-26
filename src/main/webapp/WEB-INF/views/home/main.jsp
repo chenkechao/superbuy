@@ -8,37 +8,23 @@
 <%@include file="/common/meta.jsp"%>
 <!-- Widgets stylesheet -->
 <link href="${ctx }/resources/style/widgets.css" rel="stylesheet">
-
-<!-- HTML5 Support for IE -->
-<!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
-  <![endif]-->
-
 <!-- Favicon -->
 <link rel="shortcut icon"
 	href="${ctx }/resources/img/favicon/favicon.png">
 <style>
-body {
-	padding-top: 0px;
-}
 </style>
 <script type="text/javascript">
-	$(function(){
+	$(function() {
 		var carousel = document.getElementById('carousel-example-generic');
-	    var hammer = new Hammer.Manager(carousel);
-	   /*8var rotate = new Hammer.Swipe();
-	    hammer.add(rotate);
-	    hammer.on('swipeleft',function(){
-	    	$('#carousel-example-generic').carousel('next');
-	    });
-	    hammer.on('swiperight',function(){
-	    	$('#carousel-example-generic').carousel('prev');
-	    });*/
-	    
-	    var hammer = new Hammer(carousel);
-	    hammer.on("dragdown",function(){
-	    	alert("dd");
-	    });
+		var hammer = new Hammer.Manager(carousel);
+		var rotate = new Hammer.Swipe();
+		 hammer.add(rotate);
+		 hammer.on('swipeleft',function(){
+		 	$('#carousel-example-generic').carousel('next');
+		 });
+		 hammer.on('swiperight',function(){
+		 	$('#carousel-example-generic').carousel('prev');
+		 });
 	});
 </script>
 </head>
