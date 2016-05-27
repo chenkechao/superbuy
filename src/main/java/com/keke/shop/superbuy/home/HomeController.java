@@ -36,6 +36,12 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/btn_group")
+	public ModelAndView btnGroup() {
+		ModelAndView mav = new ModelAndView("home/btnGroup");
+		return mav;
+	}
+	
 	@RequestMapping(value="/invited/json",produces = "application/json")
 	@ResponseBody
 	public ModelAndView invitedJson() {

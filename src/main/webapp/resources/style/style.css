@@ -5,6 +5,8 @@ body{
 	border-top: 3px solid #eee;
 	background:#343434 url("../img/back.png") repeat;  
 	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden; 
+	overflow-y: auto; 
 }
 
 
@@ -1223,13 +1225,14 @@ header .header-data .hdata em{
 	list-style-type: none;
 	padding: 0px;
 	margin: 10px 0px;
+	white-space:nowrap;
 }
 
 .today-datas li{
 	display: inline-block;
-	margin-bottom: 5px;
-	margin-right: 10px;
-    padding: 10px 20px;
+	margin-bottom: 2px;
+	margin-right: 0px;
+    padding: 0px 0px;
   background-color: #f8f8f8;
   background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f2f2f2));
   background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
@@ -1243,12 +1246,6 @@ header .header-data .hdata em{
   box-shadow: inset 0px 0px 3px #fff;
   max-width: 100%;
   text-align: center;
-}
-
-.today-datas li .datas-text{
-	font-size: 11px;
-	padding: 7px 0px 0px 0px;
-	font-weight: normal;
 }
 
 /* Profile */
@@ -1595,6 +1592,74 @@ footer .copy{
 /* Responsive */
 
 @media (max-width: 480px){
+	
+	
+	.mainbar .page-head h2{
+		float: none;
+	}
+	.mainbar .bread-crumb{
+		float: none;
+		margin-top: 10px;
+	}
+	.col-left{
+		width: 100%;
+		float: none;
+		margin-right: none;
+	}
+	.col-right{
+		width: 100%;
+		float: none;
+	}
+	.fc-button-month, .fc-button-agendaWeek, .fc-button-agendaDay {
+		display: none;
+	}
+}
+
+@media (max-width: 767px){
+		
+	.form-inline button{
+   		margin-left:0px;
+   	} 
+	header{
+		padding-top: 0px !important;
+		padding-bottom: 20px !important;
+	}
+	header .logo{
+		padding: 0px;
+		display: none;
+	}
+	header .nav.nav-pills{
+		margin-top: 30px;
+		margin-bottom: 20px;
+		margin-left:20px;
+	}
+	header .header-data {
+		margin-top: 15px;
+		margin-left: 20px;
+	}
+	
+	.navbar{
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+	}	
+	.nav-collapse .dropdown-menu{
+		padding: 10px 10px !important;
+	}
+	.nav-collapse .dropdown-menu > li{
+		color: #999 !important;
+	}
+	.nav-collapse .dropdown-menu a {
+		color: #777;
+	}
+	.nav-collapse .dropdown-menu a:hover{
+		color: #888;
+		background:transparent !important;
+	}
+	.nav-collapse .dropdown-menu hr{
+		border-top: 1px solid #eee;
+		border-bottom: 1px solid #ccc;
+	}
+	
 	/*navbar*/
 	.navbar-fixed-top{
 		display:none;
@@ -1685,71 +1750,6 @@ footer .copy{
         display:none;
     }
 	
-	.mainbar .page-head h2{
-		float: none;
-	}
-	.mainbar .bread-crumb{
-		float: none;
-		margin-top: 10px;
-	}
-	.col-left{
-		width: 100%;
-		float: none;
-		margin-right: none;
-	}
-	.col-right{
-		width: 100%;
-		float: none;
-	}
-	.fc-button-month, .fc-button-agendaWeek, .fc-button-agendaDay {
-		display: none;
-	}
-}
-
-@media (max-width: 767px){
-		
-	.form-inline button{
-   		margin-left:0px;
-   	} 
-	header{
-		padding-top: 0px !important;
-		padding-bottom: 20px !important;
-	}
-	header .logo{
-		padding: 0px;
-		display: none;
-	}
-	header .nav.nav-pills{
-		margin-top: 30px;
-		margin-bottom: 20px;
-		margin-left:20px;
-	}
-	header .header-data {
-		margin-top: 15px;
-		margin-left: 20px;
-	}
-	
-	.navbar{
-		margin-top: 0px !important;
-		margin-bottom: 0px !important;
-	}	
-	.nav-collapse .dropdown-menu{
-		padding: 10px 10px !important;
-	}
-	.nav-collapse .dropdown-menu > li{
-		color: #999 !important;
-	}
-	.nav-collapse .dropdown-menu a {
-		color: #777;
-	}
-	.nav-collapse .dropdown-menu a:hover{
-		color: #888;
-		background:transparent !important;
-	}
-	.nav-collapse .dropdown-menu hr{
-		border-top: 1px solid #eee;
-		border-bottom: 1px solid #ccc;
-	}
 	.sidebar{
 		float: none;
 		width: 100%;
@@ -1757,6 +1757,7 @@ footer .copy{
 	}
 	.sidebar #nav{
 		display: none;
+		visibility:hidden;
 	}
 	.mainbar{
 		float: none;
