@@ -1680,10 +1680,11 @@ footer .copy {
 		-webkit-animation: rotate 1s linear infinite;
 	}
 
-	/* btn-group */
+	/* btn-group TODO with*/
 	.btn-group {
+		display:block;
 		position: relative;
-		width: 100%;
+		width: 250px;
 		overflow: hidden;
 	}
 	.btn-group ul {
@@ -1712,24 +1713,14 @@ footer .copy {
 		max-width: 100%;
 		text-align: center;
 	}
-	#messag_header {
+	#messag_header, .sidebar, .page-head {
 		display: none;
 	}
-	.sidebar {
-		float: none;
-		width: 100%;
-	}
-	.sidebar #nav {
-		display: none;
-		visibility: hidden;
-	}
+	
 	.mainbar {
 		float: none;
 		margin: 0px;
 		border: 0px;
-	}
-	.page-head {
-		display: none
 	}
 }
 

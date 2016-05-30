@@ -26,6 +26,10 @@
 			$('#carousel-example-generic').carousel('prev');
 		});
 		
+		var btngroup = document.getElementById('btn-group');
+		new Hammer(btngroup).on('swipe',function(){
+			document.getElementById('btn-group-ul').style.paddingLeft='50px';
+		});
 	});
 </script>
 </head>
@@ -93,8 +97,8 @@
 				</div>
 
 				<!-- wrapper for slides -->
-				<div class="btn-group">
-					<ul>
+				<div id="btn-group" class="btn-group">
+					<ul id="btn-group-ul">
 						<li><img style="wdith: 70px; height: 70px" alt=""
 							src="${ctx }/resources/img/btn_group/btn_group_1.png"></li>
 						<li><img style="wdith: 70px; height: 70px" alt=""
