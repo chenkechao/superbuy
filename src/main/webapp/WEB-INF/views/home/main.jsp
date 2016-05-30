@@ -18,13 +18,14 @@
 		var carousel = document.getElementById('carousel-example-generic');
 		var hammer = new Hammer.Manager(carousel);
 		var rotate = new Hammer.Swipe();
-		 hammer.add(rotate);
-		 hammer.on('swipeleft',function(){
-		 	$('#carousel-example-generic').carousel('next');
-		 });
-		 hammer.on('swiperight',function(){
-		 	$('#carousel-example-generic').carousel('prev');
-		 });
+		hammer.add(rotate);
+		hammer.on('swipeleft', function() {
+			$('#carousel-example-generic').carousel('next');
+		});
+		hammer.on('swiperight', function() {
+			$('#carousel-example-generic').carousel('prev');
+		});
+		
 	});
 </script>
 </head>
@@ -91,10 +92,43 @@
 					</div>
 				</div>
 
-						 <iframe id="btnGroupIframe" scrolling="yes" frameborder="0"
-						     style="height:80px;" src="${ctx }/btn_group">
-						</iframe>
+				<!-- wrapper for slides -->
+				<div class="btn-group">
+					<ul>
+						<li><img style="wdith: 70px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_1.png"></li>
+						<li><img style="wdith: 70px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_2.png"></li>
+						<li><img style="wdith: 70px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_3.png"></li>
+						<li><img style="wdith: 70px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_4.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_5.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_6.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_7.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_8.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_9.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_10.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_11.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_12.png"></li>
+						<li><img style="wdith: 60px; height: 70px" alt=""
+							src="${ctx }/resources/img/btn_group/btn_group_13.png"></li>
+					</ul>
+				</div>
 
+				<!-- 
+						 <iframe id="btnGroupIframe" scrolling="no" frameborder="0"
+						     style="wdith:100%;height:80px;" src="${ctx }/btn_group">
+						</iframe>
+				-->
 				<!-- Today status ends -->
 
 				<!-- Dashboard Graph starts -->
