@@ -26,9 +26,15 @@
 			$('#carousel-example-generic').carousel('prev');
 		});
 		
+		//document.getElementById('btn-group-ul').style.marginLeft = '-800px';
 		var btngroup = document.getElementById('btn-group');
-		new Hammer(btngroup).on('swipe',function(){
-			document.getElementById('btn-group-ul').style.paddingLeft='50px';
+		new Hammer(btngroup).on('swiperight',function(ev){
+			//alert(ev.deltaX);
+			//document.getElementById('btn-group-ul').style.marginLeft += ev.deltaX* 0.4+'px';
+			document.getElementById('btn-group-ul').style.webkitTransform = 'translate('+ev.deltaX* 0.4+'px)';
+		}).on('swipeleft',function(ev){
+			//document.getElementById('btn-group-ul').style.marginLeft += ev.deltaX* 0.4+'px';
+			document.getElementById('btn-group-ul').style.webkitTransform = 'translate('+ev.deltaX* 0.4+'px)';
 		});
 	});
 </script>
