@@ -1,7 +1,5 @@
 <!-- Bootstrap core CSS -->
 <link href="${ctx }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-<!-- Font awesome icon -->
-<link rel="stylesheet" href="${ctx }/resources/fontawesome/css/font-awesome.css">
 <!-- Date picker -->
 <link rel="stylesheet" href="${ctx }/resources/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <!-- Bootstrap toggle -->

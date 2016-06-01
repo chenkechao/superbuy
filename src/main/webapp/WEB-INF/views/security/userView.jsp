@@ -116,8 +116,8 @@
                 <div class="widget-head">
                   <div class="pull-left">Forms</div>
                   <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                    <a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
                   </div>
                   <div class="clearfix"></div>
                 </div>

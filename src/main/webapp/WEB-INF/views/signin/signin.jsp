@@ -11,7 +11,6 @@
   <meta name="author" content="">
   <!-- Stylesheets -->
   <link href="${ctx }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
-  <link rel="stylesheet" href="${ctx }/resources/fontawesome/css/font-awesome.css">
   <link href="${ctx }/resources/style/style.css" rel="stylesheet">
   <link href="${ctx }/resources/style/bootstrap-responsive.css" rel="stylesheet">
   

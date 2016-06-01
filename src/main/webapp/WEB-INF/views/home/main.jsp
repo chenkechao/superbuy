@@ -134,15 +134,7 @@
 					</ul>
 				</div>
 
-				<!-- 
-						 <iframe id="btnGroupIframe" scrolling="no" frameborder="0"
-						     style="wdith:100%;height:80px;" src="${ctx }/btn_group">
-						</iframe>
-				-->
-				<!-- Today status ends -->
-
 				<!-- Dashboard Graph starts -->
-
 				<div class="row">
 					<div class="col-md-8">
 
@@ -152,8 +144,8 @@
 							<div class="widget-head">
 								<div class="pull-left">图表</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -177,8 +169,8 @@
 							<div class="widget-head">
 								<div class="pull-left">今天统计</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -223,8 +215,8 @@
 							<div class="widget-head">
 								<div class="pull-left">图表</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -332,8 +324,8 @@
 							<div class="widget-head">
 								<div class="pull-left">文件上传</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -372,8 +364,8 @@
 							<div class="widget-head">
 								<div class="pull-left">浏览器统计</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -431,8 +423,8 @@
 							<div class="widget-head">
 								<div class="pull-left">最近评论</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -453,13 +445,13 @@
 
 												<div class="btn-group">
 													<button class="btn btn-xs btn-default">
-														<i class="icon-ok"></i>
+														<i class="glyphicon glyphicon-ok"></i>
 													</button>
 													<button class="btn btn-xs btn-default">
-														<i class="icon-pencil"></i>
+														<i class="glyphicon glyphicon-pencil"></i>
 													</button>
 													<button class="btn btn-xs btn-default">
-														<i class="icon-remove"></i>
+														<i class="glyphicon glyphicon-remove"></i>
 													</button>
 												</div>
 
@@ -559,8 +551,8 @@
 							<div class="widget-head">
 								<div class="pull-left">黑色图表</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -579,8 +571,8 @@
 							<div class="widget-head">
 								<div class="pull-left">快速提交</div>
 								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="icon-chevron-up"></i></a>
-									<a href="#" class="wclose"><i class="icon-remove"></i></a>
+									<a href="#" class="wminimize"><i class="glyphicon glyphicon-chevron-up"></i></a>
+									<a href="#" class="wclose"><i class="glyphicon glyphicon-remove"></i></a>
 								</div>
 								<div class="clearfix"></div>
 							</div>

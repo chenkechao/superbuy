@@ -230,7 +230,7 @@
 					data-toggle="collapse" data-target=".navbar-collapse"
 					aria-expanded="false">
 					<!-- <span class="glyphicon glyphicon-user"></span> -->
-					<span class="glyphicon glyphicon-menu-hamburger"></span>
+					<span class="icon-menu-hamburger"></span>
 				</button>
 				<a href="index.html" class="navbar-brand hidden-lg">首页</a>
 			</div><!-- for small screen -->
@@ -499,7 +499,7 @@
 					<div class="header-data">
 						<div class="hdata">
 							<div class="mcol-left">
-								<i class="icon-signal bred"></i>
+								<i class="glyphicon glyphicon-signal bred"></i>
 							</div>
 							<div class="mcol-right">
 								<p>
@@ -511,7 +511,7 @@
 
 						<div class="hdata">
 							<div class="mcol-left">
-								<i class="icon-user bblue"></i>
+								<i class="glyphicon glyphicon-user bblue"></i>
 							</div>
 							<div class="mcol-right">
 								<p>
@@ -523,7 +523,7 @@
 
 						<div class="hdata">
 							<div class="mcol-left">
-								<i class="icon-money bgreen"></i>
+								<i class="glyphicon glyphicon-money bgreen"></i>
 							</div>
 							<div class="mcol-right">
 								<p>
@@ -544,21 +544,20 @@
 			<!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
 			<ul id="nav">
 				<!-- Main menu with font awesome icon -->
-				<li><a href="index.html" class="open"><i class="icon-home"></i>
-						首页</a> <!-- Sub menu markup 
+				<li><a href="index.html" class="open"><i class="glyphicon glyphicon-home"></i>首页</a> <!-- Sub menu markup 
             <ul>
               <li><a href="#">Submenu #1</a></li>
               <li><a href="#">Submenu #2</a></li>
               <li><a href="#">Submenu #3</a></li>
             </ul>--></li>
-				<li class="has_sub"><a href="#"><i class="icon-list-alt"></i>
+				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>
 						请假 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/leave/apply')">请假申请(普通)</a></li>
 						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/leave/task/list')">待办任务</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>动态表单
-						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>动态表单
+						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="post.html">流程列表(动态)</a></li>
 						<li><a href="login.html">登录页</a></li>
@@ -566,23 +565,23 @@
 						<li><a href="support.html">运行中流程表(动态)</a></li>
 						<li><a href="invoice.html">已结束流程(动态)</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>
-						日程安排 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>
+						日程安排 <span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/schedule/showCalendar')">日程安排</a></li>
 						<li><a href="statement.html">任务列表(外置)</a></li>
 						<li><a href="error.html">运行中流程表(外置)</a></li>
 						<li><a href="error-log.html">已结束流程(外置)</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>表单管理
-						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>表单管理
+						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx}/config/form/list')">表单列表</a></li>
 						<li><a href="#" onClick="frameSrcChange('${ctx }/config/dictionary')">数据字典</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>流程管理
-						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>流程管理
+						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx}/process/processList/all')">流程定义及部署管理</a></li>
@@ -591,8 +590,8 @@
 						<li><a href="#"
 							onCLick="frameSrcChange('${ctx}/process/model/list')">模型工作区</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="icon-file-alt"></i>系统管理
-						<span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>系统管理
+						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx }/security/user')">用户管理</a></li>
