@@ -153,7 +153,6 @@
 							<!-- Widget content -->
 							<div class="widget-content">
 								<div class="padd">
-
 									<canvas id="lineChart"></canvas>
 								</div>
 							</div>
@@ -177,7 +176,6 @@
 
 							<div class="widget-content">
 								<div class="padd">
-
 									<!-- Visitors, pageview, bounce rate, etc., Sparklines plugin used -->
 									<ul class="current-status">
 										<li><span id="status1"></span> <span class="bold">Visits
@@ -195,7 +193,6 @@
 										<li><span id="status7"></span> <span class="bold">%
 												New Visits : 2000</span></li>
 									</ul>
-
 								</div>
 							</div>
 
@@ -203,11 +200,9 @@
 
 					</div>
 				</div>
-				<!-- Dashboard graph ends -->
 
 				<!-- Chats, File upload and Recent Comments -->
 				<div class="row">
-
 					<div class="col-md-4">
 						<!-- Widget -->
 						<div class="widget">
@@ -224,16 +219,13 @@
 							<div class="widget-content">
 								<!-- Widget content -->
 								<div class="padd">
-
 									<ul class="chats">
-
 										<!-- Chat by us. Use the class "by-me". -->
 										<li class="by-me">
 											<!-- Use the class "pull-left" in avatar -->
 											<div class="avatar pull-left">
 												<img src="${ctx }/resources/img/user.jpg" alt="" />
 											</div>
-
 											<div class="chat-content">
 												<!-- In meta area, first include "name" and then "time" -->
 												<div class="chat-meta">
@@ -243,7 +235,6 @@
 												<div class="clearfix"></div>
 											</div>
 										</li>
-
 										<!-- Chat by other. Use the class "by-other". -->
 										<li class="by-other">
 											<!-- Use the class "pull-right" in avatar -->
@@ -261,12 +252,10 @@
 												<div class="clearfix"></div>
 											</div>
 										</li>
-
 										<li class="by-me">
 											<div class="avatar pull-left">
 												<img src="${ctx }/resources/img/user.jpg" alt="" />
 											</div>
-
 											<div class="chat-content">
 												<div class="chat-meta">
 													Ashok <span class="pull-right">4 hours ago</span>
@@ -276,13 +265,11 @@
 												<div class="clearfix"></div>
 											</div>
 										</li>
-
 										<li class="by-other">
 											<!-- Use the class "pull-right" in avatar -->
 											<div class="avatar pull-right">
 												<img src="${ctx }/resources/img/user.jpg" alt="" />
 											</div>
-
 											<div class="chat-content">
 												<!-- In the chat meta, first include "time" then "name" -->
 												<div class="chat-meta">
@@ -293,13 +280,10 @@
 												<div class="clearfix"></div>
 											</div>
 										</li>
-
 									</ul>
-
 								</div>
 								<!-- Widget footer -->
 								<div class="widget-foot">
-
 									<form class="form-inline">
 										<div class="form-group">
 											<input type="text" class="form-control"
@@ -307,15 +291,10 @@
 										</div>
 										<button type="submit" class="btn btn-primary">Send</button>
 									</form>
-
-
 								</div>
 							</div>
-
-
 						</div>
 					</div>
-
 
 					<!-- File Upload widget -->
 					<div class="col-md-4">
@@ -329,36 +308,28 @@
 								</div>
 								<div class="clearfix"></div>
 							</div>
-
 							<div class="widget-content">
 								<!-- Widget content -->
 								<ul class="file-upload">
-
 									<li><strong><i class="icon-upload-alt"></i>
 											File_Name_Here.Mp3</strong>
 										<div class="file-meta">3.3 of 5MB - 5 mins - 1MB/Sec</div>
-
 										<div class="progress progress-animated progress-striped">
 											<div class="progress-bar progress-bar-success"
 												data-percentage="100">
 												<span class="sr-only">100 % completed</span>
 											</div>
 										</div></li>
-
 									<li><strong><i class="icon-ok"></i>
 											Third_File_Here.Mp3</strong>
 										<div class="file-meta">5MB - 5 mins - Stopped</div></li>
-
 									<li><strong><i class="icon-ok"></i>
 											Third_File_Here.Mp3</strong>
 										<div class="file-meta">5MB - 5 mins - Stopped</div></li>
 								</ul>
-
 								<div class="widget-foot"></div>
-
 							</div>
 						</div>
-
 						<div class="widget">
 							<!-- Widget title -->
 							<div class="widget-head">
@@ -371,7 +342,6 @@
 							</div>
 							<div class="widget-content referrer">
 								<!-- Widget content -->
-
 								<table class="table table-striped table-bordered table-hover">
 									<tr>
 										<th><center>#</center></th>
@@ -408,13 +378,10 @@
 										<td>505</td>
 									</tr>
 								</table>
-
 								<div class="widget-foot"></div>
 							</div>
 						</div>
-
 					</div>
-
 
 					<div class="col-md-4">
 						<!-- Widget -->
@@ -431,18 +398,13 @@
 							<div class="widget-content">
 								<!-- Widget content -->
 								<div class="padd">
-
 									<ul class="recent">
-
-
 										<li>
-
 											<div class="recent-content">
 												<div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
 												<div>Vivamus diam elit diam, consectetur fermentum sed
 													dapibus eget, Vivamus consectetur dapibus adipiscing elit.
 												</div>
-
 												<div class="btn-group">
 													<button class="btn btn-xs btn-default">
 														<i class="glyphicon glyphicon-ok"></i>
@@ -454,17 +416,11 @@
 														<i class="glyphicon glyphicon-remove"></i>
 													</button>
 												</div>
-
 												<button class="btn btn-xs btn-danger pull-right">Spam</button>
-
 												<div class="clearfix"></div>
 											</div>
 										</li>
-
-
-
 										<li>
-
 											<div class="recent-content">
 												<div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
 												<div>Vivamus diam elit diam, consectetur fermentum sed
@@ -484,21 +440,16 @@
 												</div>
 
 												<button class="btn btn-xs btn-danger pull-right">Spam</button>
-
 												<div class="clearfix"></div>
 											</div>
 										</li>
 
-
-
 										<li>
-
 											<div class="recent-content">
 												<div class="recent-meta">Posted on 25/1/2120 by Ashok</div>
 												<div>Vivamus diam elit diam, consectetur fermentum sed
 													dapibus eget, Vivamus consectetur dapibus adipiscing elit.
 												</div>
-
 												<div class="btn-group">
 													<button class="btn btn-xs btn-default">
 														<i class="icon-ok"></i>
@@ -510,21 +461,14 @@
 														<i class="icon-remove"></i>
 													</button>
 												</div>
-
 												<button class="btn btn-xs btn-danger pull-right">Spam</button>
-
 												<div class="clearfix"></div>
 											</div>
 										</li>
-
-
 									</ul>
-
 								</div>
 								<!-- Widget footer -->
 								<div class="widget-foot">
-
-
 									<ul class="pagination pull-right">
 										<li><a href="#">Prev</a></li>
 										<li><a href="#">1</a></li>
@@ -533,18 +477,12 @@
 										<li><a href="#">4</a></li>
 										<li><a href="#">Next</a></li>
 									</ul>
-
 									<div class="clearfix"></div>
-
 								</div>
 							</div>
-
 						</div>
-
 					</div>
 				</div>
-
-
 				<div class="row">
 					<div class="col-md-6">
 						<div class="widget wblack">
@@ -629,8 +567,6 @@
 											</div>
 										</form>
 									</div>
-
-
 								</div>
 								<div class="widget-foot">
 									<!-- Footer goes here -->
@@ -641,11 +577,8 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- Matter ends -->
-
 	</div>
-
 
 	<script src="${ctx }/resources/js/excanvas.min.js"></script>
 	<script src="${ctx }/resources/js/Chart.js"></script>

@@ -1368,29 +1368,6 @@ header .header-data .hdata em {
 	max-width: 100%;
 }
 
-/* Support page */
-#slist p {
-	display: none;
-	margin: 5px 0px;
-	padding: 5px 10px;
-	background: #fff;
-	line-height: 25px;
-	border: 1px solid #eee;
-}
-
-#slist {
-	margin-left: 20px;
-}
-
-#slist li {
-	margin-bottom: 10px;
-}
-
-#slist li a {
-	display: block;
-	margin-bottom: 0px;
-}
-
 /* Post form */
 .post {
 	margin-top: 20px;
@@ -1404,12 +1381,6 @@ header .header-data .hdata em {
 
 .admin-form form {
 	padding: 10px 0px;
-}
-
-/* Widget-Content */
-.widget-content .error .form-inline button {
-	margin-left: -2px;
-	padding: 8px 12px;
 }
 
 .chats {
@@ -1427,17 +1398,8 @@ header .header-data .hdata em {
 	padding: 7px 12px;
 }
 
-.widget-content .form-inline button {
-	margin-left: 0px;
-	padding: 7px 12px;
-}
-
 .buttons button {
 	margin-top: 10px;
-}
-
-.widget-content ol#slist {
-	padding: 0px;
 }
 
 .task i {
