@@ -280,6 +280,10 @@ form label {
 	text-decoration: none;
 }
 
+.col-xs-12 {
+	display:none;
+}
+
 /* Back to top */
 .totop {
 	position: fixed;
@@ -1511,6 +1515,14 @@ footer .copy {
 	}
 	.fc-button-month, .fc-button-agendaWeek, .fc-button-agendaDay {
 		display: none;
+	}
+	
+	.col-xs-12{
+		display:block;
+	}
+	
+	.col-lg-12{
+	   display:none;
 	}
 }
 
