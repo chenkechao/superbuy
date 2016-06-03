@@ -19,6 +19,9 @@ $(document).ready(function() {
                 label: "fullname:",
                 name: "fullname"
             }, {
+                label: "org:",
+                name: "org.name"
+            }, {
                 label: "enabled:",
                 name: "enabled"
             }
@@ -34,6 +37,7 @@ $(document).ready(function() {
         columns: [
                     { "data": "username" },
                     { "data": "fullname" },
+                    { "data": "org.name" },
                     { "data": "enabled" }
                 ],
         select: true,
@@ -129,6 +133,7 @@ $(document).ready(function() {
 						            <tr>
 						                <th>username</th>
 						                <th>fullname</th>
+						                <th>org</th>
 						                <th>enabled</th>
 						            </tr>
 						        </thead>

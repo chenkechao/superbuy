@@ -1,11 +1,13 @@
 package com.keke.shop.superbuy.security.web;
 
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +26,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
 import com.keke.framework.util.Variable;
-import com.keke.shop.superbuy.security.entity.DataJson;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.entity.User;
@@ -74,16 +75,7 @@ public class UserController {
 	@ResponseBody
 	public String list() {
 		List<User> userList = userManager.getAll();
-		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(Feature.ALLOW_UNQUOTED_CONTROL_CHARS, false) ;
-		mapper.configure(Feature.ALLOW_SINGLE_QUOTES, false) ;
-		try {
-			json = mapper.writeValueAsString(userList);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		String mapJson = "";
 		Map map = new HashMap<String,Object>();
@@ -131,13 +123,48 @@ public class UserController {
 	
 	//TODO 用户新增没有完成
 		@RequestMapping(value = "update")
+		@ResponseBody
 		public String update(HttpServletRequest request) {
-			Map map = request.getParameterMap();
-//			User user = userManager.get(Long.parseLong(id));
-//			user.setUsername(username);
-//			user.setFullname(fullname);
-			//userManager.save(user);
-			return "redirect:/security/user";
+			Map<String, String[]> map = request.getParameterMap();
+			User user = null;
+			for(Map.Entry<String, String[]> entry : map.entrySet()){
+				if(!"action".equals(entry.getKey())){
+					String subkey = entry.getKey().substring(5, entry.getKey().length()-1);
+					String[] subkeyArray = subkey.split("\\]\\[");
+					if(user == null){
+						String id = subkeyArray[0];
+						if("0".equals(id)){
+							user = new User();
+						}else{
+							user = userManager.get(Long.parseLong(id));
+						}
+					} 
+					try {
+						Field field = user.getClass().getDeclaredField(subkeyArray[1]);
+						field.setAccessible(true);
+						field.set(user, entry.getValue()[0]);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			userManager.save(user);
+			List<User> userList = new ArrayList<User>();
+			userList.add(user);
+			ObjectMapper mapper = new ObjectMapper();
+			
+			String mapJson = "";
+			Map objectmap = new HashMap<String,Object>();
+			objectmap.put("data", userList);
+			try {
+				mapJson = mapper.writeValueAsString(objectmap);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return mapJson;
 		}
 	
 	//TODO 用户新增没有完成
