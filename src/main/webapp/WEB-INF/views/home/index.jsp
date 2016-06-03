@@ -12,14 +12,11 @@
 	href="${ctx }/resources/img/favicon/favicon.png">
 <script type="text/javascript">
 	$(function() {
-		$("#mainIframe").load(function() {
-			var mainheight = $(this).contents().find("body").height() + 30;
-			$(this).height(mainheight);
-		});
+		frameSrcChange("${ctx}/main");
 	});
 
 	function frameSrcChange(url) {
-		$('#mainIframe').attr("src", url);
+		$("main").load(url);
 	}
 	
 	$(function(){
@@ -362,7 +359,7 @@
 				<div class="col-md-4">
 					<div class="logo">
 						<h1>
-							<a href="#">Mac<span class="bold"></span></a>
+							<a href="#">Mac</a>
 						</h1>
 						<p class="meta">后台管理系统</p>
 					</div>
@@ -610,10 +607,7 @@
 		</div>
 	</nav><!-- Sidebar ends -->
 
-	<main> <iframe id="mainIframe" name="mainIframe"
-		src="${ctx }/main" scrolling="no" frameborder="0"
-		style="width: 100%; height: 100%;"></iframe> <!-- Mainbar ends -->
-	<div class="clearfix"></div>
+	<main class="mainbar">
 	</main><!-- main ends -->
 
 	<footer>

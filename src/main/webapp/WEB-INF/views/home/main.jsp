@@ -1,11 +1,9 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
 <%@include file="/common/taglibs.jsp"%>
-<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>main</title>
-<%@include file="/common/meta.jsp"%>
 <!-- Widgets stylesheet -->
 <link href="${ctx }/resources/style/widgets.css" rel="stylesheet">
 <!-- Favicon -->
@@ -41,8 +39,6 @@
 </head>
 
 <body>
-	<!-- Main bar -->
-	<div class="mainbar">
 		<!-- Page heading -->
 		<div class="page-head">
 			<h2 class="pull-left">
@@ -61,8 +57,6 @@
 		</div>
 		<!-- Page heading ends -->
 
-		<!-- Matter -->
-		<div class="matter">
 			<div class="container">
 				<div class="container">
 					<div id="carousel-example-generic" class="carousel slide"
@@ -576,9 +570,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Matter ends -->
-	</div>
 
 	<script src="${ctx }/resources/js/excanvas.min.js"></script>
 	<script src="${ctx }/resources/js/Chart.js"></script>

@@ -1,3 +1,4 @@
+<script src="${ctx}/resources/bootstrap-editor/js/html5shim.js"></script>
 <!-- Bootstrap core CSS -->
 <link href="${ctx }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
 <!-- Date picker -->
@@ -39,13 +40,18 @@
 <script src="${ctx }/resources/js/modernizr.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="${ctx}/resources/bootstrap-editor/css/datatables.min.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/resources/bootstrap-editor/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/resources/bootstrap-editor/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="${ctx}/resources/bootstrap-editor/css/select.dataTables.min.css"/>
+
 <link rel="stylesheet" type="text/css" href="${ctx}/resources/bootstrap-editor/css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${ctx}/resources/bootstrap-editor/css/editor.dataTables.css">
   
 <script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/datatables.min.js"></script>
 <script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/dataTables.bootstrap.min.js"></script>
-
+<script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/dataTables.select.min.js"></script>
 <script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/dataTables.editor.js"></script>
 <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
