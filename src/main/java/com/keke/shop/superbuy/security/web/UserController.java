@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
 import com.keke.framework.util.Variable;
+import com.keke.shop.superbuy.security.entity.DataJson;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.entity.User;
@@ -74,13 +76,25 @@ public class UserController {
 		List<User> userList = userManager.getAll();
 		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(Feature.ALLOW_UNQUOTED_CONTROL_CHARS, false) ;
+		mapper.configure(Feature.ALLOW_SINGLE_QUOTES, false) ;
 		try {
 			json = mapper.writeValueAsString(userList);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return json;
+		
+		String mapJson = "";
+		Map map = new HashMap<String,Object>();
+		map.put("data", userList);
+		try {
+			mapJson = mapper.writeValueAsString(map);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mapJson;
 	}
 	
 	/**
@@ -116,9 +130,20 @@ public class UserController {
 	}
 	
 	//TODO 用户新增没有完成
-	@RequestMapping(value = "update",produces = "application/text")
+		@RequestMapping(value = "update")
+		public String update(HttpServletRequest request) {
+			Map map = request.getParameterMap();
+//			User user = userManager.get(Long.parseLong(id));
+//			user.setUsername(username);
+//			user.setFullname(fullname);
+			//userManager.save(user);
+			return "redirect:/security/user";
+		}
+	
+	//TODO 用户新增没有完成
+	@RequestMapping(value = "batchUpdate",produces = "application/text")
 	@ResponseBody
-	public String update(User user,@RequestParam("roleIndexs[]") String[] roleIndexs,HttpServletRequest request) {
+	public String batchUpdate(User user,@RequestParam("roleIndexs[]") String[] roleIndexs,HttpServletRequest request) {
 		if(roleIndexs != null) {
 			for(String order : roleIndexs) {
 				Role role = new Role();

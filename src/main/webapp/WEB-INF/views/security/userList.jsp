@@ -1,6 +1,5 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="utf-8"%>
 <%@include file="/common/taglibs.jsp"%>
-<%@include file="/common/include.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +9,7 @@
 var editor; 
 $(document).ready(function() {
 	editor = new $.fn.dataTable.Editor( {
-		ajax: {
-        	"url":"${ctx }/security/user/list/json",
-        	"dataSrc": ""
-        },
+		ajax: "${ctx }/security/user/update",
         idSrc:  'id',
         table: "#example",
         fields: [ {
@@ -32,8 +28,8 @@ $(document).ready(function() {
     $('#example').DataTable( {
     	dom: "Bfrtip",
         ajax: {
-        	"url":"${ctx }/security/user/list/json",
-        	"dataSrc": ""
+        	"url":"${ctx }/security/user/list/json"
+        	//"dataSrc": ""
         },
         columns: [
                     { "data": "username" },
@@ -44,6 +40,13 @@ $(document).ready(function() {
         buttons: [
                   { extend: "create", editor: editor },
                   { extend: "edit",   editor: editor },
+                  //{
+                  //    extend: "selectedSingle",
+                  //    text: "edit1",
+                  //    action: function ( e, dt, node, config ) {
+                  //        alert('ss');
+                  //    }
+                  //},
                   { extend: "remove", editor: editor }
               ]
     } );

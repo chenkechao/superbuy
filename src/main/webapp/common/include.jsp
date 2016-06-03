@@ -1,4 +1,3 @@
-<script src="${ctx}/resources/bootstrap-editor/js/html5shim.js"></script>
 <!-- Bootstrap core CSS -->
 <link href="${ctx }/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
 <!-- Date picker -->
@@ -55,7 +54,7 @@
 <script type="text/javascript" src="${ctx}/resources/bootstrap-editor/js/dataTables.editor.js"></script>
 <!-- HTML5 Support for IE -->
   <!--[if lt IE 9]>
-  <script src="js/html5shim.js"></script>
+  <script src="${ctx}/resources/js/html5shim.js"></script>
   <![endif]-->
 <script type="text/javascript">
 	var ctx = '<%=request.getContextPath() %>';
