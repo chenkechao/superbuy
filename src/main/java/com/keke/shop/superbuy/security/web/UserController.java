@@ -134,8 +134,11 @@ public class UserController {
 		public String update(HttpServletRequest request) {
 			Map<String, String[]> map = request.getParameterMap();
 			User user = null;
+			String action = null;
 			for(Map.Entry<String, String[]> entry : map.entrySet()){
-				if(!"action".equals(entry.getKey())){
+				if("action".equals(entry.getKey())){
+					action = entry.getValue()[0];
+				}else{
 					String subkey = entry.getKey().substring(5, entry.getKey().length()-1);
 					String[] subkeyArray = subkey.split("\\]\\[");
 					if(user == null){
@@ -146,17 +149,31 @@ public class UserController {
 							user = userManager.get(Long.parseLong(id));
 						}
 					} 
-					try {
-						Field field = user.getClass().getDeclaredField(subkeyArray[1]);
-						field.setAccessible(true);
-						field.set(user, entry.getValue()[0]);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if("edit".equals(action) || "create".equals(action)){
+						try {
+							Field field = user.getClass().getDeclaredField(subkeyArray[1]);
+							field.setAccessible(true);
+							if(subkeyArray.length>2){
+								if("org".equals(subkeyArray[1])){
+									Org org = orgManager.get(Long.parseLong(entry.getValue()[0]));
+									field.set(user, org);
+								}
+							}else{
+								field.set(user, entry.getValue()[0]);
+							}
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				}
 			}
-			userManager.save(user);
+			
+			if("edit".equals(action) || "create".equals(action)){
+				userManager.save(user);
+			}else if("remove".equals(action)){
+				userManager.delete(user.getId());
+			}
 			List<User> userList = new ArrayList<User>();
 			userList.add(user);
 			ObjectMapper mapper = new ObjectMapper();

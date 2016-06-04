@@ -1,7 +1,11 @@
 package com.keke.shop.superbuy.security.web;
 
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +21,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.keke.framework.orm.Page;
 import com.keke.framework.orm.PropertyFilter;
+import com.keke.shop.superbuy.security.entity.Authority;
 import com.keke.shop.superbuy.security.entity.Menu;
 import com.keke.shop.superbuy.security.entity.Resource;
 import com.keke.shop.superbuy.security.service.MenuManager;
@@ -69,6 +74,65 @@ public class MenuController {
 		return json;
 	}
 	
+	@RequestMapping(value = "update")
+	@ResponseBody
+	public String update(HttpServletRequest request) {
+		Map<String, String[]> map = request.getParameterMap();
+		Menu menu = null;
+		String action = null;
+		for (Map.Entry<String, String[]> entry : map.entrySet()) {
+			if ("action".equals(entry.getKey())) {
+				action = entry.getValue()[0];
+			} else {
+				String subkey = entry.getKey().substring(5, entry.getKey().length() - 1);
+				String[] subkeyArray = subkey.split("\\]\\[");
+				if (menu == null) {
+					String id = subkeyArray[0];
+					if ("0".equals(id)) {
+						menu = new Menu();
+					} else {
+						menu = menuManager.get(Long.parseLong(id));
+					}
+				}
+				if ("edit".equals(action) || "create".equals(action)) {
+					try {
+						Field field = menu.getClass().getDeclaredField(subkeyArray[1]);
+						field.setAccessible(true);
+						if (subkeyArray.length > 2) {
+							
+						} else {
+							field.set(menu, entry.getValue()[0]);
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		if ("edit".equals(action) || "create".equals(action)) {
+			menuManager.save(menu);
+		} else if ("remove".equals(action)) {
+			menuManager.delete(menu.getId());
+		}
+		List<Menu> menuList = new ArrayList<Menu>();
+		menuList.add(menu);
+		ObjectMapper mapper = new ObjectMapper();
+
+		String mapJson = "";
+		Map objectmap = new HashMap<String, Object>();
+		objectmap.put("data", menuList);
+		try {
+			mapJson = mapper.writeValueAsString(objectmap);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return mapJson;
+	}
+	
 	/**
 	 * 新建菜单时，返回菜单编辑视图
 	 * @param model
@@ -86,11 +150,11 @@ public class MenuController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("menu", menuManager.get(id));
-		return "security/menuEdit";
-	}
+//	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
+//	public String edit(@PathVariable("id") Long id, Model model) {
+//		model.addAttribute("menu", menuManager.get(id));
+//		return "security/menuEdit";
+//	}
 	
 	/**
 	 * 编辑菜单时，返回菜单查看视图
@@ -109,15 +173,15 @@ public class MenuController {
 	 * @param Menu
 	 * @return
 	 */
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(Menu menu, Long parentMenuId) {
-		if(parentMenuId != null && parentMenuId.longValue() > 0) {
-			Menu parent = new Menu(parentMenuId);
-			menu.setParentMenu(parent);
-		}
-		menuManager.save(menu);
-		return "redirect:/security/menu";
-	}
+//	@RequestMapping(value = "update", method = RequestMethod.POST)
+//	public String update(Menu menu, Long parentMenuId) {
+//		if(parentMenuId != null && parentMenuId.longValue() > 0) {
+//			Menu parent = new Menu(parentMenuId);
+//			menu.setParentMenu(parent);
+//		}
+//		menuManager.save(menu);
+//		return "redirect:/security/menu";
+//	}
 	
 	/**
 	 * 根据主键ID删除菜单实体，并返回菜单列表视图

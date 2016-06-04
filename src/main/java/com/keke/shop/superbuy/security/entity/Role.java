@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 角色实体类，继承抽象安全实体类
  * @author yuqs
@@ -30,8 +32,10 @@ public class Role extends SecurityEntity
     //是否选择，该字段不需要持久化，仅仅是方便页面控制选择状态
     private Integer selected;
     //角色拥有的权限列表（多对多关联）
+    @JsonIgnore
     private List<Authority> authorities = new ArrayList<Authority>();
     //角色所包含的用户列表（多对多关联）
+    @JsonIgnore
     private List<User> users = new ArrayList<User>();
 
     @Column(name = "name", unique = true, nullable = false, length = 200)

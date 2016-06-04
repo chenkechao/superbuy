@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 权限实体类，继承抽象安全实体类
  * @author yuqs
@@ -34,10 +36,13 @@ public class Authority extends SecurityEntity
 	//是否选择，该字段不需要持久化，仅仅是方便页面控制选择状态
 	private Integer selected;
 	//权限管辖的资源列表（多对多关联）
+	@JsonIgnore
 	private List<Resource> resources = new ArrayList<Resource>();
 	//权限所属的角色列表（多对多关联）
+	@JsonIgnore
 	private List<Role> roles = new ArrayList<Role>();
     //权限包含的用户列表（多对多关联）这里表示：用户既可以指定角色，也可指定单独的权限
+	@JsonIgnore
     private List<User> users = new ArrayList<User>();
     
     public Authority() {}

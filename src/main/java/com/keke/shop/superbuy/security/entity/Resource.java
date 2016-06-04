@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 资源实体类，继承抽象安全实体类
  * @author yuqs
@@ -33,8 +35,10 @@ public class Resource extends SecurityEntity
 	//是否选择，该字段不需要持久化，仅仅是方便页面控制选择状态
 	private Integer selected;
 	//资源所属权限列表（多对多关联）
+	@JsonIgnore
 	private List<Authority> authorities = new ArrayList<Authority>();
 	//资源所属菜单
+	@JsonIgnore
 	private Menu menu;
 	
 	public Resource() {}

@@ -1,6 +1,10 @@
 package com.keke.shop.superbuy.security.web;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +23,7 @@ import com.keke.framework.orm.PropertyFilter;
 import com.keke.shop.superbuy.security.entity.Authority;
 import com.keke.shop.superbuy.security.entity.Org;
 import com.keke.shop.superbuy.security.entity.Resource;
+import com.keke.shop.superbuy.security.entity.Role;
 import com.keke.shop.superbuy.security.service.AuthorityManager;
 import com.keke.shop.superbuy.security.service.ResourceManager;
 
@@ -72,6 +77,65 @@ public class AuthorityController {
 		return json;
 	}
 	
+	@RequestMapping(value = "update")
+	@ResponseBody
+	public String update(HttpServletRequest request) {
+		Map<String, String[]> map = request.getParameterMap();
+		Authority authority = null;
+		String action = null;
+		for (Map.Entry<String, String[]> entry : map.entrySet()) {
+			if ("action".equals(entry.getKey())) {
+				action = entry.getValue()[0];
+			} else {
+				String subkey = entry.getKey().substring(5, entry.getKey().length() - 1);
+				String[] subkeyArray = subkey.split("\\]\\[");
+				if (authority == null) {
+					String id = subkeyArray[0];
+					if ("0".equals(id)) {
+						authority = new Authority();
+					} else {
+						authority = authorityManager.get(Long.parseLong(id));
+					}
+				}
+				if ("edit".equals(action) || "create".equals(action)) {
+					try {
+						Field field = authority.getClass().getDeclaredField(subkeyArray[1]);
+						field.setAccessible(true);
+						if (subkeyArray.length > 2) {
+							
+						} else {
+							field.set(authority, entry.getValue()[0]);
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		if ("edit".equals(action) || "create".equals(action)) {
+			authorityManager.save(authority);
+		} else if ("remove".equals(action)) {
+			authorityManager.delete(authority.getId());
+		}
+		List<Authority> authorityList = new ArrayList<Authority>();
+		authorityList.add(authority);
+		ObjectMapper mapper = new ObjectMapper();
+
+		String mapJson = "";
+		Map objectmap = new HashMap<String, Object>();
+		objectmap.put("data", authorityList);
+		try {
+			mapJson = mapper.writeValueAsString(objectmap);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return mapJson;
+	}
+	
 	/**
 	 * 新建权限时，返回权限编辑视图
 	 * @param model
@@ -90,27 +154,27 @@ public class AuthorityController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-	public String edit(@PathVariable("id") Long id, Model model) {
-		Authority entity = authorityManager.get(id);
-		List<Resource> resources = resourceManager.getAll();
-		List<Resource> resss = entity.getResources();
-		for(Resource res : resources) {
-			for(Resource selRes : resss) {
-				if(res.getId().longValue() == selRes.getId().longValue())
-				{
-					res.setSelected(1);
-				}
-				if(res.getSelected() == null)
-				{
-					res.setSelected(0);
-				}
-			}
-		}
-		model.addAttribute("authority", entity);
-		model.addAttribute("resources", resources);
-		return "security/authorityEdit";
-	}
+//	@RequestMapping(value = "update/{id}", method = RequestMethod.GET)
+//	public String edit(@PathVariable("id") Long id, Model model) {
+//		Authority entity = authorityManager.get(id);
+//		List<Resource> resources = resourceManager.getAll();
+//		List<Resource> resss = entity.getResources();
+//		for(Resource res : resources) {
+//			for(Resource selRes : resss) {
+//				if(res.getId().longValue() == selRes.getId().longValue())
+//				{
+//					res.setSelected(1);
+//				}
+//				if(res.getSelected() == null)
+//				{
+//					res.setSelected(0);
+//				}
+//			}
+//		}
+//		model.addAttribute("authority", entity);
+//		model.addAttribute("resources", resources);
+//		return "security/authorityEdit";
+//	}
 	
 	/**
 	 * 编辑权限时，返回权限查看视图
@@ -129,17 +193,17 @@ public class AuthorityController {
 	 * @param Authority
 	 * @return
 	 */
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(Authority authority, Long[] orderIndexs) {
-		if(orderIndexs != null) {
-			for(Long order : orderIndexs) {
-				Resource res = new Resource(order);
-				authority.getResources().add(res);
-			}
-		}
-		authorityManager.save(authority);
-		return "redirect:/security/authority";
-	}
+//	@RequestMapping(value = "update", method = RequestMethod.POST)
+//	public String update(Authority authority, Long[] orderIndexs) {
+//		if(orderIndexs != null) {
+//			for(Long order : orderIndexs) {
+//				Resource res = new Resource(order);
+//				authority.getResources().add(res);
+//			}
+//		}
+//		authorityManager.save(authority);
+//		return "redirect:/security/authority";
+//	}
 	
 	/**
 	 * 根据主键ID删除权限实体，并返回权限列表视图
