@@ -20,10 +20,19 @@ $(document).ready(function() {
                 name: "fullname"
             }, {
                 label: "org:",
-                name: "org.name"
+                name: "org.id",
+                type:"select",
+                optionsPair: {
+                    label: "name",
+                    value: "id"
+                }
             }, {
                 label: "enabled:",
-                name: "enabled"
+                name: "enabled",
+                type:"radio",
+                options:[{label:"禁用",value:0},
+                		 {label:"在用",value:1}],
+                "default":1
             }
         ]
     } );
@@ -31,14 +40,18 @@ $(document).ready(function() {
     $('#example').DataTable( {
     	dom: "Bfrtip",
         ajax: {
-        	"url":"${ctx }/security/user/list/json"
-        	//"dataSrc": ""
+        	"url":"${ctx }/security/user/list/json",
+        	"dataSrc": "data.users"
         },
         columns: [
                     { "data": "username" },
                     { "data": "fullname" },
-                    { "data": "org.name" },
-                    { "data": "enabled" }
+                    { "data": "org.name",
+                  	  "defaultContent":""},
+                    { "data": "enabled",
+                  	  "render":function(val,type,row){
+                  		  return val == 0?"禁用":"可用";
+                  	  }}
                 ],
         select: true,
         buttons: [

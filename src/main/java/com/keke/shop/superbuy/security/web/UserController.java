@@ -74,12 +74,19 @@ public class UserController {
 	@RequestMapping(value="list/json",produces = "application/json")
 	@ResponseBody
 	public String list() {
-		List<User> userList = userManager.getAll();
 		ObjectMapper mapper = new ObjectMapper();
+		List<User> userList = userManager.getAll();
+		List<Org> orgList = orgManager.getAll();
+		
+		Map orgMap = new HashMap<String,Object>();
+		orgMap.put("org.id", orgList);
+		Map userMap = new HashMap<String,Object>();
+		userMap.put("users", userList);
 		
 		String mapJson = "";
 		Map map = new HashMap<String,Object>();
-		map.put("data", userList);
+		map.put("data", userMap);
+		map.put("options", orgMap);
 		try {
 			mapJson = mapper.writeValueAsString(map);
 		} catch (JsonProcessingException e) {
