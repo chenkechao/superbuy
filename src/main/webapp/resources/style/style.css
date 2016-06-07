@@ -524,13 +524,9 @@ form label {
 /* Header */
 header {
 	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ddd;
 	padding: 50px 0px 0px 0px;
 	background: #fafafa url("../img/cream.png") repeat;
-	border-bottom: 1px solid #ddd;
-}
-
-header .container {
-	max-width: 100%;
 }
 
 header .logo {
@@ -1365,20 +1361,7 @@ footer .copy {
 	}
 	header {
 		padding-top: 0px !important;
-		padding-bottom: 20px !important;
-	}
-	header .logo {
-		padding: 0px;
-		display: none;
-	}
-	header .nav.nav-pills {
-		margin-top: 30px;
-		margin-bottom: 20px;
-		margin-left: 20px;
-	}
-	header .header-data {
-		margin-top: 15px;
-		margin-left: 20px;
+		padding-bottom: 0px !important;
 	}
 	.navbar {
 		margin-top: 0px !important;

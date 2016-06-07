@@ -18,204 +18,206 @@
 	function frameSrcChange(url) {
 		$("main").load(url);
 	}
-	
-	$(function(){
+
+	$(function() {
 		var PullToRefresh = (function() {
-	        function Main(container, slidebox, slidebox_icon, handler) {
-	            var self = this;
+			function Main(container, slidebox, slidebox_icon, handler) {
+				var self = this;
 
-	            this.breakpoint = 80;
+				this.breakpoint = 80;
 
-	            this.container = container;
-	            this.slidebox = slidebox;
-	            this.slidebox_icon = slidebox_icon;
-	            this.handler = handler;
+				this.container = container;
+				this.slidebox = slidebox;
+				this.slidebox_icon = slidebox_icon;
+				this.handler = handler;
 
-	            this._slidedown_height = 0;
-	            this._anim = null;
-	            this._dragged_down = false;
-	            this.hummer = new Hammer(this.container)
-	                .on("pandown panstart panend", function(ev) {
-	                	self.handleHammer(ev);
-	                });
-	        };
+				this._slidedown_height = 0;
+				this._anim = null;
+				this._dragged_down = false;
+				this.hummer = new Hammer(this.container).on(
+						"pandown panstart panend", function(ev) {
+							self.handleHammer(ev);
+						});
+			}
+			;
 
+			/**
+			 * Handle HammerJS callback
+			 * @param ev
+			 */
+			Main.prototype.handleHammer = function(ev) {
+				var self = this;
 
-	        /**
-	* Handle HammerJS callback
-	* @param ev
-	*/
-	        Main.prototype.handleHammer = function(ev) {
-	            var self = this;
+				switch (ev.type) {
+				// reset element on start
+				case 'panstart':
+					this.hide();
+					break;
 
-	            switch(ev.type) {
-	                // reset element on start
-	                case 'panstart':
-	                    this.hide();
-	                    break;
+				// on release we check how far we dragged
+				case 'panend':
+					if (!this._dragged_down) {
+						return;
+					}
 
-	                // on release we check how far we dragged
-	                case 'panend':
-	                    if(!this._dragged_down) {
-	                        return;
-	                    }
+					// cancel animation
+					cancelAnimationFrame(this._anim);
+					// over the breakpoint, trigger the callback
+					if (ev.deltaY >= this.breakpoint) {
+						container_el.className = 'pullrefresh-loading';
+						pullrefresh_icon_el.className = 'icon loading';
 
-	                    // cancel animation
-	                    cancelAnimationFrame(this._anim);
-	                    // over the breakpoint, trigger the callback
-	                    if(ev.deltaY >= this.breakpoint) {
-	                        container_el.className = 'pullrefresh-loading';
-	                        pullrefresh_icon_el.className = 'icon loading';
+						this.setHeight(60);
+						this.handler.call(this);
+					}
+					// just hide it
+					else {
+						pullrefresh_el.className = 'slideup';
+						container_el.className = 'pullrefresh-slideup';
 
-	                        this.setHeight(60);
-	                        this.handler.call(this);
-	                    }
-	                    // just hide it
-	                    else {
-	                        pullrefresh_el.className = 'slideup';
-	                        container_el.className = 'pullrefresh-slideup';
+						this.hide();
+					}
+					break;
 
-	                        this.hide();
-	                    }
-	                    break;
+				// when we dragdown
+				case 'pandown':
+					this._dragged_down = true;
 
-	                // when we dragdown
-	                case 'pandown':
-	                    this._dragged_down = true;
+					// if we are not at the top move down
+					var scrollY = window.scrollY;
+					if (scrollY > 5) {
+						return;
+					} else if (scrollY !== 0) {
+						window.scrollTo(0, 0);
+					}
 
-	                    // if we are not at the top move down
-	                    var scrollY = window.scrollY;
-	                    if(scrollY > 5) {
-	                        return;
-	                    } else if(scrollY !== 0) {
-	                        window.scrollTo(0,0);
-	                    }
+					// no requestAnimationFrame instance is running, start one
+					if (!this._anim) {
+						this.updateHeight();
+					}
 
-	                    // no requestAnimationFrame instance is running, start one
-	                    if(!this._anim) {
-	                        this.updateHeight();
-	                    }
+					// stop browser scrolling
+					//ev.gesture.preventDefault();
 
-	                    // stop browser scrolling
-	                    //ev.gesture.preventDefault();
+					// update slidedown height
+					// it will be updated when requestAnimationFrame is called
+					this._slidedown_height = ev.deltaY * 0.4;
+					break;
+				}
+			};
 
-	                    // update slidedown height
-	                    // it will be updated when requestAnimationFrame is called
-	                    this._slidedown_height = ev.deltaY * 0.4;
-	                    break;
-	            }
-	        };
+			/**
+			 * when we set the height, we just change the container y
+			 * @param {Number} height
+			 */
+			Main.prototype.setHeight = function(height) {
+				if (Modernizr.csstransforms3d) {
+					this.container.style.transform = 'translate3d(0,' + height
+							+ 'px,0) ';
+					this.container.style.oTransform = 'translate3d(0,' + height
+							+ 'px,0)';
+					this.container.style.msTransform = 'translate3d(0,'
+							+ height + 'px,0)';
+					this.container.style.mozTransform = 'translate3d(0,'
+							+ height + 'px,0)';
+					this.container.style.webkitTransform = 'translate3d(0,'
+							+ height + 'px,0) scale3d(1,1,1)';
+				} else if (Modernizr.csstransforms) {
+					this.container.style.transform = 'translate(0,' + height
+							+ 'px) ';
+					this.container.style.oTransform = 'translate(0,' + height
+							+ 'px)';
+					this.container.style.msTransform = 'translate(0,' + height
+							+ 'px)';
+					this.container.style.mozTransform = 'translate(0,' + height
+							+ 'px)';
+					this.container.style.webkitTransform = 'translate(0,'
+							+ height + 'px)';
+				} else {
+					this.container.style.top = height + "px";
+				}
+			};
 
+			/**
+			 * hide the pullrefresh message and reset the vars
+			 */
+			Main.prototype.hide = function() {
+				container_el.className = '';
+				this._slidedown_height = 0;
+				this.setHeight(0);
+				cancelAnimationFrame(this._anim);
+				this._anim = null;
+				this._dragged_down = false;
+			};
 
-	        /**
-	* when we set the height, we just change the container y
-	* @param {Number} height
-	*/
-	        Main.prototype.setHeight = function(height) {
-	            if(Modernizr.csstransforms3d) {
-	                this.container.style.transform = 'translate3d(0,'+height+'px,0) ';
-	                this.container.style.oTransform = 'translate3d(0,'+height+'px,0)';
-	                this.container.style.msTransform = 'translate3d(0,'+height+'px,0)';
-	                this.container.style.mozTransform = 'translate3d(0,'+height+'px,0)';
-	                this.container.style.webkitTransform = 'translate3d(0,'+height+'px,0) scale3d(1,1,1)';
-	            }
-	            else if(Modernizr.csstransforms) {
-	                this.container.style.transform = 'translate(0,'+height+'px) ';
-	                this.container.style.oTransform = 'translate(0,'+height+'px)';
-	                this.container.style.msTransform = 'translate(0,'+height+'px)';
-	                this.container.style.mozTransform = 'translate(0,'+height+'px)';
-	                this.container.style.webkitTransform = 'translate(0,'+height+'px)';
-	            }
-	            else {
-	                this.container.style.top = height+"px";
-	            }
-	        };
+			/**
+			 * hide the pullrefresh message and reset the vars
+			 */
+			Main.prototype.slideUp = function() {
+				var self = this;
+				cancelAnimationFrame(this._anim);
 
+				pullrefresh_el.className = 'slideup';
+				container_el.className = 'pullrefresh-slideup';
 
-	        /**
-	* hide the pullrefresh message and reset the vars
-	*/
-	        Main.prototype.hide = function() {
-	            container_el.className = '';
-	            this._slidedown_height = 0;
-	            this.setHeight(0);
-	            cancelAnimationFrame(this._anim);
-	            this._anim = null;
-	            this._dragged_down = false;
-	        };
+				this.setHeight(0);
 
+				setTimeout(function() {
+					self.hide();
+				}, 500);
+			};
 
-	        /**
-	* hide the pullrefresh message and reset the vars
-	*/
-	        Main.prototype.slideUp = function() {
-	            var self = this;
-	            cancelAnimationFrame(this._anim);
+			/**
+			 * update the height of the slidedown message
+			 */
+			Main.prototype.updateHeight = function() {
+				var self = this;
 
-	            pullrefresh_el.className = 'slideup';
-	            container_el.className = 'pullrefresh-slideup';
+				this.setHeight(this._slidedown_height);
 
-	            this.setHeight(0);
+				if (this._slidedown_height >= this.breakpoint) {
+					this.slidebox.className = 'breakpoint';
+					this.slidebox_icon.className = 'icon arrow arrow-up';
+				} else {
+					this.slidebox.className = '';
+					this.slidebox_icon.className = 'icon arrow';
+				}
 
-	            setTimeout(function() {
-	                self.hide();
-	            }, 500);
-	        };
+				this._anim = requestAnimationFrame(function() {
+					self.updateHeight();
+				});
+			};
 
+			return Main;
+		})();
 
-	        /**
-	* update the height of the slidedown message
-	*/
-	        Main.prototype.updateHeight = function() {
-	            var self = this;
+		function getEl(id) {
+			return document.getElementById(id);
+		}
 
-	            this.setHeight(this._slidedown_height);
+		var container_el = document.getElementsByTagName('body')[0];
+		var pullrefresh_el = getEl('pullrefresh');
+		var pullrefresh_icon_el = getEl('pullrefresh-icon');
+		var image_el = getEl('random-image');
 
-	            if(this._slidedown_height >= this.breakpoint){
-	                this.slidebox.className = 'breakpoint';
-	                this.slidebox_icon.className = 'icon arrow arrow-up';
-	            }
-	            else {
-	                this.slidebox.className = '';
-	                this.slidebox_icon.className = 'icon arrow';
-	            }
+		var refresh = new PullToRefresh(container_el, pullrefresh_el,
+				pullrefresh_icon_el);
 
-	            this._anim = requestAnimationFrame(function() {
-	                self.updateHeight();
-	            });
-	        };
-
-	        return Main;
-	    })();
-
-
-
-	    function getEl(id) {
-	        return document.getElementById(id);
-	    }
-
-	    var container_el = document.getElementsByTagName('body')[0];
-	    var pullrefresh_el = getEl('pullrefresh');
-	    var pullrefresh_icon_el = getEl('pullrefresh-icon');
-	    var image_el = getEl('random-image');
-
-	    var refresh = new PullToRefresh(container_el, pullrefresh_el, pullrefresh_icon_el);
-
-	    // update image onrefresh
-	    refresh.handler = function() {
-	        var self = this;
-	        // a small timeout to demo the loading state
-	        setTimeout(function() {
-	            var preload = new Image();
-	            preload.onload = function() {
-	                image_el.src = this.src;
-	                self.slideUp();
-	            };
-	            preload.src = 'http://lorempixel.com/300/200/?'+ (new Date().getTime());
-	        }, 1000);
-	    };
+		// update image onrefresh
+		refresh.handler = function() {
+			var self = this;
+			// a small timeout to demo the loading state
+			setTimeout(function() {
+				var preload = new Image();
+				preload.onload = function() {
+					image_el.src = this.src;
+					self.slideUp();
+				};
+				preload.src = 'http://lorempixel.com/300/200/?'
+						+ (new Date().getTime());
+			}, 1000);
+		};
 	});
-	
 </script>
 </head>
 
@@ -230,7 +232,8 @@
 					<span class="icon-menu-hamburger"></span>
 				</button>
 				<a href="index.html" class="navbar-brand hidden-lg">首页</a>
-			</div><!-- for small screen -->
+			</div>
+			<!-- for small screen -->
 
 			<div class="collapse navbar-collapse" role="navigation">
 				<ul class="nav navbar-nav">
@@ -296,8 +299,9 @@
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search">
 					</div>
-				</form><!-- Search form -->
-				
+				</form>
+				<!-- Search form -->
+
 				<ul class="nav navbar-nav pull-right">
 					<li class="dropdown pull-right"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#"> <i class="icon-user"></i>${user.id }<b
@@ -309,52 +313,56 @@
 									logout</a></li>
 							<li><a href="#"><i class="icon-cogs"></i> Settings</a></li>
 						</ul></li>
-				</ul><!-- Links -->
+				</ul>
+				<!-- Links -->
 			</div>
 		</div>
 	</nav>
-	
+
 	<nav class="navbar navbar-fixed-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-3" style="font-size:25px">
-						<div class="glyphicon glyphicon-home"></div>
-						<div style="font-size:14px">首页</div>
-					</div>
-					<div class="col-xs-3" style="font-size:25px">
-						<div class="glyphicon glyphicon-th-list"></div>
-						<div style="font-size:14px">分类</div>
-					</div>
-					<div class="col-xs-3" style="font-size:25px">
-						<div class="glyphicon glyphicon-shopping-cart"></div>
-						<div style="font-size:14px">购物车</div>
-					</div>
-					<div class="col-xs-3" style="font-size:25px">
-						<div class="glyphicon glyphicon-user"></div>
-						<div style="font-size:14px">我的</div>
-					</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-3" style="font-size: 25px">
+					<div class="glyphicon glyphicon-home"></div>
+					<div style="font-size: 14px">首页</div>
+				</div>
+				<div class="col-xs-3" style="font-size: 25px">
+					<div class="glyphicon glyphicon-th-list"></div>
+					<div style="font-size: 14px">分类</div>
+				</div>
+				<div class="col-xs-3" style="font-size: 25px">
+					<div class="glyphicon glyphicon-shopping-cart"></div>
+					<div style="font-size: 14px">购物车</div>
+				</div>
+				<div class="col-xs-3" style="font-size: 25px">
+					<div class="glyphicon glyphicon-user"></div>
+					<div style="font-size: 14px">我的</div>
 				</div>
 			</div>
+		</div>
 	</nav>
 
 	<header>
 		<div>
-		    <div id="pullrefresh">
-		        <div class="message">
-		            <div id="pullrefresh-icon" class="icon arrow arrow-down"></div>
-		            <span></span>
-		        </div>
-		    </div>
-		
-		    <div id="content" style="display:none">
-		        <h4>Pull-to-Refresh <small>random images</small></h4>
-		        <p>
-		       <img id="random-image" class="img-rounded" src="http://lorempixel.com/300/200/">
-		        </p>
-		    </div>
+			<div id="pullrefresh">
+				<div class="message">
+					<div id="pullrefresh-icon" class="icon arrow arrow-down"></div>
+					<span></span>
+				</div>
+			</div>
+
+			<div id="content" style="display: none">
+				<h4>
+					Pull-to-Refresh <small>random images</small>
+				</h4>
+				<p>
+					<img id="random-image" class="img-rounded"
+						src="http://lorempixel.com/300/200/">
+				</p>
+			</div>
 		</div>
-		
-		<div id="messag_header" class="container">
+
+		<div id="messag_header" class="container-fluid">
 			<div class="row">
 				<div class="col-md-4">
 					<div class="logo">
@@ -491,7 +499,7 @@
 							</ul></li>
 					</ul>
 				</div>
-				
+
 				<div class="col-md-4">
 					<div class="header-data">
 						<div class="hdata">
@@ -533,28 +541,35 @@
 				</div>
 			</div>
 		</div>
-	</header><!-- Header ends -->
-	
+	</header>
+	<!-- Header ends -->
+
 	<nav>
 		<div class="sidebar">
 			<!--- Sidebar navigation -->
 			<!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
 			<ul id="nav">
 				<!-- Main menu with font awesome icon -->
-				<li><a href="index.html" class="open"><i class="glyphicon glyphicon-home"></i>首页</a> <!-- Sub menu markup 
+				<li><a href="index.html" class="open"><i
+						class="glyphicon glyphicon-home"></i>首页</a> <!-- Sub menu markup 
             <ul>
               <li><a href="#">Submenu #1</a></li>
               <li><a href="#">Submenu #2</a></li>
               <li><a href="#">Submenu #3</a></li>
             </ul>--></li>
-				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>
-						请假 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i
+						class="glyphicon glyphicon-list-alt"></i> 请假 <span
+						class="pull-right"><i class="icon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/leave/apply')">请假申请(普通)</a></li>
-						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/leave/task/list')">待办任务</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx }/oa/leave/apply')">请假申请(普通)</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx }/oa/leave/task/list')">待办任务</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>动态表单
-						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i
+						class="glyphicon glyphicon-list-alt"></i>动态表单 <span
+						class="pull-right"><i
+							class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="post.html">流程列表(动态)</a></li>
 						<li><a href="login.html">登录页</a></li>
@@ -562,23 +577,31 @@
 						<li><a href="support.html">运行中流程表(动态)</a></li>
 						<li><a href="invoice.html">已结束流程(动态)</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>
-						日程安排 <span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i
+						class="glyphicon glyphicon-list-alt"></i> 日程安排 <span
+						class="pull-right"><i
+							class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
-						<li><a href="#" onClick="frameSrcChange('${ctx }/oa/schedule/showCalendar')">日程安排</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx }/oa/schedule/showCalendar')">日程安排</a></li>
 						<li><a href="statement.html">任务列表(外置)</a></li>
 						<li><a href="error.html">运行中流程表(外置)</a></li>
 						<li><a href="error-log.html">已结束流程(外置)</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>表单管理
-						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i
+						class="glyphicon glyphicon-list-alt"></i>表单管理 <span
+						class="pull-right"><i
+							class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx}/config/form/list')">表单列表</a></li>
-						<li><a href="#" onClick="frameSrcChange('${ctx }/config/dictionary')">数据字典</a></li>
+						<li><a href="#"
+							onClick="frameSrcChange('${ctx }/config/dictionary')">数据字典</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>流程管理
-						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i
+						class="glyphicon glyphicon-list-alt"></i>流程管理 <span
+						class="pull-right"><i
+							class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx}/process/processList/all')">流程定义及部署管理</a></li>
@@ -587,8 +610,10 @@
 						<li><a href="#"
 							onCLick="frameSrcChange('${ctx}/process/model/list')">模型工作区</a></li>
 					</ul></li>
-				<li class="has_sub"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>系统管理
-						<span class="pull-right"><i class="glyphicon glyphicon-chevron-right"></i></span></a>
+				<li class="has_sub"><a href="#"><i
+						class="glyphicon glyphicon-list-alt"></i>系统管理 <span
+						class="pull-right"><i
+							class="glyphicon glyphicon-chevron-right"></i></span></a>
 					<ul>
 						<li><a href="#"
 							onClick="frameSrcChange('${ctx }/security/user')">用户管理</a></li>
@@ -605,10 +630,11 @@
 					</ul></li>
 			</ul>
 		</div>
-	</nav><!-- Sidebar ends -->
+	</nav>
+	<!-- Sidebar ends -->
 
-	<main class="mainbar">
-	</main><!-- main ends -->
+	<main class="mainbar"> </main>
+	<!-- main ends -->
 
 	<footer>
 		<div class="container">
@@ -621,7 +647,8 @@
 				</div>
 			</div>
 		</div>
-	</footer><!-- Footer ends -->
+	</footer>
+	<!-- Footer ends -->
 
 	<!-- Scroll to top -->
 	<span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
